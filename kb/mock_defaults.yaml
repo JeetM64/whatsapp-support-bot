@@ -1,0 +1,105 @@
+PROGRAM_OVERVIEW:
+  value: "[MOCK] Sample skill-based internship program overview."
+  mock: true
+PROGRAM_DELIVERABLES:
+  value: "[MOCK] Sample learning materials and project activities."
+  mock: true
+PROGRAM_TRACKS:
+  value: "[MOCK] Web Development; Data Analytics; Digital Marketing."
+  mock: true
+PROGRAM_DURATION:
+  value: "[MOCK] 6 weeks"
+  mock: true
+WEEKLY_TIME:
+  value: "[MOCK] 5 hours"
+  mock: true
+PRIOR_KNOWLEDGE:
+  value: "[MOCK] Beginner-friendly; no prior experience specified."
+  mock: true
+ELIGIBILITY_YEARS_BRANCHES:
+  value: "[MOCK] Students and freshers; eligible years and branches must be confirmed."
+  mock: true
+ONLINE_MODE:
+  value: "[MOCK] Online format; exact delivery method must be confirmed."
+  mock: true
+REGISTRATION_STEPS:
+  value: "[MOCK] Visit https://example.com/mock-register and follow the sample form."
+  mock: true
+REGISTRATION_REQUIREMENTS:
+  value: "[MOCK] Name, email, and academic details; confirm requirements before sharing."
+  mock: true
+BATCH_START_DATES:
+  value: "[MOCK] Sample batch date only; confirm the current schedule."
+  mock: true
+DOMAIN_CHANGE_POLICY:
+  value: "[MOCK] Domain-change terms must be confirmed."
+  mock: true
+PROGRAM_FEE:
+  value: "Rs [MOCK 999]"
+  mock: true
+OFFICIAL_PAYMENT_PAGE:
+  value: "https://example.com/mock-payment"
+  mock: true
+PAYMENT_METHODS:
+  value: "[MOCK] UPI or card; confirm accepted methods before paying."
+  mock: true
+PAYMENT_ESCALATION_OFFER:
+  value: "[MOCK] I can connect a team member to review the transaction."
+  mock: true
+RECEIPT_INVOICE_PROCESS:
+  value: "[MOCK] Sample receipt steps: contact support with the transaction reference."
+  mock: true
+REFUND_POLICY:
+  value: "[MOCK] Refund terms must be confirmed before payment."
+  mock: true
+DISCOUNT_AND_CHARGES:
+  value: "[MOCK] Discounts and additional charges must be confirmed."
+  mock: true
+CERTIFICATE_AVAILABILITY:
+  value: "[MOCK] Certificate availability must be confirmed for the selected program."
+  mock: true
+CERTIFICATE_REQUIREMENTS:
+  value: "[MOCK] Completion conditions must be confirmed."
+  mock: true
+CERTIFICATE_VERIFICATION_STEPS:
+  value: "[MOCK] Sample verification steps are not a real verification service."
+  mock: true
+OFFER_RECOMMENDATION_LETTER_POLICY:
+  value: "[MOCK] Letter terms must be confirmed; no offer is promised."
+  mock: true
+CERTIFICATE_CORRECTION_PROCESS:
+  value: "[MOCK] Correction steps and timelines must be confirmed."
+  mock: true
+PASSWORD_RESET_STEPS:
+  value: "[MOCK] Use https://example.com/mock-password-reset; sample link only."
+  mock: true
+ACCESS_AFTER_PAYMENT_STEPS:
+  value: "[MOCK] Sample check: wait briefly, then ask support to review the transaction."
+  mock: true
+PROJECT_SUBMISSION_GUIDELINES:
+  value: "[MOCK] Submission format and location must be confirmed."
+  mock: true
+CONTENT_TROUBLESHOOTING:
+  value: "[MOCK] Check your connection and retry; exact platform steps must be confirmed."
+  mock: true
+OFFICIAL_SITE_URL:
+  value: "https://example.com/mock-verify"
+  mock: true
+OFFICIAL_CONTACT_CHANNELS:
+  value: "[MOCK] No verified contact channel is configured."
+  mock: true
+OFFICIAL_PAYMENT_CHANNELS:
+  value: "[MOCK] No verified payment channel is configured."
+  mock: true
+CAREER_SUPPORT_SCOPE:
+  value: "[MOCK] Career support scope must be confirmed; no job outcome is promised."
+  mock: true
+SUPPORT_HOURS:
+  value: "[MOCK] Support hours must be confirmed."
+  mock: true
+HUMAN_CONTACT_CHANNEL:
+  value: "[MOCK] Use https://example.com/mock-support; sample link only."
+  mock: true
+FOLLOWUP_SLA:
+  value: "[MOCK] Reply target must be confirmed."
+  mock: true

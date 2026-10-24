@@ -1,0 +1,18 @@
+{
+  "sample_data": true,
+  "label": "SAMPLE DATA — all learner records are fictional and for local testing only.",
+  "learners": [
+    {"learner_id":"MOCK-L001","name":"Fake Learner 01","phone":"90000 00001","track":"[MOCK] Web Development","payment_status":"paid","enrolment_status":"active","certificate_status":"not_eligible","lms_access":true},
+    {"learner_id":"MOCK-L002","name":"Fake Learner 02","phone":"90000 00002","track":"[MOCK] Data Analytics","payment_status":"paid","enrolment_status":"active","certificate_status":"pending","lms_access":false},
+    {"learner_id":"MOCK-L003","name":"Fake Learner 03","phone":"90000 00003","track":"[MOCK] Web Development","payment_status":"failed_but_debited","enrolment_status":"pending_payment_review","certificate_status":"not_eligible","lms_access":false},
+    {"learner_id":"MOCK-L004","name":"Fake Learner 04","phone":"90000 00004","track":"[MOCK] Digital Marketing","payment_status":"paid","enrolment_status":"refund_requested","certificate_status":"not_eligible","lms_access":false},
+    {"learner_id":"MOCK-L005","name":"Fake Learner 05","phone":"90000 00005","track":"[MOCK] Data Analytics","payment_status":"paid","enrolment_status":"completed","certificate_status":"issued","lms_access":true},
+    {"learner_id":"MOCK-L006","name":"Fake Learner 06","phone":"90000 00006","track":"[MOCK] Web Development","payment_status":"paid","enrolment_status":"active","certificate_status":"pending","lms_access":true},
+    {"learner_id":"MOCK-L007","name":"Fake Learner 07","phone":"90000 00007","track":"[MOCK] Digital Marketing","payment_status":"paid","enrolment_status":"active","certificate_status":"name_mismatch","lms_access":true},
+    {"learner_id":"MOCK-L008","name":"Fake Learner 08","phone":"90000 00008","track":"[MOCK] Data Analytics","payment_status":"pending","enrolment_status":"pending_payment","certificate_status":"not_eligible","lms_access":false},
+    {"learner_id":"MOCK-L009","name":"Fake Learner 09","phone":"90000 00009","track":"[MOCK] Web Development","payment_status":"paid","enrolment_status":"active","certificate_status":"not_eligible","lms_access":true},
+    {"learner_id":"MOCK-L010","name":"Fake Learner 10","phone":"90000 00010","track":"[MOCK] Digital Marketing","payment_status":"paid","enrolment_status":"completed","certificate_status":"issued","lms_access":true},
+    {"learner_id":"MOCK-L011","name":"Fake Learner 11","phone":"90000 00011","track":"[MOCK] Data Analytics","payment_status":"refund_requested","enrolment_status":"cancelled","certificate_status":"not_eligible","lms_access":false},
+    {"learner_id":"MOCK-L012","name":"Fake Learner 12","phone":"90000 00012","track":"[MOCK] Web Development","payment_status":"paid","enrolment_status":"active","certificate_status":"pending","lms_access":true}
+  ]
+}

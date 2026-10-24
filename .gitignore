@@ -1,0 +1,6 @@
+.venv/
+node_modules/
+.env
+chroma_db/
+__pycache__/
+.pytest_cache/

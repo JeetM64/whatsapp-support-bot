@@ -1,0 +1,1032 @@
+{
+  "content_hash": "94e892fdb6586520df96dcf8f1f90e86b26a2623c16bdc522025f34b50fbd4d6",
+  "entries": [
+    {
+      "answer_rendered": "SAMPLE DATA — The program includes [MOCK] Sample skill-based internship program overview.. Review [MOCK] Sample learning materials and project activities. before deciding.",
+      "answer_template": "The program includes {{PROGRAM_OVERVIEW}}. Review {{PROGRAM_DELIVERABLES}} before deciding.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PROGRAM_DELIVERABLES",
+        "PROGRAM_OVERVIEW"
+      ],
+      "facts_required": [
+        "PROGRAM_DELIVERABLES",
+        "PROGRAM_OVERVIEW"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "program kya hai",
+        "is program me kya milega",
+        "course ke andar kya hota hai"
+      ],
+      "id": "CAT-001",
+      "is_mock": true,
+      "keywords": [
+        "program",
+        "overview",
+        "deliverables",
+        "course",
+        "kya",
+        "milega"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "What is the program and what do I receive?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Available tracks are [MOCK] Web Development; Data Analytics; Digital Marketing.. Tell me your preferred area and I can help you check it.",
+      "answer_template": "Available tracks are {{PROGRAM_TRACKS}}. Tell me your preferred area and I can help you check it.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PROGRAM_TRACKS"
+      ],
+      "facts_required": [
+        "PROGRAM_TRACKS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "kaunse domains available hain",
+        "konsa track hai",
+        "kis field me internship hai"
+      ],
+      "id": "CAT-002",
+      "is_mock": true,
+      "keywords": [
+        "domains",
+        "tracks",
+        "field",
+        "internship"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "Which domains or tracks are available?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed duration is [MOCK] 6 weeks and the suggested weekly time is [MOCK] 5 hours. Check your schedule before enrolling.",
+      "answer_template": "The listed duration is {{PROGRAM_DURATION}} and the suggested weekly time is {{WEEKLY_TIME}}. Check your schedule before enrolling.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PROGRAM_DURATION",
+        "WEEKLY_TIME"
+      ],
+      "facts_required": [
+        "PROGRAM_DURATION",
+        "WEEKLY_TIME"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "duration kitni hai",
+        "weekly kitna time dena padega",
+        "kitne weeks ka program hai"
+      ],
+      "id": "CAT-003",
+      "is_mock": true,
+      "keywords": [
+        "duration",
+        "weekly",
+        "time",
+        "weeks",
+        "commitment"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "How long is it and how much time should I plan each week?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The stated prerequisites are [MOCK] Beginner-friendly; no prior experience specified.. Share your background if you want help comparing it with the program.",
+      "answer_template": "The stated prerequisites are {{PRIOR_KNOWLEDGE}}. Share your background if you want help comparing it with the program.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PRIOR_KNOWLEDGE"
+      ],
+      "facts_required": [
+        "PRIOR_KNOWLEDGE"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "prior knowledge chahiye kya",
+        "beginner apply kar sakta hai",
+        "pehle se coding aani chahiye kya"
+      ],
+      "id": "CAT-004",
+      "is_mock": true,
+      "keywords": [
+        "prerequisite",
+        "beginner",
+        "knowledge",
+        "coding"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "Do I need prior knowledge?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed eligibility is [MOCK] Students and freshers; eligible years and branches must be confirmed.. Check your year and branch against it before registering.",
+      "answer_template": "The listed eligibility is {{ELIGIBILITY_YEARS_BRANCHES}}. Check your year and branch against it before registering.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "ELIGIBILITY_YEARS_BRANCHES"
+      ],
+      "facts_required": [
+        "ELIGIBILITY_YEARS_BRANCHES"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "kaun apply kar sakta hai",
+        "btech kaunse year wale",
+        "meri branch eligible hai kya"
+      ],
+      "id": "CAT-005",
+      "is_mock": true,
+      "keywords": [
+        "eligibility",
+        "year",
+        "branch",
+        "apply"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "Who can apply by year or branch?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed format is [MOCK] Online format; exact delivery method must be confirmed.. Review the format details before you enroll.",
+      "answer_template": "The listed format is {{ONLINE_MODE}}. Review the format details before you enroll.",
+      "category": "program_info",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "ONLINE_MODE"
+      ],
+      "facts_required": [
+        "ONLINE_MODE"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "online hai kya",
+        "classes kaise hoti hain",
+        "ghar se kar sakte hain kya"
+      ],
+      "id": "CAT-006",
+      "is_mock": true,
+      "keywords": [
+        "online",
+        "format",
+        "classes",
+        "mode"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Program Support",
+      "question": "Is the program online and how does it work?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Use these registration steps: [MOCK] Visit https://example.com/mock-register and follow the sample form.. Review each step before submitting your details.",
+      "answer_template": "Use these registration steps: {{REGISTRATION_STEPS}}. Review each step before submitting your details.",
+      "category": "enrolment",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "REGISTRATION_STEPS"
+      ],
+      "facts_required": [
+        "REGISTRATION_STEPS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "register kaise karu",
+        "apply kaise karna hai",
+        "admission process kya hai"
+      ],
+      "id": "CAT-007",
+      "is_mock": true,
+      "keywords": [
+        "register",
+        "apply",
+        "enrolment",
+        "steps"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Enrolment Support",
+      "question": "How do I register?",
+      "risk_level": "low"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed requirements are [MOCK] Name, email, and academic details; confirm requirements before sharing.. Share only the information requested through [MOCK] No verified contact channel is configured..",
+      "answer_template": "The listed requirements are {{REGISTRATION_REQUIREMENTS}}. Share only the information requested through {{OFFICIAL_CONTACT_CHANNELS}}.",
+      "category": "enrolment",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "REGISTRATION_REQUIREMENTS"
+      ],
+      "facts_required": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "REGISTRATION_REQUIREMENTS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "kaunse documents chahiye",
+        "registration me kya details lagenge",
+        "kya upload karna padega"
+      ],
+      "id": "CAT-008",
+      "is_mock": true,
+      "keywords": [
+        "documents",
+        "details",
+        "registration",
+        "requirements"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Enrolment Support",
+      "question": "What details or documents are needed to register?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Listed batch dates are [MOCK] Sample batch date only; confirm the current schedule.. Check the current date before choosing a batch.",
+      "answer_template": "Listed batch dates are {{BATCH_START_DATES}}. Check the current date before choosing a batch.",
+      "category": "enrolment",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "BATCH_START_DATES"
+      ],
+      "facts_required": [
+        "BATCH_START_DATES"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "next batch kab start hoga",
+        "start date kya hai",
+        "next batch ki date batao"
+      ],
+      "id": "CAT-009",
+      "is_mock": true,
+      "keywords": [
+        "batch",
+        "start",
+        "dates",
+        "date"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Enrolment Support",
+      "question": "When do batches start?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The stated domain-change terms are [MOCK] Domain-change terms must be confirmed.. I can connect a team member if you need help with your enrolment.",
+      "answer_template": "The stated domain-change terms are {{DOMAIN_CHANGE_POLICY}}. I can connect a team member if you need help with your enrolment.",
+      "category": "enrolment",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "DOMAIN_CHANGE_POLICY"
+      ],
+      "facts_required": [
+        "DOMAIN_CHANGE_POLICY"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "join karne ke baad domain change hoga",
+        "track change kar sakte hain",
+        "domain switch allowed hai kya"
+      ],
+      "id": "CAT-010",
+      "is_mock": true,
+      "keywords": [
+        "domain",
+        "change",
+        "track",
+        "switch",
+        "enrolment"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Enrolment Support",
+      "question": "Can I change my domain after joining?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed fee is Rs [MOCK 999]. Check https://example.com/mock-payment before paying. I can connect a team member if needed.",
+      "answer_template": "The listed fee is {{PROGRAM_FEE}}. Check {{OFFICIAL_PAYMENT_PAGE}} before paying. I can connect a team member if needed.",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_PAYMENT_PAGE",
+        "PROGRAM_FEE"
+      ],
+      "facts_required": [
+        "OFFICIAL_PAYMENT_PAGE",
+        "PROGRAM_FEE"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "fee kitni hai",
+        "total paisa kitna lagega",
+        "program ka charges kya hai"
+      ],
+      "id": "CAT-011",
+      "is_mock": true,
+      "keywords": [
+        "fee",
+        "price",
+        "charges",
+        "payment"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "What is the program fee?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Listed payment methods are [MOCK] UPI or card; confirm accepted methods before paying.. Use https://example.com/mock-payment to confirm the payment route. I can connect a team member if needed.",
+      "answer_template": "Listed payment methods are {{PAYMENT_METHODS}}. Use {{OFFICIAL_PAYMENT_PAGE}} to confirm the payment route. I can connect a team member if needed.",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_PAYMENT_PAGE",
+        "PAYMENT_METHODS"
+      ],
+      "facts_required": [
+        "OFFICIAL_PAYMENT_PAGE",
+        "PAYMENT_METHODS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "payment kaise karu",
+        "kaunse payment options hain",
+        "UPI chalega kya"
+      ],
+      "id": "CAT-012",
+      "is_mock": true,
+      "keywords": [
+        "payment",
+        "methods",
+        "UPI",
+        "card",
+        "options"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "Which payment methods can I use?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I am sorry the money was debited and access is missing. Do not pay again yet. [MOCK] I can connect a team member to review the transaction.",
+      "answer_template": "I am sorry the money was debited and access is missing. Do not pay again yet. {{PAYMENT_ESCALATION_OFFER}}",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PAYMENT_ESCALATION_OFFER"
+      ],
+      "facts_required": [
+        "PAYMENT_ESCALATION_OFFER"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "paisa cut gaya access nahi mila",
+        "payment fail hua par paise kat gaye",
+        "amount debit ho gaya kya karu"
+      ],
+      "id": "CAT-013",
+      "is_mock": true,
+      "keywords": [
+        "payment",
+        "failed",
+        "debited",
+        "access",
+        "transaction"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "My payment failed but money was debited. What should I do?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The receipt process is [MOCK] Sample receipt steps: contact support with the transaction reference.. Keep your transaction reference ready and I can connect a team member if needed.",
+      "answer_template": "The receipt process is {{RECEIPT_INVOICE_PROCESS}}. Keep your transaction reference ready and I can connect a team member if needed.",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "RECEIPT_INVOICE_PROCESS"
+      ],
+      "facts_required": [
+        "RECEIPT_INVOICE_PROCESS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "receipt kaise milegi",
+        "invoice chahiye",
+        "payment ki rasid kahan milegi"
+      ],
+      "id": "CAT-014",
+      "is_mock": true,
+      "keywords": [
+        "receipt",
+        "invoice",
+        "transaction",
+        "payment"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "How do I get a receipt or invoice?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed refund terms are [MOCK] Refund terms must be confirmed before payment.. I can connect a team member to review your case before you decide.",
+      "answer_template": "The listed refund terms are {{REFUND_POLICY}}. I can connect a team member to review your case before you decide.",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "REFUND_POLICY"
+      ],
+      "facts_required": [
+        "REFUND_POLICY"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "refund milega kya",
+        "paisa wapas kaise milega",
+        "refund policy kya hai"
+      ],
+      "id": "CAT-015",
+      "is_mock": true,
+      "keywords": [
+        "refund",
+        "policy",
+        "money",
+        "back",
+        "cancellation"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "What is the refund policy?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Listed discounts and additional charges are [MOCK] Discounts and additional charges must be confirmed.. Confirm the final amount at https://example.com/mock-payment. I can connect a team member if unclear.",
+      "answer_template": "Listed discounts and additional charges are {{DISCOUNT_AND_CHARGES}}. Confirm the final amount at {{OFFICIAL_PAYMENT_PAGE}}. I can connect a team member if unclear.",
+      "category": "payments_refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "DISCOUNT_AND_CHARGES",
+        "OFFICIAL_PAYMENT_PAGE"
+      ],
+      "facts_required": [
+        "DISCOUNT_AND_CHARGES",
+        "OFFICIAL_PAYMENT_PAGE"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "discount code hai kya",
+        "extra charges lagenge kya",
+        "hidden fees toh nahi hain"
+      ],
+      "id": "CAT-016",
+      "is_mock": true,
+      "keywords": [
+        "discount",
+        "charges",
+        "coupon",
+        "hidden",
+        "fees"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Payments Support",
+      "question": "Are there discount codes or hidden charges?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Certificate details are [MOCK] Certificate availability must be confirmed for the selected program.. I can connect a team member to confirm what applies to your enrolment.",
+      "answer_template": "Certificate details are {{CERTIFICATE_AVAILABILITY}}. I can connect a team member to confirm what applies to your enrolment.",
+      "category": "certificates",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CERTIFICATE_AVAILABILITY"
+      ],
+      "facts_required": [
+        "CERTIFICATE_AVAILABILITY"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "certificate milega kya",
+        "internship ke baad certificate milega",
+        "certificate denge na"
+      ],
+      "id": "CAT-017",
+      "is_mock": true,
+      "keywords": [
+        "certificate",
+        "availability",
+        "completion",
+        "issuance"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Certificate Support",
+      "question": "Will I receive a certificate?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed completion requirements are [MOCK] Completion conditions must be confirmed.. Check them before starting and I can connect a team member if you need clarification.",
+      "answer_template": "The listed completion requirements are {{CERTIFICATE_REQUIREMENTS}}. Check them before starting and I can connect a team member if you need clarification.",
+      "category": "certificates",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CERTIFICATE_REQUIREMENTS"
+      ],
+      "facts_required": [
+        "CERTIFICATE_REQUIREMENTS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "certificate ke liye kya karna padega",
+        "project submit karna hai kya",
+        "completion criteria kya hai"
+      ],
+      "id": "CAT-018",
+      "is_mock": true,
+      "keywords": [
+        "certificate",
+        "requirements",
+        "project",
+        "completion"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Certificate Support",
+      "question": "What do I need to do to earn a certificate?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Use the listed verification steps: [MOCK] Sample verification steps are not a real verification service.. I can connect a team member to help you check a specific certificate.",
+      "answer_template": "Use the listed verification steps: {{CERTIFICATE_VERIFICATION_STEPS}}. I can connect a team member to help you check a specific certificate.",
+      "category": "certificates",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CERTIFICATE_VERIFICATION_STEPS"
+      ],
+      "facts_required": [
+        "CERTIFICATE_VERIFICATION_STEPS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "certificate verify kaise kare",
+        "certificate valid hai kya",
+        "certificate asli hai kaise pata chale"
+      ],
+      "id": "CAT-019",
+      "is_mock": true,
+      "keywords": [
+        "certificate",
+        "verify",
+        "validity",
+        "verification"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Certificate Support",
+      "question": "How can I verify a certificate?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Letter details are [MOCK] Letter terms must be confirmed; no offer is promised.. I can connect a team member to confirm what applies.",
+      "answer_template": "Letter details are {{OFFER_RECOMMENDATION_LETTER_POLICY}}. I can connect a team member to confirm what applies.",
+      "category": "certificates",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFER_RECOMMENDATION_LETTER_POLICY"
+      ],
+      "facts_required": [
+        "OFFER_RECOMMENDATION_LETTER_POLICY"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "offer letter milega kya",
+        "recommendation letter denge",
+        "internship letter kab milega"
+      ],
+      "id": "CAT-020",
+      "is_mock": true,
+      "keywords": [
+        "offer",
+        "recommendation",
+        "letter",
+        "policy"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Certificate Support",
+      "question": "Will I get an offer or recommendation letter?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I am sorry about the certificate issue. The correction process is [MOCK] Correction steps and timelines must be confirmed.. I can connect a team member to review it.",
+      "answer_template": "I am sorry about the certificate issue. The correction process is {{CERTIFICATE_CORRECTION_PROCESS}}. I can connect a team member to review it.",
+      "category": "certificates",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CERTIFICATE_CORRECTION_PROCESS"
+      ],
+      "facts_required": [
+        "CERTIFICATE_CORRECTION_PROCESS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "certificate late hai",
+        "naam galat hai certificate par",
+        "certificate correction kaise hoga"
+      ],
+      "id": "CAT-021",
+      "is_mock": true,
+      "keywords": [
+        "certificate",
+        "delay",
+        "name",
+        "correction",
+        "support"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Certificate Support",
+      "question": "My certificate is delayed or has the wrong name. What should I do?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Use these sign-in steps: [MOCK] Use https://example.com/mock-password-reset; sample link only.. Do not share your password or one-time code here.",
+      "answer_template": "Use these sign-in steps: {{PASSWORD_RESET_STEPS}}. Do not share your password or one-time code here.",
+      "category": "technical_access",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PASSWORD_RESET_STEPS"
+      ],
+      "facts_required": [
+        "PASSWORD_RESET_STEPS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "login nahi ho raha",
+        "password reset kaise karu",
+        "LMS me sign in nahi ho pa raha"
+      ],
+      "id": "CAT-022",
+      "is_mock": true,
+      "keywords": [
+        "login",
+        "password",
+        "reset",
+        "LMS",
+        "access"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Technical Support",
+      "question": "I cannot log in or need to reset my password.",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I am sorry you are still unable to access it. Try [MOCK] Sample check: wait briefly, then ask support to review the transaction. and do not send payment details here. I can connect a team member.",
+      "answer_template": "I am sorry you are still unable to access it. Try {{ACCESS_AFTER_PAYMENT_STEPS}} and do not send payment details here. I can connect a team member.",
+      "category": "technical_access",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "ACCESS_AFTER_PAYMENT_STEPS"
+      ],
+      "facts_required": [
+        "ACCESS_AFTER_PAYMENT_STEPS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "payment ke baad access nahi aaya",
+        "paisa cut gaya login nahi ho raha",
+        "access issue after payment"
+      ],
+      "id": "CAT-023",
+      "is_mock": true,
+      "keywords": [
+        "access",
+        "payment",
+        "login",
+        "transaction"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Technical Support",
+      "question": "I paid but still cannot access the program.",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed project steps are [MOCK] Submission format and location must be confirmed.. I can connect a team member if the submission page gives an error.",
+      "answer_template": "The listed project steps are {{PROJECT_SUBMISSION_GUIDELINES}}. I can connect a team member if the submission page gives an error.",
+      "category": "technical_access",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PROJECT_SUBMISSION_GUIDELINES"
+      ],
+      "facts_required": [
+        "PROJECT_SUBMISSION_GUIDELINES"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "project submit kaise karna hai",
+        "assignment upload kahan karu",
+        "project submission steps"
+      ],
+      "id": "CAT-024",
+      "is_mock": true,
+      "keywords": [
+        "project",
+        "submit",
+        "assignment",
+        "upload",
+        "guidelines"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Technical Support",
+      "question": "How do I submit a project?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Try the listed checks: [MOCK] Check your connection and retry; exact platform steps must be confirmed.. If it still does not load I can connect a team member.",
+      "answer_template": "Try the listed checks: {{CONTENT_TROUBLESHOOTING}}. If it still does not load I can connect a team member.",
+      "category": "technical_access",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CONTENT_TROUBLESHOOTING"
+      ],
+      "facts_required": [
+        "CONTENT_TROUBLESHOOTING"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "video load nahi ho raha",
+        "content open nahi ho raha",
+        "class ka video nahi chal raha"
+      ],
+      "id": "CAT-025",
+      "is_mock": true,
+      "keywords": [
+        "video",
+        "content",
+        "loading",
+        "troubleshooting"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Technical Support",
+      "question": "Videos or content are not loading. What can I try?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I cannot confirm that from this chat. Compare the details with https://example.com/mock-verify before paying. I can connect a team member.",
+      "answer_template": "I cannot confirm that from this chat. Compare the details with {{OFFICIAL_SITE_URL}} before paying. I can connect a team member.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_required": [
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "ye genuine hai kya",
+        "legit kaise check karu",
+        "fake internship toh nahi hai"
+      ],
+      "id": "CAT-026",
+      "is_mock": true,
+      "keywords": [
+        "trust",
+        "genuine",
+        "verify",
+        "legit",
+        "scam"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Trust Support",
+      "question": "Is this genuine and how can I verify it?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed website and contact channels are https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. Verify these details before sharing information. I can connect a team member.",
+      "answer_template": "The listed website and contact channels are {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. Verify these details before sharing information. I can connect a team member.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_required": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "official website kya hai",
+        "contact kaise karu",
+        "asli contact details bhejo"
+      ],
+      "id": "CAT-027",
+      "is_mock": true,
+      "keywords": [
+        "official",
+        "website",
+        "contact",
+        "channels",
+        "verify"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Trust Support",
+      "question": "What are the official website and contact channels?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Compare any payment request with [MOCK] No verified payment channel is configured. before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
+      "answer_template": "Compare any payment request with {{OFFICIAL_PAYMENT_CHANNELS}} before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_PAYMENT_CHANNELS"
+      ],
+      "facts_required": [
+        "OFFICIAL_PAYMENT_CHANNELS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "personal UPI par paisa bheju kya",
+        "official website ke bahar payment karna hai",
+        "personal number pe paise maang rahe hain"
+      ],
+      "id": "CAT-028",
+      "is_mock": true,
+      "keywords": [
+        "personal",
+        "UPI",
+        "official",
+        "payment",
+        "scam"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Trust Support",
+      "question": "Do you ask for money outside the official website or to a personal UPI or number?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I cannot confirm whether the organizations are connected. Compare their details with https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. I can connect a team member.",
+      "answer_template": "I cannot confirm whether the organizations are connected. Compare their details with {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. I can connect a team member.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_required": [
+        "OFFICIAL_CONTACT_CHANNELS",
+        "OFFICIAL_SITE_URL"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "same company hai kya",
+        "similar naam wali company se relation hai",
+        "iStudio Technologies aap hi ho kya"
+      ],
+      "id": "CAT-029",
+      "is_mock": true,
+      "keywords": [
+        "similar",
+        "name",
+        "company",
+        "identity",
+        "verify"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Trust Support",
+      "question": "Are you the same as another company with a similar name?",
+      "risk_level": "high"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed career-support scope is [MOCK] Career support scope must be confirmed; no job outcome is promised.. I can connect a team member if you need details for a specific program.",
+      "answer_template": "The listed career-support scope is {{CAREER_SUPPORT_SCOPE}}. I can connect a team member if you need details for a specific program.",
+      "category": "placement_support",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "CAREER_SUPPORT_SCOPE"
+      ],
+      "facts_required": [
+        "CAREER_SUPPORT_SCOPE"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "placement assistance milegi kya",
+        "job support hai kya",
+        "internship ke baad placement milega"
+      ],
+      "id": "CAT-030",
+      "is_mock": true,
+      "keywords": [
+        "placement",
+        "career",
+        "job",
+        "assistance"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Career Support",
+      "question": "What placement or job assistance is included?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — Listed support hours and contact steps are [MOCK] Support hours must be confirmed. and [MOCK] Use https://example.com/mock-support; sample link only.. I can connect a team member.",
+      "answer_template": "Listed support hours and contact steps are {{SUPPORT_HOURS}} and {{HUMAN_CONTACT_CHANNEL}}. I can connect a team member.",
+      "category": "placement_support",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "HUMAN_CONTACT_CHANNEL",
+        "SUPPORT_HOURS"
+      ],
+      "facts_required": [
+        "HUMAN_CONTACT_CHANNEL",
+        "SUPPORT_HOURS"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "support kab available hai",
+        "human se baat karni hai",
+        "agent se connect karo"
+      ],
+      "id": "CAT-031",
+      "is_mock": true,
+      "keywords": [
+        "support",
+        "hours",
+        "human",
+        "contact",
+        "agent"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Support Lead",
+      "question": "What are support hours and how do I reach a person?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
+      "answer_template": "The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
+      "category": "placement_support",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "FOLLOWUP_SLA"
+      ],
+      "facts_required": [
+        "FOLLOWUP_SLA"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "reply nahi aaya kya karu",
+        "response kab milega",
+        "support ne reply nahi kiya"
+      ],
+      "id": "CAT-032",
+      "is_mock": true,
+      "keywords": [
+        "reply",
+        "followup",
+        "response",
+        "SLA"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Support Lead",
+      "question": "What should I do if I do not hear back?",
+      "risk_level": "medium"
+    }
+  ],
+  "schema_version": 1
+}
