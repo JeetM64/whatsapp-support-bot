@@ -43,7 +43,7 @@ def test_loads_utf8_sig_and_hinglish_intact(tmp_path: Path) -> None:
     rows, errors = load_csv(path)
 
     assert errors == []
-    assert len(rows) == 32
+    assert len(rows) == 33
     assert "paisa cut gaya access nahi mila" in rows[12].hinglish_variants
 
 
@@ -141,7 +141,7 @@ def test_build_is_deterministic(tmp_path: Path) -> None:
     assert result1.errors == result2.errors == []
     assert payload1 is not None and payload2 is not None
     assert first.read_bytes() == second.read_bytes()
-    assert len(payload1["entries"]) == 32
+    assert len(payload1["entries"]) == 33
 
 
 def test_report_counts_match_build_output(tmp_path: Path) -> None:
@@ -154,7 +154,7 @@ def test_report_counts_match_build_output(tmp_path: Path) -> None:
     report = render_report(payload)
     document = json.loads(destination.read_text(encoding="utf-8"))
     entries = document["entries"]
-    assert len(entries) == 32
+    assert len(entries) == 33
     assert "| program_info | 6 | 0 | 6 |" in report
-    assert sum(entry["is_mock"] for entry in entries) == 32
+    assert sum(entry["is_mock"] for entry in entries) == 33
     assert "PROGRAM_FEE" in report

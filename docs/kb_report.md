@@ -10,7 +10,7 @@
 | certificates | 5 | 0 | 5 |
 | technical_access | 4 | 0 | 4 |
 | trust_verification | 4 | 0 | 4 |
-| placement_support | 3 | 0 | 3 |
+| placement_support | 4 | 0 | 4 |
 
 ## Entries using mock facts
 
@@ -46,6 +46,7 @@
 - CAT-030 — CAREER_SUPPORT_SCOPE
 - CAT-031 — HUMAN_CONTACT_CHANNEL, SUPPORT_HOURS
 - CAT-032 — FOLLOWUP_SLA
+- CAT-033 — FOLLOWUP_SLA
 
 ## Missing from verified_facts.yaml
 
@@ -85,5 +86,5 @@
 - SUPPORT_HOURS
 - WEEKLY_TIME
 
-Generated entries: 32
-Content hash: 94e892fdb6586520df96dcf8f1f90e86b26a2623c16bdc522025f34b50fbd4d6
+Generated entries: 33
+Content hash: 3b49d6775248e17db8335296a287734c7ec87782224f6e813108d6b0306fa9af

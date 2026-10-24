@@ -1,5 +1,5 @@
 {
-  "content_hash": "94e892fdb6586520df96dcf8f1f90e86b26a2623c16bdc522025f34b50fbd4d6",
+  "content_hash": "3b49d6775248e17db8335296a287734c7ec87782224f6e813108d6b0306fa9af",
   "entries": [
     {
       "answer_rendered": "SAMPLE DATA — The program includes [MOCK] Sample skill-based internship program overview.. Review [MOCK] Sample learning materials and project activities. before deciding.",
@@ -1025,6 +1025,38 @@
       "last_reviewed": "2026-10-24",
       "owner": "Support Lead",
       "question": "What should I do if I do not hear back?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_rendered": "SAMPLE DATA — I am sorry you have not heard back. The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
+      "answer_template": "I am sorry you have not heard back. The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
+      "category": "placement_support",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "FOLLOWUP_SLA"
+      ],
+      "facts_required": [
+        "FOLLOWUP_SLA"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "apply kiya reply nahi aaya",
+        "fee bhar di response nahi mila",
+        "support ne jawab nahi diya"
+      ],
+      "id": "CAT-033",
+      "is_mock": true,
+      "keywords": [
+        "application",
+        "payment",
+        "reply",
+        "response",
+        "follow-up"
+      ],
+      "last_reviewed": "2026-10-24",
+      "owner": "Support Lead",
+      "question": "I applied or paid but nobody replied. What should I do?",
       "risk_level": "medium"
     }
   ],
