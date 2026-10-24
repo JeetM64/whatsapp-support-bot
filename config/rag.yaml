@@ -1,0 +1,55 @@
+embedding:
+  model_name: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  fastembed_version: 0.9.0
+  dimension: 384
+  cache_dir: model_cache/fastembed
+  allow_runtime_download: false
+retrieval:
+  top_k: 8
+  index_batch_size: 64
+  rrf_k: 60
+  bm25_k1: 1.5
+  bm25_b: 0.75
+  min_semantic_agreement: 0.3
+thresholds:
+  answer: 0.42
+  answer_high: 0.58
+  low: 0.12
+  margin: 0.04
+  ground: 0.45
+decision:
+  clarify_token_limit: 1
+  ambiguity_margin: 0.25
+  show_sample_label: true
+  max_reply_chars: 600
+provider:
+  timeout_seconds: 15
+  max_retries: 1
+  temperature: 0.0
+  max_tokens: 256
+pricing:
+  gemini:
+    input_per_million_usd: null
+    output_per_million_usd: null
+  anthropic:
+    input_per_million_usd: null
+    output_per_million_usd: null
+evaluation:
+  seed: 20261024
+  answer_threshold_grid:
+  - 0.42
+  - 0.48
+  - 0.54
+  - 0.6
+  high_risk_threshold_grid:
+  - 0.58
+  - 0.64
+  - 0.7
+  margin_threshold_grid:
+  - 0.04
+  - 0.08
+  - 0.12
+  low_threshold_grid:
+  - 0.12
+  - 0.18
+  - 0.24

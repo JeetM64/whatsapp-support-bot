@@ -1,0 +1,326 @@
+version: 1
+description: Roman-Hinglish and common typo aliases for retrieval normalization only.
+terms:
+  money:
+    - paisa
+    - paise
+    - pese
+    - paisey
+    - rupaya
+    - rupaye
+    - rupee
+    - rupees
+    - rs
+    - inr
+    - ₹
+    - amount
+    - debited
+    - debit
+    - deducted
+    - kata
+    - kat gaya
+    - cut gaya
+    - cut gaye
+  fee:
+    - fee
+    - fees
+    - fess
+    - cost
+    - charge
+    - charges
+    - price
+    - pricing
+    - budget
+    - total cost
+    - enrollment cost
+    - enrolment cost
+    - affordable
+  fee-quantity:
+    - kitna
+    - kitni
+    - kitne
+    - kitana
+    - kitni si
+    - how much
+    - total kitna
+  certificate:
+    - certi
+    - cert
+    - certificate
+    - certificates
+    - certifikat
+    - praman patra
+    - pramaan patra
+    - certifcate
+    - certficate
+    - certificat
+  refund:
+    - refnd
+    - refund
+    - refunds
+    - wapas
+    - return
+    - paisa wapas
+    - money back
+    - cancel refund
+  not:
+    - nhi
+    - nahi
+    - nahin
+    - ni
+    - nai
+    - na
+    - no
+    - not
+  is:
+    - hai
+    - h
+    - hain
+    - he
+    - is
+    - are
+  question:
+    - kya
+    - ky
+    - kyaa
+    - what
+    - how
+    - kaise
+    - kase
+  get:
+    - mil
+    - mila
+    - mile
+    - milega
+    - milegi
+    - milta
+    - milti
+    - milenge
+    - receive
+    - get
+  login:
+    - log in
+    - login
+    - lgin
+    - loggin
+    - sign in
+    - signin
+    - password
+    - passwd
+    - passwrd
+  access:
+    - access
+    - acces
+    - aces
+    - login access
+    - lms
+    - portal
+    - dashboard
+    - open nahi
+  payment:
+    - payment
+    - pay
+    - paymnt
+    - transaction
+    - txn
+    - upi
+    - card
+    - transfer
+    - bank transfer
+  payment-failure:
+    - payment failed
+    - payment fail
+    - transaction failed
+    - transfer failed
+    - transfer shows failed
+    - failed transfer
+    - failed transaction
+    - debit failed
+  help:
+    - help
+    - madad
+    - support
+    - assist
+    - assistance
+    - issue
+    - problem
+  human:
+    - human
+    - agent
+    - person
+    - team member
+    - representative
+    - insaan
+    - kisi se baat
+  reply:
+    - reply
+    - response
+    - jawab
+    - jawaab
+    - response nahi
+    - replied
+    - heard back
+  program:
+    - program
+    - programme
+    - course
+    - internship
+    - intern
+    - training
+    - batch
+  duration:
+    - duration
+    - weeks
+    - week
+    - mahine
+    - month
+    - time period
+    - kitne din
+  placement:
+    - placement
+    - job
+    - naukri
+    - career
+    - employment
+    - offer letter
+    - stipend
+    - career support
+    - guidance
+    - job assistance
+    - placement help
+  project:
+    - project
+    - assignment
+    - task
+    - submit
+    - submission
+    - upload
+    - jama
+    - uplod
+  verify:
+    - verify
+    - verification
+    - genuine
+    - legit
+    - asli
+    - real
+    - fake
+    - fraud
+    - check
+    - chek
+    - checked
+    - checking
+    - chekking
+  start:
+    - start
+    - shuru
+    - kab se
+    - date
+    - dates
+    - batch kab
+  change:
+    - change
+    - switch
+    - badal
+    - replace
+    - different domain
+    - track change
+    - move to another track
+  online:
+    - online
+    - remote
+    - ghar se
+    - virtual
+    - mode
+    - format
+  document:
+    - document
+    - documents
+    - docs
+    - details
+    - proof
+    - id proof
+    - upload
+    - doc
+    - academic details
+    - academic documents
+    - marksheet
+  certificate-status:
+    - issued
+    - pending
+    - late
+    - delayed
+    - name mismatch
+    - naam galat
+    - correction
+  college:
+    - college
+    - university
+    - campus
+    - tpo
+    - institute
+    - college ke liye
+    - partnership
+    - partner
+    - mou
+    - bulk
+  trust:
+    - genuine
+    - authenticity
+    - valid
+    - validity
+    - official
+    - verified
+    - website
+    - contact
+  web-development:
+    - web development
+    - web dev
+    - website development
+    - frontend
+    - front end
+    - backend
+    - back end
+    - coding
+    - btech
+  urgency:
+    - urgent
+    - jaldi
+    - asap
+    - abhi
+    - immediately
+    - fast
+  apology:
+    - sorry
+    - sry
+    - apologise
+    - apologie
+    - frustrated
+    - upset
+  follow-up:
+    - follow up
+    - followup
+    - no reply
+    - nobody replied
+    - hear back
+    - suna nahi
+    - jawab nahi
+  registration:
+    - registration
+    - regstration
+    - apply
+    - application
+  receipt:
+    - receipt
+    - invoice
+    - email receipt
+  account-balance:
+    - balance dropped
+    - balance deducted
+    - account balance
+    - amount debited
+  password-reset:
+    - reset
+    - passwrd
+    - forgot password
+    - password reset
