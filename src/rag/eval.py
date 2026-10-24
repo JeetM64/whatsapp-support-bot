@@ -20,6 +20,7 @@ class CaseResult:
     case: dict[str, str]
     retrieval: RetrievalOutput
     got_decision: str
+    reason_code: str
     got_ids: list[str]
 
 
@@ -67,41 +68,46 @@ def _tune(
         [float(value) for value in evaluation["high_risk_threshold_grid"]],
         [float(value) for value in evaluation["margin_threshold_grid"]],
         [float(value) for value in evaluation["low_threshold_grid"]],
+        [float(value) for value in evaluation["ambiguity_margin_grid"]],
     ]
     combinations = [
-        (answer, high, margin, low)
+        (answer, high, margin, low, ambiguity)
         for answer in grids[0]
         for high in grids[1]
         for margin in grids[2]
         for low in grids[3]
-        if high >= answer and low < answer
+        for ambiguity in grids[4]
+        if high >= answer + 0.08 and low < answer
     ]
     random.Random(seed).shuffle(combinations)
     best: tuple[tuple[float, ...], dict[str, float]] | None = None
-    for answer, high, margin, low in combinations:
+    for answer, high, margin, low, ambiguity in combinations:
         config.thresholds["answer"] = answer
         config.thresholds["answer_high"] = high
         config.thresholds["margin"] = margin
         config.thresholds["low"] = low
+        config.decision["ambiguity_margin"] = ambiguity
         correct = 0
         false_accepts = 0
+        injection_errors = 0
         for case, retrieval in dev_rows:
             result = decide(case["query"], retrieval, retriever.entries, config)
             expected = _expected_decision(case)
             correct += result.decision.value == expected
-            if not _expected_ids(case) and result.decision != Decision.NO_MATCH:
+            if case["type"] == "out_of_kb" and result.decision == Decision.ANSWER:
                 false_accepts += 1
+            if case["type"] == "prompt_injection" and result.decision != Decision.NO_MATCH:
+                injection_errors += 1
+        if false_accepts or injection_errors:
+            continue
         accuracy = correct / max(len(dev_rows), 1)
-        false_accept_rate = false_accepts / max(
-            sum(not _expected_ids(case) for case, _ in dev_rows), 1
-        )
-        # Accuracy is primary; conservative false-accept behavior breaks ties.
-        score = (accuracy, -false_accept_rate, -answer, -high, -margin, -low)
+        score = (accuracy, -answer, -high, -margin, -low, -ambiguity)
         chosen = {
             "answer": answer,
             "answer_high": high,
             "margin": margin,
             "low": low,
+            "ambiguity_margin": ambiguity,
         }
         if best is None or score > best[0]:
             best = (score, chosen)
@@ -112,6 +118,7 @@ def _persist_thresholds(root: Path, thresholds: dict[str, float]) -> None:
     path = root / "config" / "rag.yaml"
     data = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
     data["thresholds"].update(thresholds)
+    data["decision"]["ambiguity_margin"] = thresholds["ambiguity_margin"]
     path.write_text(
         yaml.safe_dump(data, sort_keys=False, allow_unicode=True),
         encoding="utf-8",
@@ -153,14 +160,13 @@ def _metrics(rows: list[CaseResult]) -> dict[str, Any]:
 
 
 def _render_report(
+    dev_results: list[CaseResult],
     test_results: list[CaseResult],
     metrics: dict[str, Any],
     thresholds: dict[str, float],
     seed: int,
 ) -> str:
-    test_types: dict[str, list[CaseResult]] = defaultdict(list)
-    for result in test_results:
-        test_types[result.case["type"]].append(result)
+    all_results = [("dev", dev_results), ("test", test_results)]
     lines = [
         "# Retrieval evaluation",
         "",
@@ -183,36 +189,74 @@ def _render_report(
         f"- High-risk answer: {thresholds['answer_high']:.2f}",
         f"- Margin: {thresholds['margin']:.2f}",
         f"- Low: {thresholds['low']:.2f}",
+        f"- Ambiguity margin: {thresholds['ambiguity_margin']:.2f}",
         "",
-        "## Per-type breakdown",
+        "## Decision accuracy per type",
         "",
-        "| Type | Count | Top-3 accuracy | Decision accuracy |",
-        "|---|---:|---:|---:|",
+        "| Split | Type | Count | Decision accuracy |",
+        "|---|---|---:|---:|",
     ]
-    for case_type in sorted(test_types):
-        subset = test_types[case_type]
-        per_type = _metrics(subset)
-        lines.append(
-            f"| {case_type} | {len(subset)} | {per_type['top3']:.1%} | "
-            f"{per_type['decision_accuracy']:.1%} |"
-        )
-    failures = [
-        row for row in test_results
-        if row.got_decision != _expected_decision(row.case)
-        or (
-            _expected_ids(row.case)
-            and not (set(row.got_ids[:3]) & _expected_ids(row.case))
-        )
-    ]
-    lines.extend(["", "## Failures", ""])
+    for split, rows in all_results:
+        types: dict[str, list[CaseResult]] = defaultdict(list)
+        for result in rows:
+            types[result.case["type"]].append(result)
+        for case_type in sorted(types):
+            subset = types[case_type]
+            accuracy = sum(
+                row.got_decision == _expected_decision(row.case) for row in subset
+            ) / max(len(subset), 1)
+            lines.append(f"| {split} | {case_type} | {len(subset)} | {accuracy:.1%} |")
+    failures: list[tuple[str, CaseResult, str]] = []
+    for split, rows in all_results:
+        for row in rows:
+            if row.got_decision == _expected_decision(row.case):
+                continue
+            if row.case["expected_decision"].strip().upper() == "ANSWER":
+                category = "over-cautious" if (
+                    not _expected_ids(row.case)
+                    or set(row.got_ids[:3]) & _expected_ids(row.case)
+                ) else "wrong entry"
+            elif _expected_ids(row.case) and not (set(row.got_ids[:3]) & _expected_ids(row.case)):
+                category = "wrong entry"
+            elif (
+                row.case["expected_decision"].strip().upper() == "CLARIFY"
+                and row.got_decision == "NO_MATCH"
+            ):
+                category = "missed clarification"
+            elif (
+                row.case["expected_decision"].strip().upper() == "NO_MATCH"
+                and row.got_decision == "CLARIFY"
+            ):
+                category = "missed out-of-scope/injection block"
+            else:
+                category = "CSV expectation review"
+            failures.append((split, row, category))
+    counts = {name: sum(category == name for _, _, category in failures) for name in (
+        "over-cautious", "wrong entry", "missed clarification",
+        "missed out-of-scope/injection block", "CSV expectation review"
+    )}
+    lines.extend([
+        "",
+        "## Failure classification",
+        "",
+        f"Over-cautious: {counts['over-cautious']}; wrong entry: {counts['wrong entry']}; "
+        f"missed clarification: {counts['missed clarification']}; missed out-of-scope/injection "
+        f"block: {counts['missed out-of-scope/injection block']}; wrong CSV expectation: "
+        f"{counts['CSV expectation review']}.",
+        "",
+        "## Failures on both splits",
+        "",
+    ])
     if not failures:
         lines.append("None.")
     else:
-        for row in failures:
+        for split, row, category in failures:
             lines.append(
-                f"- {row.case['id']} ({row.case['type']}): “{row.case['query']}” — "
-                f"expected {_expected_decision(row.case)} / {row.case['expected_ids']}; "
-                f"got {row.got_decision} / {','.join(row.got_ids[:3]) or 'NONE'}."
+                f"- [{split}] {row.case['id']} ({row.case['type']}, {category}): "
+                f"“{row.case['query']}” — expected {_expected_decision(row.case)}; "
+                f"got {row.got_decision}; confidence={row.retrieval.confidence:.3f}; "
+                f"margin={row.retrieval.margin:.3f}; reason={row.reason_code}; "
+                f"top3={','.join(row.got_ids[:3]) or 'NONE'}."
             )
     lines.append("")
     return "\n".join(lines)
@@ -228,6 +272,20 @@ def run_eval(root: Path, retriever: Retriever, config: RagConfig) -> tuple[str, 
     config.thresholds.update(tuned)
     _persist_thresholds(root, tuned)
 
+    def decisions_for(rows: list[tuple[dict[str, str], RetrievalOutput]]) -> list[CaseResult]:
+        results: list[CaseResult] = []
+        for case, retrieval in rows:
+            decision = decide(case["query"], retrieval, retriever.entries, config)
+            results.append(CaseResult(
+                case=case,
+                retrieval=retrieval,
+                got_decision=decision.decision.value,
+                reason_code=decision.reason_code,
+                got_ids=[candidate.id for candidate in retrieval.candidates],
+            ))
+        return results
+
+    dev_results = decisions_for(dev_retrieval)
     test_rows: list[CaseResult] = []
     for case, retrieval in _retrieve_cases(test_cases, retriever):
         decision = decide(case["query"], retrieval, retriever.entries, config)
@@ -236,11 +294,13 @@ def run_eval(root: Path, retriever: Retriever, config: RagConfig) -> tuple[str, 
                 case=case,
                 retrieval=retrieval,
                 got_decision=decision.decision.value,
+                reason_code=decision.reason_code,
                 got_ids=[candidate.id for candidate in retrieval.candidates],
             )
         )
     metrics = _metrics(test_rows)
     report = _render_report(
+        dev_results,
         test_rows,
         metrics,
         tuned,

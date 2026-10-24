@@ -12,14 +12,15 @@ retrieval:
   bm25_b: 0.75
   min_semantic_agreement: 0.3
 thresholds:
-  answer: 0.42
-  answer_high: 0.58
-  low: 0.12
-  margin: 0.04
+  answer: 0.34
+  answer_high: 0.45
+  low: 0.08
+  margin: 0.0
   ground: 0.45
+  ambiguity_margin: 0.03
 decision:
   clarify_token_limit: 1
-  ambiguity_margin: 0.25
+  ambiguity_margin: 0.03
   show_sample_label: true
   max_reply_chars: 600
 provider:
@@ -37,19 +38,35 @@ pricing:
 evaluation:
   seed: 20261024
   answer_threshold_grid:
+  - 0.18
+  - 0.22
+  - 0.26
+  - 0.3
+  - 0.34
+  - 0.38
   - 0.42
-  - 0.48
-  - 0.54
-  - 0.6
+  - 0.46
   high_risk_threshold_grid:
-  - 0.58
-  - 0.64
-  - 0.7
+  - 0.3
+  - 0.35
+  - 0.4
+  - 0.45
+  - 0.5
+  - 0.55
+  - 0.6
   margin_threshold_grid:
+  - 0.0
+  - 0.02
   - 0.04
   - 0.08
-  - 0.12
   low_threshold_grid:
+  - 0.08
   - 0.12
-  - 0.18
-  - 0.24
+  - 0.16
+  - 0.2
+  ambiguity_margin_grid:
+  - 0.03
+  - 0.06
+  - 0.1
+  - 0.15
+  - 0.2

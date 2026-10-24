@@ -63,6 +63,9 @@ terms:
     - paisa wapas
     - money back
     - cancel refund
+    - refund request
+    - dalu
+    - dalna
   not:
     - nhi
     - nahi
@@ -176,6 +179,10 @@ terms:
     - month
     - time period
     - kitne din
+    - hafte
+    - hafte mein
+    - time per week
+    - weekly time
   placement:
     - placement
     - job
@@ -185,6 +192,7 @@ terms:
     - offer letter
     - stipend
     - career support
+    - carrer
     - guidance
     - job assistance
     - placement help
@@ -264,6 +272,9 @@ terms:
     - partner
     - mou
     - bulk
+    - collaboration
+    - collaborate
+    - cohort
   trust:
     - genuine
     - authenticity
@@ -310,6 +321,8 @@ terms:
     - regstration
     - apply
     - application
+    - regstration mein
+    - begin an application
   receipt:
     - receipt
     - invoice

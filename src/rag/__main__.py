@@ -48,7 +48,10 @@ def _print_result(result) -> None:
         f"decision={result.decision.value} reason={result.reason_code} "
         f"confidence={result.confidence:.3f} mode={result.mode} degraded={result.degraded}"
     )
-    print(f"language={result.language} latency_ms={result.latency_ms:.1f}")
+    print(
+        f"detected_language={result.language} reply_language={detect_language(result.reply)} "
+        f"latency_ms={result.latency_ms:.1f}"
+    )
     print(f"reply={result.reply}")
     print(
         "entries="

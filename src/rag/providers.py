@@ -99,7 +99,7 @@ class GeminiProvider(SDKProvider):
                 temperature=self.temperature,
                 max_output_tokens=self.max_tokens,
                 response_mime_type="application/json",
-                response_schema=schema,
+                response_schema=_gemini_schema(schema),
             ),
         )
         raw = response.text or ""
@@ -108,6 +108,30 @@ class GeminiProvider(SDKProvider):
             "input_tokens": getattr(usage, "prompt_token_count", None),
             "output_tokens": getattr(usage, "candidates_token_count", None),
         }
+
+
+def _gemini_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    """Keep Gemini's supported schema subset; Pydantic validates locally afterward."""
+    supported = {"type", "properties", "required", "items", "enum", "description"}
+
+    def clean(value: Any) -> Any:
+        if isinstance(value, dict):
+            cleaned = {
+                key: clean(child)
+                for key, child in value.items()
+                if key in supported
+            }
+            if isinstance(value.get("properties"), dict):
+                cleaned["properties"] = {
+                    name: clean(child)
+                    for name, child in value["properties"].items()
+                }
+            return cleaned
+        if isinstance(value, list):
+            return [clean(item) for item in value]
+        return value
+
+    return clean(schema)
 
 
 class AnthropicProvider(SDKProvider):

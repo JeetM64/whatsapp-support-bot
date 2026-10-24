@@ -9,9 +9,35 @@ from src.rag.composer import compose
 from src.rag.config import RagConfig
 from src.rag.models import LLMReply
 from src.rag.providers import FakeProvider, NoneProvider
+from src.rag.providers import _gemini_schema
 from src.rag.verifier import verify_reply
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_gemini_schema_keeps_property_names_and_removes_unsupported_fields() -> None:
+    schema = {
+        "title": "Reply",
+        "type": "object",
+        "properties": {
+            "reply": {"title": "Reply", "type": "string", "minLength": 1},
+            "used_entry_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+        },
+        "required": ["reply", "used_entry_ids"],
+        "additionalProperties": False,
+    }
+    result = _gemini_schema(schema)
+    assert result == {
+        "type": "object",
+        "properties": {
+            "reply": {"type": "string"},
+            "used_entry_ids": {"type": "array", "items": {"type": "string"}},
+        },
+        "required": ["reply", "used_entry_ids"],
+    }
 
 
 class SameVectorEmbedder:

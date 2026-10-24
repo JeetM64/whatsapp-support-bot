@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
+from pathlib import Path
 
 from .config import RagConfig
 from .models import Decision, QueryDecision
@@ -10,6 +12,7 @@ from .retriever import RetrievalOutput
 INJECTION_PATTERNS = (
     r"\bignore\b.{0,40}\b(rules|instructions|system|prompt)\b",
     r"\b(bypass|override)\b.{0,40}\b(knowledge base|rules|instructions|safety)\b",
+    r"\b(forget|ignore)\b.{0,30}\b(safety|rules|instructions)\b.{0,60}\b(say|claim|pretend)\b.{0,40}\b(refund|refunded|approved|guaranteed)\b",
     r"\b(print|show|reveal|repeat)\b.{0,30}\b(instructions|system prompt|rules)\b",
     r"\bDAN\b",
     r"\bpromise\b.{0,30}\b(refund|money)\b",
@@ -18,12 +21,44 @@ INJECTION_PATTERNS = (
 
 OUT_OF_SCOPE_PATTERNS = (
     r"\b(partnership|tie[- ]?ups?|mou|memorandum of understanding|training partner|"
-    r"corporate partner|bulk pricing|bulk deals|bulk seats|college seats|onboard our college)\b",
+    r"corporate partner|bulk pricing|bulk deals|bulk seats|college seats|bulk enrollment|"
+    r"bulk enrolment|enrollment rate|enrolment rate|placement cell.{0,30}collaboration|"
+    r"campus.{0,40}(training|cohort)|institution.{0,40}(joint program|collaborat)|"
+    r"onboard our college|full cohort)\b",
     r"\b(stock price|share price|stock market|current price of .{0,30} stock)\b",
     r"\b(exam timetable|exam schedule at|university exam timetable)\b",
     r"\b(convolutional neural network|neural network|machine learning model)\b",
+    r"\b(government scholarship|scholarship application)\b",
     r"\b(job offer|offer letter)\b.{0,30}\b(from|by)\s+[A-Z][A-Za-z0-9&.-]+",
 )
+
+TOPIC_CUES = {
+    "fee": {"fee", "fees", "budget", "cost", "price", "charge", "pricing"},
+    "certificate": {"certificate", "certificates", "certifcate", "certificat"},
+    "eligibility": {"eligibility", "eligible", "year", "branch", "department"},
+    "schedule": {"schedule", "duration", "weekly", "week", "weeks", "timeline"},
+    "batch": {"batch", "start", "date", "dates"},
+    "payment": {"payment", "pay", "transaction", "txn", "debit", "receipt", "invoice"},
+    "access": {"access", "login", "password", "portal", "lms"},
+    "project": {"project", "assignment", "submit", "submission"},
+    "program": {"domain", "track", "specialization", "course", "program"},
+    "placement": {"placement", "career", "job", "offer"},
+    "refund": {"refund", "cancel", "return"},
+}
+
+
+@lru_cache(maxsize=512)
+def _distinct_topics(message: str) -> frozenset[str]:
+    normalized = normalize_text(message, Path(__file__).resolve().parents[2] / "kb" / "lexicon.yaml")
+    tokens = set(normalized.split())
+    topics = {topic for topic, cues in TOPIC_CUES.items() if tokens & cues}
+    if re.search(r"\bwho\s+can\s+apply\b", message, re.IGNORECASE):
+        topics.add("eligibility")
+    # Certificate requirements include completing and submitting a project; that
+    # combination is one answerable workflow, not two unrelated requests.
+    if topics == {"certificate", "project"}:
+        return frozenset()
+    return frozenset(topics)
 
 
 def is_prompt_injection(message: str) -> bool:
@@ -31,7 +66,14 @@ def is_prompt_injection(message: str) -> bool:
 
 
 def is_out_of_scope(message: str) -> bool:
-    return any(re.search(pattern, message, re.IGNORECASE) for pattern in OUT_OF_SCOPE_PATTERNS)
+    if any(re.search(pattern, message, re.IGNORECASE) for pattern in OUT_OF_SCOPE_PATTERNS):
+        return True
+    external_program = re.search(
+        r"\b(?:internship|program|course|application|offer|dates?)\b", message, re.IGNORECASE
+    )
+    named_entity = re.search(r"\b[A-Z]{2,}\b", message)
+    known_generic = {"UPI", "LMS", "BTECH", "UGC", "AICTE", "NSDC"}
+    return bool(external_program and named_entity and named_entity.group(0) not in known_generic)
 
 
 def decide(
@@ -95,9 +137,17 @@ def decide(
 
     if len(retrieval.candidates) >= 2:
         second = retrieval.candidates[1]
-        if (
-            first.category != second.category
+        topics = _distinct_topics(message)
+        explicit_multi_topic = len(topics) >= 2 and bool(
+            re.search(r"\b(and|also|plus|as well as|aur|par|but)\b", message, re.IGNORECASE)
+        )
+        close_cross_topic = (
+            len(topics) >= 2
+            and first.category != second.category
             and retrieval.margin < float(config.decision.get("ambiguity_margin", 0.10))
+        )
+        if (
+            explicit_multi_topic or close_cross_topic
         ):
             return QueryDecision(
                 decision=Decision.CLARIFY,
