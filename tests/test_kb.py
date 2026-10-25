@@ -217,7 +217,7 @@ def test_customer_answers_hide_internal_sources_and_localize_fee_suffix() -> Non
         for answer in (entry.answer_rendered, entry.answer_hinglish or ""):
             assert not any(term in answer.casefold() for term in internal_terms), entry.id
     fee = next(entry for entry in result.entries if entry.id == "CAT-041")
-    assert fee.answer_hinglish.rstrip(". ").endswith("fees badal sakti hain; payment se pehle official site par confirm kar lein")
+    assert fee.answer_hinglish.rstrip(". ").endswith("Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein")
     assert "fees can change" not in fee.answer_hinglish.casefold()
 
 
@@ -227,9 +227,9 @@ def test_medium_low_facts_get_confirmation_and_fees_end_with_required_note() -> 
     entries = {entry.id: entry for entry in result.entries}
     assert "confirm" in entries["CAT-002"].answer_rendered.casefold()
     assert "confirm" in entries["CAT-066"].answer_rendered.casefold()
-    required = "fees can change, please confirm on the official site before paying"
+    required = "fees can change, so please confirm on the official site before paying"
     for entry_id in ("CAT-011", "CAT-041", "CAT-026"):
-        assert entries[entry_id].answer_rendered.rstrip(". ").endswith(required)
+        assert entries[entry_id].answer_rendered.rstrip(". ").casefold().endswith(required)
 
 
 def test_iso_claims_must_be_backed_by_a_verified_placeholder(tmp_path: Path) -> None:

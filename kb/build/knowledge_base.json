@@ -1,5 +1,5 @@
 {
-  "content_hash": "b36f75cd8e800ec112ebd6c6876a4a6cac4003ba57f74f65c826d957b8042739",
+  "content_hash": "582b6dd4fd7963b12e1e2e8c64728abe121a7f260e5802f7c12d0d75ed3bdf92",
   "entries": [
     {
       "answer_hinglish": "iStudio program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai aur pehle training, uske baad internship ka mauka shamil hain.",
@@ -372,8 +372,8 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "August 2026 ke iCAT page ke mutabik fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 di gayi hain. fees badal sakti hain; payment se pehle official site par confirm kar lein.",
-      "answer_rendered": "The August 2026 iCAT page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_hinglish": "August 2026 ke iCAT page ke mutabik fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 di gayi hain. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein.",
+      "answer_rendered": "The August 2026 iCAT page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. Fees can change, so please confirm on the official site before paying.",
       "answer_template": "The August 2026 iCAT page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
@@ -454,8 +454,8 @@
     },
     {
       "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Uske baad bhi update na ho, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "I understand this is worrying. The dashboard can take up to 24 hours to update after payment. If it is still missing after that, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
-      "answer_template": "I understand this is worrying. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing after that, {{PAYMENT_FOLLOWUP}}.",
+      "answer_rendered": "I understand this is worrying. The dashboard can take up to 24 hours to update after payment. If it is still missing, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand this is worrying. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing, {{PAYMENT_FOLLOWUP}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -542,25 +542,23 @@
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "refund policy kya hai",
-        "refund milega kya",
-        "regular batch ya refund program batch",
-        "what happens if I cancel and ask for a refund",
-        "cancel a course and ask for my money back",
-        "cancellation refund conditions"
+        "course cancel ke baad refund request kaise submit karun",
+        "where do I submit a refund request after cancellation",
+        "refund request submission steps after cancellation",
+        "cancel karne ke baad refund form kahan bharna hai"
       ],
       "id": "CAT-015",
       "is_mock": false,
       "keywords": [
-        "refund",
-        "policy",
-        "batch",
-        "regular",
-        "program"
+        "refund request submission",
+        "cancellation",
+        "refund form",
+        "apply",
+        "start"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "I need to cancel and ask about getting my money back. Which batch am I in?",
+      "question": "How do I submit a refund request after cancelling a course?",
       "risk_level": "high"
     },
     {
@@ -616,57 +614,58 @@
       ],
       "handoff_offer": false,
       "hinglish_variants": [
-        "kitne certificates milte hain",
-        "kaun kaun se certificate hain",
-        "training certificate milega kya",
-        "Are certificates included with program completion?",
-        "What certificates come with the program fee?"
+        "kitne certificate types available hain",
+        "certificate types ke naam kya hain",
+        "list the available certificate types",
+        "names of the offered certificates",
+        "which certificates are included after program completion",
+        "program complete karne ke baad kaunse certificates milte hain"
       ],
       "id": "CAT-017",
       "is_mock": false,
       "keywords": [
-        "certificate",
-        "types",
-        "iCAT",
-        "training",
-        "internship"
+        "certificate types",
+        "certificate names",
+        "included certificates",
+        "iCAT participation",
+        "training certificate",
+        "internship certificate"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "How many certificate types are there?",
+      "question": "What certificate types are included in the program, and what are their names?",
       "risk_level": "low"
     },
     {
-      "answer_hinglish": "iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai.",
-      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. The Internship certificate follows mentor review and project approval.",
-      "answer_template": "{{CERTIFICATE_TYPES}}. The Internship certificate follows mentor review and project approval.",
+      "answer_hinglish": "Internship certificate ke liye project submit karna aur mentor approval zaroori hai.",
+      "answer_rendered": "To receive the Internship certificate, submit the project and obtain mentor approval.",
+      "answer_template": "To receive the Internship certificate, submit the project and obtain mentor approval.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
-      "facts_required": [
-        "CERTIFICATE_TYPES"
-      ],
-      "facts_verified": [
-        "CERTIFICATE_TYPES"
-      ],
+      "facts_required": [],
+      "facts_verified": [],
       "handoff_offer": false,
       "hinglish_variants": [
-        "internship certificate ke liye kya karna hoga",
-        "project submit karne ke baad certificate milega",
-        "certificate condition kya hai"
+        "Internship certificate ke liye kya complete karna hota hai",
+        "project submission and mentor approval for the Internship certificate",
+        "Internship certificate ki project completion requirements",
+        "what project and mentor review are required for certificate completion",
+        "internship certificate kaise milega"
       ],
       "id": "CAT-018",
       "is_mock": false,
       "keywords": [
-        "certificate",
-        "requirements",
-        "project",
-        "mentor",
-        "approval"
+        "Internship certificate requirements",
+        "project submission",
+        "mentor approval",
+        "review",
+        "completion",
+        "required work"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "What do I need to complete for an Internship certificate?",
+      "question": "What must I complete for the Internship certificate: project submission and mentor review?",
       "risk_level": "low"
     },
     {
@@ -686,28 +685,27 @@
       ],
       "handoff_offer": true,
       "hinglish_variants": [
-        "certificate ISO verified hai",
-        "AICTE approved hai kya",
-        "UGC ya NSDC recognition hai kya",
-        "How is a certificate described or verified?",
-        "certificate authenticity and recognition information",
-        "How can an employer verify a certificate?",
-        "How are certificates verified or accredited?",
-        "certificate validity and recognition status"
+        "AICTE UGC ya NSDC approved hai kya",
+        "certificate ISO verified hai ya government approved",
+        "how can I verify certificate approval or recognition",
+        "certificate verification process",
+        "certificate approval kaise check karun",
+        "check certificate recognition status"
       ],
       "id": "CAT-019",
       "is_mock": false,
       "keywords": [
-        "certificate",
-        "ISO",
+        "certificate approval",
+        "certificate verification",
         "AICTE",
         "UGC",
         "NSDC",
-        "verified"
+        "ISO verified",
+        "recognition"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "Are the certificates ISO-verified or AICTE/UGC approved?",
+      "question": "Are Internship Studio certificates approved by AICTE, UGC, or NSDC, or described as ISO-verified?",
       "risk_level": "high"
     },
     {
@@ -916,8 +914,8 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein fees badal sakti hain; payment se pehle official site par confirm kar lein.",
-      "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship is free; the fee covers training. No stipend. Placement assistance only; no outcome guaranteed. Cancellations are non-refundable except duplicate-payment requests within 7 days. Outside-site payment? Confirm with support. Never share OTP or card details here. Please confirm other details with the team; fees can change, please confirm on the official site before paying",
+      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein.",
+      "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship is free; the fee covers training. No stipend. Placement assistance only; no outcome guaranteed. Cancellations are non-refundable except duplicate-payment requests within 7 days. Outside-site payment? Confirm with support. Never share OTP or card details here. Please confirm other details with the team; Fees can change, so please confirm on the official site before paying",
       "answer_template": "{{CONTACT_CHANNELS}}. {{INTERNSHIP_FEE_NOTE}}. {{NO_STIPEND_INFO}}. {{PLACEMENT_POSITION}}. {{REFUND_STANDARD}}. {{SAFE_PAYMENT_NOTE}} {{FEE_CONFIRMATION}}",
       "category": "trust_verification",
       "escalate_if_unmatched": true,
@@ -1079,26 +1077,24 @@
       ],
       "handoff_offer": false,
       "hinglish_variants": [
-        "placement guarantee hai kya",
-        "job pakki hai kya",
-        "placement assistance milti hai kya",
-        "What career support and placement help does iStudio Plus include?",
-        "career development and placement assistance terms",
-        "What career guidance and placement support comes with the Plus program?",
-        "scope of career and placement support"
+        "career support mein kya help milti hai",
+        "career guidance aur job support kya cover karta hai",
+        "what does the career support service cover",
+        "career support coverage and job search assistance",
+        "placement assistance and career development support"
       ],
       "id": "CAT-030",
       "is_mock": false,
       "keywords": [
-        "placement",
-        "guarantee",
-        "assistance",
-        "job",
+        "career support coverage",
+        "career guidance",
+        "job search support",
+        "placement assistance",
         "iStudio Plus"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "Is placement guaranteed, or is placement assistance provided?",
+      "question": "What does iStudio Plus career support cover: career guidance, job search, and placement assistance?",
       "risk_level": "low"
     },
     {
@@ -1447,8 +1443,8 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "Internship free hai; fee training ke liye hai. August 2026 ke page par fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 hain. fees badal sakti hain; payment se pehle official site par confirm kar lein.",
-      "answer_rendered": "Internship is free; the fee covers training. The August 2026 page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_hinglish": "Internship free hai; fee training ke liye hai. August 2026 ke page par fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 hain. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein.",
+      "answer_rendered": "Internship is free; the fee covers training. The August 2026 page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. Fees can change, so please confirm on the official site before paying.",
       "answer_template": "{{INTERNSHIP_FEE_NOTE}}. The August 2026 page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
@@ -1635,22 +1631,23 @@
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "refund chahiye regular ya refund program",
-        "refund milega kya kaunsa batch",
-        "refund ke liye batch batao"
+        "mera batch Regular hai ya Refund program",
+        "which batch did I enroll in",
+        "identify my batch before discussing refund eligibility",
+        "Regular batch ya Refund program batch kaise pata chalega"
       ],
       "id": "CAT-046",
       "is_mock": false,
       "keywords": [
-        "refund",
-        "batch",
-        "Regular",
-        "Refund program",
-        "clarify"
+        "batch identification",
+        "enrolled batch",
+        "Regular batch",
+        "Refund program batch",
+        "eligibility"
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "I need a refund. Which batch am I in?",
+      "question": "Which batch am I enrolled in: Regular or Refund program?",
       "risk_level": "high"
     },
     {
@@ -1689,8 +1686,8 @@
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna. Nayi jaankari mein 100% attendance hai; purane URL mein 75% hai, team se is shart ki pushti karein.",
-      "answer_rendered": "After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected duration, all assignments submitted on time, and the internship project submitted in the last week. Newer information says 100% attendance; an earlier URL says 75%, so please confirm this condition with the team. Please confirm this on the official site or with the team.",
+      "answer_hinglish": "Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna. Refund program ki exact shartein team se confirm kar lein.",
+      "answer_rendered": "After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected duration, all assignments submitted on time, and the internship project submitted in the last week. Please ask the team to confirm the exact refund program conditions. Please confirm this on the official site or with the team.",
       "answer_template": "{{REFUND_PROGRAM_CONDITIONS}}. {{REFUND_ATTENDANCE_NOTE}}.",
       "category": "refunds",
       "escalate_if_unmatched": true,

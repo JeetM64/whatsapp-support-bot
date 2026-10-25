@@ -17,9 +17,12 @@ INJECTION_PATTERNS = (
     r"\b(print|show|reveal|repeat)\b.{0,30}\b(instructions|system prompt|rules)\b",
     r"\bDAN\b",
     r"\bpromise\b.{0,30}\b(refund|money)\b",
+    r"\b(?:make|write|give|create)\b.{0,25}\b(?:a\s+)?(?:fake|false)\s+promise\b.{0,60}\b(refund|returned|fee|money)\b",
     r"\b(rules|niyam)\b.{0,30}\b(ignore|bhool)\b.{0,80}\b(refund|vaada|waada)\b",
     r"\b(ignore|disregard)\b.{0,50}\b(rules|instructions|niyam)\b.{0,80}\b(refund|vaada|waada)\b",
     r"\b(refund|paise|paisa)\b.{0,25}\b(vaada|waada)\b",
+    r"\b(?:pretend|act as|become)\b.{0,50}\b(founder|admin|developer|unrestricted)\b.{0,60}\b(guarantee|promise|approve|stipend|job)\b",
+    r"\b(?:output|write|share|reveal|print|show)\b.{0,40}\b(private|system|hidden|secret)\b.{0,25}\b(prompt|key|instructions|rules)\b",
     r"\bact as\b.{0,20}\b(unrestricted|developer|admin)\b",
 )
 
@@ -34,6 +37,9 @@ OUT_OF_SCOPE_PATTERNS = (
     r"\b(we are a company|our company|employer|recruiter|corporate team).{0,60}\b(hire|recruit|interns|talent)\b",
     r"\b(company|employer|corporate team).{0,40}\b(need|needs|want|wants|looking for).{0,30}\b(interns|students|learners)\b",
     r"\b(stock price|share price|stock market|current price of .{0,30} stock)\b",
+    r"\b(?:update|change|edit)\s+(?:my\s+)?(?:PAN|Aadhaar|passport)\s+(?:card|information|details)\b",
+    r"\bcorporate\s+batch\s+proposal\b",
+    r"\bbusiness\s+deal\b.{0,40}\buniversit(?:y|ies)\b",
     r"\b(exam timetable|exam schedule at|university exam timetable)\b",
     r"\b(convolutional neural network|neural network|machine learning model)\b",
     r"\b(government scholarship|scholarship application)\b",
@@ -154,13 +160,6 @@ def decide(
     if len(retrieval.candidates) >= 2:
         second = retrieval.candidates[1]
         ambiguity_limit = float(config.decision.get("ambiguity_margin", 0.10))
-        if retrieval.margin < ambiguity_limit:
-            return QueryDecision(
-                decision=Decision.CLARIFY,
-                reason_code="low_margin_entry_conflict",
-                confidence=retrieval.confidence,
-                candidate_ids=[first.id, second.id],
-            )
         topics = _distinct_topics(message)
         explicit_multi_topic = len(topics) >= 2 and bool(
             re.search(r"\b(and|also|plus|as well as|aur|par|but)\b", message, re.IGNORECASE)
@@ -170,17 +169,34 @@ def decide(
             and first.category != second.category
             and retrieval.margin < ambiguity_limit
         )
-        if (
-            explicit_multi_topic or close_cross_topic
-        ):
+        if explicit_multi_topic or close_cross_topic:
             return QueryDecision(
                 decision=Decision.CLARIFY,
                 reason_code="cross_category_ambiguity",
                 confidence=retrieval.confidence,
                 candidate_ids=[candidate.id for candidate in retrieval.candidates[:3]],
             )
+        refund_flow = bool(re.search(
+            r"\bregular batch\b.{0,60}\b(?:refund|cancel|cancellation|money back)\b",
+            message, re.IGNORECASE,
+        ))
+        first_terms = set(re.findall(r"[a-z0-9]+", str(top_entry.get("question", "")).casefold()))
+        second_terms = set(re.findall(r"[a-z0-9]+", str(entries.get(second.id, {}).get("question", "")).casefold()))
+        generic = {"what", "how", "do", "i", "the", "a", "an", "is", "are", "to", "for", "and", "after", "before", "my", "me", "you", "your", "can", "there", "which"}
+        first_terms -= generic; second_terms -= generic
+        overlap = len(first_terms & second_terms) / max(len(first_terms | second_terms), 1)
+        distinct_meaning = overlap < 0.30
+        if retrieval.margin < ambiguity_limit and distinct_meaning and not refund_flow:
+            return QueryDecision(
+                decision=Decision.CLARIFY,
+                reason_code="low_margin_entry_conflict",
+                confidence=retrieval.confidence,
+                candidate_ids=[first.id, second.id],
+            )
+    else:
+        refund_flow = False
 
-    if retrieval.confidence >= t_answer and retrieval.margin >= t_margin:
+    if retrieval.confidence >= t_answer and (retrieval.margin >= t_margin or refund_flow):
         return QueryDecision(
             decision=Decision.ANSWER,
             reason_code="high_risk_answer_threshold_met" if high_risk else "answer_threshold_met",

@@ -171,7 +171,8 @@ class Bot:
                 refund_request = bool(
                     re.search(
                         r"\b(refund policy|refund rules|refund eligibility|can i get a refund|"
-                        r"what is the refund|want a refund|refund me|my refund|refund chahiye|refund milega|"
+                        r"what is the refund|will i (?:get|receive) a refund|am i eligible for a refund|"
+                        r"want a refund|refund me|my refund|refund chahiye|refund milega|"
                         r"paise wapas|paisa wapas|money back|cancel my (?:enrolment|enrollment))\b|रिफंड चाहिए|पैसे वापस",
                         clean,
                         re.I,
@@ -298,7 +299,8 @@ class Bot:
                     guess = self.guard.classify(clean, unmatched_high_risk=True, status_authorized=self._identity_ok(sender))
                 self.store.gap(sender_hash, clean, when)
             if rag and rag.decision.value == "CLARIFY" and self.engine:
-                state["pending_options"] = [self.engine.retriever.entries[e.id].get("question", e.id) for e in rag.entries if e.id in self.engine.retriever.entries][:3]
+                option_limit = 2 if rag.reason_code == "low_margin_entry_conflict" else 3
+                state["pending_options"] = [self.engine.retriever.entries[e.id].get("question", e.id) for e in rag.entries if e.id in self.engine.retriever.entries][:option_limit]
             if guess.action == "continue" and rag and rag.decision.value in {"CLARIFY", "NO_MATCH"} and state.get("clarify_no_match_streak", 0) >= 1:
                 from src.guard import GuardResult
                 guess = GuardResult("frustration_loop", "P3", "escalate")
@@ -313,7 +315,11 @@ class Bot:
             if same_answer_followup:
                 lang = rag.language.casefold() if rag.language.casefold() in {"english", "hinglish"} else "english"
                 previous_ack = bool(state.get("repeat_ack_sent"))
-                if any(entry.id == "CAT-048" for entry in rag.entries):
+                refund_eligibility_followup = bool(
+                    any(entry.id == "CAT-048" for entry in rag.entries)
+                    and re.search(r"\b(completed|finished|met|done|poore|kiye|submit|attendance|assignments)\b", clean, re.I)
+                )
+                if refund_eligibility_followup:
                     out = [self.messages["repeat_answer"][lang] if previous_ack else self.messages["refund_review"][lang]]
                 else:
                     out = [self.messages["repeat_answer"][lang]]
@@ -338,7 +344,11 @@ class Bot:
             elif guess.action in {"escalate", "kb_first_aid_ticket"}:
                 ticket = self._ticket(sender_hash, when, clean, rag, guess, state["turns"])
                 from src.rag.composer import strip_handoff_offer
-                base = strip_handoff_offer(rag.reply, rag.language) if guess.action == "kb_first_aid_ticket" and rag else ""
+                base = (
+                    strip_handoff_offer(rag.reply, rag.language)
+                    if guess.action == "kb_first_aid_ticket" and rag and rag.decision.value == "ANSWER"
+                    else ""
+                )
                 escalation = self._escalation_message(ticket, rag.language if rag else "English", when)
                 out = ([base] if base else []) + [escalation]
                 state.update(handed_off=True, open_ticket_id=ticket["ticket_id"])

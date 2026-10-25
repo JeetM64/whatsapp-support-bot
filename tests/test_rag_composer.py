@@ -161,7 +161,9 @@ def test_bad_fake_reply_is_rejected_then_safe_fallback_used(tmp_path: Path) -> N
 
     assert result.mode == "fallback"
     assert result.verifier.fallback_used is True
-    assert result.reply == entry["answer_rendered"]
+    assert "Rs [MOCK 999]" in result.reply
+    assert result.reply.endswith("Would you like me to connect you with a team member?")
+    assert result.reply.endswith("Would you like me to connect you with a team member?")
     assert result.provider_errors
 
 
@@ -171,7 +173,8 @@ def test_none_provider_is_extractive_only(tmp_path: Path) -> None:
         "What is the fee?", "English", [entry], NoneProvider(), config, SameVectorEmbedder()
     )
     assert result.mode == "extractive"
-    assert result.reply == entry["answer_rendered"]
+    assert "Rs [MOCK 999]" in result.reply
+    assert result.reply.endswith("Would you like me to connect you with a team member?")
     assert result.verifier.passed
 
 

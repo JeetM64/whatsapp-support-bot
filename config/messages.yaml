@@ -29,10 +29,8 @@ out_of_scope:
   english: I don't have details on {topic}. Would you like me to connect you with a human?
   hinglish: Mere paas {topic} ki details nahi hain. Kya main aapko human agent se connect kar doon?
 injection_refund:
-  english: 'I can''t promise a refund or outcome. The policy depends on your batch: Regular or Refund program? I can connect
-    you with a human if you prefer.'
-  hinglish: 'Main refund ya kisi outcome ka vaada nahi kar sakta. Policy aapke batch par nirbhar hai: Regular batch ya Refund
-    program? Aap chahein toh main aapko human agent se connect kar sakta hoon.'
+    english: 'I can''t promise a refund or outcome. The policy depends on your batch: Regular or Refund program? Would you like me to connect you with a human?'
+    hinglish: 'Main refund ya kisi outcome ka vaada nahi kar sakta. Refund policy batch par nirbhar hai: Regular batch ya Refund program? Kya main aapko human agent se connect kar doon?'
 ticket_status:
   english: 'Your ticket {ticket_id} is open. Current ETA: {eta}.'
   hinglish: 'Aapka ticket {ticket_id} open hai. Abhi ka expected time: {eta}.'

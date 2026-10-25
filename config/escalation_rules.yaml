@@ -16,7 +16,7 @@ rules:
   R4_MONEY:
     patterns: ["\\b(debited|deducted|cut|charged|paid|money gone|lost money|money lost|paisa kat|paise kat|payment cut|amount deducted)\\b", "पैसे कट", "रकम कट"]
   R4_ACCESS:
-    patterns: ["\\b(no access|cannot access|can't access|didn't get access|did not get access|access not received|access not provided|no receipt|not enrolled|not enrolled|enrolment missing|login nahi|access nahi|receipt nahi|enrollment nahi)\\b", "एक्सेस नहीं", "रसीद नहीं", "नामांकन नहीं"]
+      patterns: ["\\b(no access|cannot access|can't access|do not have access|don't have access|still.{0,20}access|didn't get access|did not get access|access not received|access not provided|no receipt|not enrolled|enrolment missing|login nahi|access nahi|receipt nahi|enrollment nahi)\\b", "एक्सेस नहीं", "रसीद नहीं", "नामांकन नहीं"]
   R5:
     patterns: ["\\b(scam|fraud|fake|cheat|cheating)\\b|फ्रॉड|धोखा"]
   R6_ACTION:

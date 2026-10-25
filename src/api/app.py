@@ -51,7 +51,8 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
     @api.middleware("http")
     async def request_context(request: Request, call_next):
         request.state.request_id = request.headers.get("x-request-id") or str(uuid.uuid4())
-        if request.headers.get("content-length", "0").isdigit() and int(request.headers["content-length"]) > MAX_BODY:
+        content_length = request.headers.get("content-length")
+        if content_length and content_length.isdigit() and int(content_length) > MAX_BODY:
             return JSONResponse(status_code=413, content={"error":"request_too_large", "request_id":request.state.request_id})
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
@@ -99,7 +100,6 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
 
     @api.post("/chat")
     async def chat(payload: ChatIn, request: Request):
-        if len(await request.body()) > MAX_BODY: raise HTTPException(413,"request_too_large")
         ip = request.client.host if request.client else "unknown"
         sender = "web:" + payload.sender
         if limited("ip:"+ip) or limited("sender:"+sender, 12): raise HTTPException(429,"rate_limited")

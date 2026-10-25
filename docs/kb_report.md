@@ -55,5 +55,9 @@
 
 - PENDING_INFO
 
+## Confirmation items
+
+- Refund Guarantee Program attendance differs across supplied materials: latest text says 100%, while an older URL says 75%. Confirm the exact conditions with the team; customer replies state the latest 100% policy without exposing this discrepancy.
+
 Generated entries: 69
-Content hash: b36f75cd8e800ec112ebd6c6876a4a6cac4003ba57f74f65c826d957b8042739
+Content hash: 582b6dd4fd7963b12e1e2e8c64728abe121a7f260e5802f7c12d0d75ed3bdf92

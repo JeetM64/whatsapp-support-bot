@@ -168,34 +168,35 @@ def verified_extractive_reply(
     reply: str, selected_entries: list[dict[str, Any]], max_chars: int
 ) -> VerifierReport:
     source_answers = {str(entry.get(key, "")) for entry in selected_entries for key in ("answer_rendered", "answer_hinglish") if entry.get(key)}
-    exact_source_with_handoff = False
-    fee_notes = (
-        "fees can change, please confirm on the official site before paying",
-        "fees badal sakti hain; payment se pehle official site par confirm kar lein",
+    allowed_fallbacks: set[str] = set()
+    fee_replacements = (
+        ("fees can change, please confirm on the official site before paying", "Fees can change, so please confirm on the official site before paying."),
+        ("fees badal sakti hain; payment se pehle official site par confirm kar lein", "Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein."),
+    )
+    offers = (
+        ("english", "Would you like me to connect you with a team member?", r"\b(?:I can|I could|Would you like me to) connect\b[^.!?]*[.!?]?"),
+        ("hinglish", "Kya main aapko support team se connect kar doon?", r"\b(?:main|aap chahein toh main|kya main)\b[^.!?]*\bconnect kar (?:sakta hoon|doon|dun)[.!?]?"),
     )
     for entry in selected_entries:
-        if not entry.get("handoff_offer"):
-            continue
-        for field, phrase in (
-            ("answer_rendered", "I can connect a team member."),
-            ("answer_hinglish", "Main aapko support team se connect kar sakta hoon."),
-        ):
-            source = str(entry.get(field, "") or "")
-            if not source or phrase.casefold() in source.casefold():
+        for field, language in (("answer_rendered", "english"), ("answer_hinglish", "hinglish")):
+            source = str(entry.get(field, "") or "").strip()
+            if not source:
                 continue
-            expected = source.rstrip(". ") + ". " + phrase
-            fee_note = next((note for note in fee_notes if note in source.casefold()), None)
-            fee_offset = source.casefold().rfind(fee_note) if fee_note else -1
-            if fee_offset >= 0:
-                expected = source[:fee_offset].rstrip(". ") + ". " + phrase + " " + source[fee_offset:]
-            if reply == expected:
-                exact_source_with_handoff = True
-                break
-        if exact_source_with_handoff:
-            break
+            expected = source
+            offer = next((item for item in offers if item[0] == language), None)
+            stripped = re.sub(offer[2], "", expected, flags=re.IGNORECASE).strip() if offer else expected
+            if stripped != expected:
+                expected = stripped.rstrip(" .;:") + ". " + offer[1]
+            for old_note, replacement in fee_replacements:
+                expected = re.sub(re.escape(old_note), replacement, expected, flags=re.IGNORECASE)
+            if entry.get("handoff_offer") and offer and not expected.endswith(offer[1]):
+                expected = expected.rstrip(" .;:") + ". " + offer[1]
+            if entry.get("is_mock") and "SAMPLE DATA" not in expected:
+                expected = "SAMPLE DATA — " + expected
+            allowed_fallbacks.add(expected)
     checks = {
         "source_exact": bool(selected_entries)
-        and (reply in source_answers or exact_source_with_handoff),
+        and (reply in source_answers or reply in allowed_fallbacks),
         "nonempty_under_limit": bool(reply.strip()) and len(reply) <= max_chars,
         "sample_label_preserved": not any(
             bool(entry.get("is_mock")) for entry in selected_entries

@@ -91,8 +91,7 @@ def _fallback_text(entry: dict[str, Any], config: RagConfig, language: str = "En
         pos = reply.casefold().rfind(old_note)
         if pos >= 0:
             facts = reply[:pos].strip().rstrip(" .;:")
-            caveat = old_note[0].upper() + old_note[1:]
-            reply = (facts + ". " if facts else "") + caveat.rstrip(".") + "."
+            reply = (facts + ". " if facts else "") + fee_note[0].upper() + fee_note[1:].rstrip(".") + "."
             break
     if entry.get("handoff_offer") or had_offer:
         offer_question = (

@@ -36,6 +36,7 @@ def test_payment_issue_uses_extractive_only_engine(tmp_path):
                               datetime(2026,10,26,12,tzinfo=ZoneInfo("Asia/Kolkata")))
     assert engine.calls == [("Payment cut gaya par access nahi aaya", {"force_extractive": True})]
     assert result.ticket and result.ticket["reason_code"] == "payment_issue"
+    assert "connect a team member" not in " ".join(result.messages).casefold()
 
 def test_store_persists_only_masked_pii(tmp_path):
     store=Store(tmp_path,"test-secret")
@@ -169,6 +170,16 @@ def test_hinglish_refund_flow_clarifies_batch_in_hinglish(tmp_path):
     assert any("aap Regular batch mein hain ya Refund program batch mein?" in part for part in result.messages)
 
 
+def test_english_refund_eligibility_question_clarifies_batch(tmp_path):
+    bot = Bot(Path(__file__).parents[1], engine=None, store=Store(tmp_path, "test-secret"))
+    now = datetime(2026, 10, 26, 12, tzinfo=ZoneInfo("Asia/Kolkata"))
+    result = bot.handle_message("demo-english-refund", "Will I get a refund?", "refund-en-1", "web", now)
+    assert any("are you in the Regular batch or the Refund program batch?" in part for part in result.messages)
+    state = bot.store.get_session(bot.store.sender_hash("demo-english-refund"), now)
+    assert state["pending_refund_batch"] is True
+    assert state["batch_type"] is None
+
+
 def test_hinglish_refund_batch_selection_keeps_query_language(tmp_path):
     from types import SimpleNamespace
     from src.rag.normalize import detect_language
@@ -208,7 +219,7 @@ def test_low_risk_out_of_scope_offers_human_without_ticket_then_creates_on_accep
     bot = Bot(Path(__file__).parents[1], engine=OutOfScopeEngine(), store=store)
     first = bot.handle_message("demo-partner", "We want a partnership for our college.", "partner-1", "web")
     assert first.ticket is None
-    assert "I don't have confirmed information" in " ".join(first.messages)
+    assert "I don't have details on college partnerships" in " ".join(first.messages)
     assert "human" in " ".join(first.messages).casefold()
     assert len(store.list_tickets()) == 0
     with store.connect() as db:
@@ -283,4 +294,42 @@ def test_duplicate_payment_creates_p2_ticket(tmp_path):
     assert result.ticket["reason_code"] == "duplicate_payment"
     assert result.ticket["priority"] == "P2"
     assert engine.calls == [("I paid twice by mistake", {"force_extractive": True})]
+
+
+def test_repeated_refund_entry_acknowledges_and_offers_ticket_without_repeating_answer(tmp_path):
+    from types import SimpleNamespace
+    from src.rag.models import Decision
+    from src.rag.retriever import RetrievalOutput
+
+    entry = SimpleNamespace(id="CAT-048")
+    candidate = SimpleNamespace(id="CAT-048", category="refunds", confidence=0.8)
+    retrieval = RetrievalOutput(
+        candidates=[candidate], confidence=0.8, margin=0.4, degraded=True,
+        lexical_agreement=True, semantic_available=False, query_token_count=5,
+    )
+
+    class RefundEngine:
+        provider = None
+        retriever = SimpleNamespace(
+            entries={"CAT-048": {"question": "What conditions apply to Refund Program eligibility?"}},
+            retrieve=lambda _text: retrieval,
+        )
+
+        def answer(self, _text, **_kwargs):
+            return SimpleNamespace(
+                decision=SimpleNamespace(value=Decision.ANSWER.value),
+                reason_code="answer_threshold_met", language="English", confidence=0.8,
+                entries=[entry], reply="Refund eligibility depends on attendance and assignment conditions.",
+            )
+
+    bot = Bot(Path(__file__).parents[1], engine=RefundEngine(), store=Store(tmp_path, "test-secret"))
+    first = bot.handle_message("refund-followup", "What conditions apply to the refund program?", "refund-1", "web")
+    second = bot.handle_message("refund-followup", "I completed the attendance and assignments.", "refund-2", "web")
+    first_text = " ".join(first.messages)
+    second_text = " ".join(second.messages)
+    assert "Refund eligibility depends on attendance and assignment conditions." in first_text
+    assert "team can review your eligibility" in second_text
+    assert second_text != first_text
+    assert second_text.endswith("Would you like me to raise a ticket?")
+    assert second.ticket is None
 

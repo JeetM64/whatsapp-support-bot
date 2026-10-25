@@ -33,7 +33,8 @@ def test_engine_none_provider_uses_zero_network_extractively(tmp_path: Path) -> 
     assert result.decision.value == "ANSWER"
     assert "Rs 880" in result.reply
     assert "Rs 8,500" in result.reply
-    assert result.reply.rstrip(". ").endswith("fees badal sakti hain; payment se pehle official site par confirm kar lein")
+    assert "Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein." in result.reply
+    assert result.reply.endswith("Kya main aapko support team se connect kar doon?")
     assert "fees can change" not in result.reply.casefold()
     assert result.estimated_cost_usd == 0.0
 

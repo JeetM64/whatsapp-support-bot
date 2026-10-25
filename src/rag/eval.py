@@ -108,7 +108,12 @@ def _tune(
             continue
         accuracy = correct / max(len(dev_rows), 1)
         wrong_rate = wrong_entry_answers / max(answered_in_kb, 1)
-        score = (float(wrong_rate <= 0.03), -wrong_rate, accuracy, -answer, -high, -margin, -low, -ambiguity)
+        # Never trade the required development decision accuracy for a lower
+        # wrong-entry denominator. Within that floor, prefer the <=3% wrong
+        # answer target, then the highest dev accuracy.
+        if accuracy < 0.85:
+            continue
+        score = (float(wrong_rate <= 0.03), accuracy, -wrong_rate, -answer, -high, -margin, -low, -ambiguity)
         chosen = {
             "answer": answer,
             "answer_high": high,
@@ -344,6 +349,7 @@ def run_eval(root: Path, retriever: Retriever, config: RagConfig) -> tuple[str, 
     dev_retrieval = _retrieve_cases(dev_cases, retriever)
     tuned = _tune(dev_retrieval, retriever, config)
     config.thresholds.update(tuned)
+    config.decision["ambiguity_margin"] = tuned["ambiguity_margin"]
     _persist_thresholds(root, tuned)
 
     def decisions_for(rows: list[tuple[dict[str, str], RetrievalOutput]]) -> list[CaseResult]:
