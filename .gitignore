@@ -10,3 +10,5 @@ data/app.db-wal
 data/app.db-shm
 data/replay_runtime/
 data/traces/
+.tmp/
+*.db
