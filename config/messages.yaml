@@ -1,5 +1,5 @@
 demo_notice:
-  english: "Demo mode: this bot uses SAMPLE DATA and messages may be logged for the assignment."
+  english: "Demo bot built for Internship Studio's Founder Office assignment: answers use public help-center information plus labeled SAMPLE DATA. Messages are logged (masked)."
 human_offer:
   english: "I can connect a team member if you prefer."
 sensitive_data:

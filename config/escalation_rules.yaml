@@ -27,3 +27,11 @@ rules:
     patterns: ["\\b(i want to die|i am going to kill myself|kill myself|hurt myself|i will self[- ]?harm|end my life|cant go on living)\\b", "मैं आत्महत्या करूंगा", "मैं आत्महत्या करूंगी", "खुद को मार लूंगा", "खुद को मार लूंगी", "जीना नहीं चाहता", "जीना नहीं चाहती"]
   R11:
     patterns: ["\\b(payment status|certificate status|status of my payment|where is my certificate|mera payment status|certificate kab milega|payment ka status)\\b", "मेरे भुगतान की स्थिति", "सर्टिफिकेट की स्थिति"]
+  R12_DUPLICATE_PAYMENT:
+    patterns: ["\\b(duplicate payment|double payment|paid twice|charged twice|debited twice|billed (?:twice|two times)|charged two times|debited two times|two payments|payment twice|payment (is )?duplicated|duplicated payment|both payments|two charges)\\b", "do baar payment", "paise do baar kat", "दो बार भुगतान", "डबल पेमेंट"]
+  R13_LOCATION_CONFLICT:
+    patterns: ["\\b(office address|office location|where is (your|the) office|where is .{0,40}office|pune or ahmednagar|office in (pune|ahmednagar))\\b", "office kahan hai", "office ka address"]
+  R14_OUT_OF_SCOPE:
+    patterns: ["\\b(college partnership|campus partnership|corporate partnership|employer partnership|partnership for (our|my|the) college|partnership with (our|my|the) college|we want to hire|recruiter|hire interns|company partnership|company needs interns|company need interns|employer needs interns)\\b", "\\b(college|corporate|campus|employer).{0,25}(partnership|partner|collaborat\\w*)\\b", "\\b(partnership|partner|collaborat\\w*).{0,25}(college|corporate|campus|employer)\\b", "\\b(company|employer).{0,30}(hire|recruit|interns)\\b", "college ke saath partnership", "campus partnership chahiye"]
+  R15_ISTUDIO_PLUS:
+    patterns: ["\\biStudio Plus\\b", "\\bistudio plus\\b"]

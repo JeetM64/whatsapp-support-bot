@@ -103,6 +103,57 @@ class Bot:
             self.store.append_message(sender_hash, message_id, "customer", raw_text, when)
             state.setdefault("turns", []).append({"role":"customer", "text":clean})
             state["turns"] = state["turns"][-10:]
+            refund_flow_override = False
+            refund_selection = None
+            if state.get("pending_refund_batch"):
+                if re.search(r"\bregular\b|regular batch|रेगुलर", clean, re.I):
+                    refund_selection = "regular"
+                elif re.search(r"refund (?:guarantee )?program|program batch|रिफंड प्रोग्राम", clean, re.I):
+                    refund_selection = "refund_program"
+            if refund_selection:
+                state["batch_type"] = refund_selection
+                state["pending_refund_batch"] = False
+                raw_text = (
+                    "I am in the Regular batch and want a refund. What is the policy?"
+                    if refund_selection == "regular"
+                    else "What are the Refund Guarantee Program conditions?"
+                )
+                refund_flow_override = True
+            else:
+                refund_request = bool(
+                    re.search(
+                        r"\b(refund policy|refund rules|refund eligibility|can i get a refund|"
+                        r"what is the refund|want a refund|refund me|my refund|refund chahiye|refund milega|"
+                        r"paise wapas|paisa wapas|money back|cancel my (?:enrolment|enrollment))\b|रिफंड चाहिए|पैसे वापस",
+                        clean,
+                        re.I,
+                    )
+                )
+                duplicate_payment = self.guard.matches("R12_DUPLICATE_PAYMENT", clean)
+                if refund_request and not duplicate_payment and not state.get("batch_type"):
+                    state["pending_refund_batch"] = True
+                    clarification = (
+                        "Jawab dene se pehle batayein: aap Regular batch mein hain ya Refund program batch mein?"
+                        if detect_language(clean) == "Hinglish"
+                        else "Before I answer a refund question, are you in the Regular batch or the Refund program batch?"
+                    )
+                    out = queued_messages + ([self.messages["demo_notice"]["english"]] if self.demo_mode and not state.get("notice_sent") else []) + [clarification]
+                    state["notice_sent"] = state.get("notice_sent", False) or self.demo_mode
+                    state["turns"].append({"role":"assistant", "text":mask_pii(clarification)})
+                    state["turns"] = state["turns"][-10:]
+                    self.store.append_message(sender_hash, None, "assistant", clarification, when)
+                    self.store.save_session(sender_hash, state, when)
+                    result = BotReply(out, None, {"decision":"CLARIFY", "reason":"refund_batch_type", "kb_ids":[]})
+                    self.store.processed(message_id, sender_hash, result.__dict__, when)
+                    self._write_trace(result, sender_hash, when)
+                    return result
+                if refund_request and state.get("batch_type"):
+                    raw_text = (
+                        "I am in the Regular batch and want a refund. What is the policy?"
+                        if state["batch_type"] == "regular"
+                        else "What are the Refund Guarantee Program conditions?"
+                    )
+                    refund_flow_override = True
             if state.get("handed_off"):
                 open_ticket = self.store.ticket(state.get("open_ticket_id", ""))
                 if open_ticket and open_ticket.get("status") == "open":
@@ -118,7 +169,9 @@ class Bot:
                 state["handed_off"] = False
                 state["open_ticket_id"] = None            # Handle CLARIFY selection and terse follow-up against stored options/KB id.
             follow = raw_text.strip().casefold()
-            if state.get("pending_options") and re.match(r"^(1|2|3|one|two|three|payment wala|certificate wala)$", follow):
+            if refund_flow_override:
+                pass
+            elif state.get("pending_options") and re.match(r"^(1|2|3|one|two|three|payment wala|certificate wala)$", follow):
                 options = state["pending_options"]
                 idx = 0 if follow in {"1","one","payment wala"} else 1
                 if idx < len(options): raw_text = f"{raw_text} {options[idx]}"
@@ -132,6 +185,9 @@ class Bot:
             # L0 runs first; deterministic RAG is called only if no hard rule fires.
             guess = self.guard.classify(clean, frustration_loop=state.get("clarify_no_match_streak",0) >= 2 or same_query,
                                         status_authorized=self._identity_ok(sender))
+            if refund_flow_override and guess.reason_code == "refund_action":
+                from src.guard import GuardResult
+                guess = GuardResult()
             rag = None
             if self.engine and guess.action == "continue":
                 from concurrent.futures import ThreadPoolExecutor

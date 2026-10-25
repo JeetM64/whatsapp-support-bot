@@ -43,7 +43,7 @@ class Store:
         with self.connect() as db:
             row = db.execute("SELECT state,updated_at FROM sessions WHERE sender_hash=?", (sender_hash,)).fetchone()
             if not row or datetime.fromisoformat(row["updated_at"]) < cutoff:
-                return {"turns": [], "track": None, "verified_learner_id": None, "last_kb_ids": [], "last_intent": None, "pending_options": [], "handed_off": False, "open_ticket_id": None, "clarify_no_match_streak": 0, "last_query_hash": None, "notice_sent": False}
+                return {"turns": [], "track": None, "verified_learner_id": None, "last_kb_ids": [], "last_intent": None, "pending_options": [], "handed_off": False, "open_ticket_id": None, "clarify_no_match_streak": 0, "last_query_hash": None, "notice_sent": False, "batch_type": None, "pending_refund_batch": False}
             return json.loads(row["state"])
     def save_session(self, sender_hash: str, state: dict[str, Any], now: datetime):
         state["turns"] = state.get("turns", [])[-10:]

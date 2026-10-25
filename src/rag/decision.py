@@ -11,6 +11,7 @@ from .retriever import RetrievalOutput
 
 INJECTION_PATTERNS = (
     r"\bignore\b.{0,40}\b(rules|instructions|system|prompt)\b",
+    r"\b(disregard|ignore)\b.{0,40}\b(policy|policies|rules|instructions|safety)\b",
     r"\b(bypass|override)\b.{0,40}\b(knowledge base|rules|instructions|safety)\b",
     r"\b(forget|ignore)\b.{0,30}\b(safety|rules|instructions)\b.{0,60}\b(say|claim|pretend)\b.{0,40}\b(refund|refunded|approved|guaranteed)\b",
     r"\b(print|show|reveal|repeat)\b.{0,30}\b(instructions|system prompt|rules)\b",
@@ -25,6 +26,10 @@ OUT_OF_SCOPE_PATTERNS = (
     r"bulk enrolment|enrollment rate|enrolment rate|placement cell.{0,30}collaboration|"
     r"campus.{0,40}(training|cohort)|institution.{0,40}(joint program|collaborat)|"
     r"onboard our college|full cohort)\b",
+    r"\b(corporate|company|employer|college|campus).{0,30}(partnership|collaborat\w*|partner)\b",
+    r"\b(partnership|collaborat\w*|partner).{0,30}(corporate|company|employer|college|campus)\b",
+    r"\b(we are a company|our company|employer|recruiter|corporate team).{0,60}\b(hire|recruit|interns|talent)\b",
+    r"\b(company|employer|corporate team).{0,40}\b(need|needs|want|wants|looking for).{0,30}\b(interns|students|learners)\b",
     r"\b(stock price|share price|stock market|current price of .{0,30} stock)\b",
     r"\b(exam timetable|exam schedule at|university exam timetable)\b",
     r"\b(convolutional neural network|neural network|machine learning model)\b",
@@ -54,6 +59,14 @@ def _distinct_topics(message: str) -> frozenset[str]:
     topics = {topic for topic, cues in TOPIC_CUES.items() if tokens & cues}
     if re.search(r"\bwho\s+can\s+apply\b", message, re.IGNORECASE):
         topics.add("eligibility")
+    if re.search(r"\bregular batch\b.{0,60}\b(refund|cancel|money back)\b", message, re.IGNORECASE):
+        topics.difference_update({"batch", "program"})
+    if re.search(r"\brefund (?:guarantee )?program\b", message, re.IGNORECASE) and re.search(
+        r"\b(attendance|assignment|project|students|seats|cap|conditions?)\b", message, re.IGNORECASE
+    ):
+        topics.difference_update({"program", "refund", "project"})
+    if re.search(r"\b(payment|transfer|debit).{0,40}\b(dashboard|portal).{0,30}\b(update|reflect\w*|show)\b", message, re.IGNORECASE):
+        topics.discard("access")
     # Certificate requirements include completing and submitting a project; that
     # combination is one answerable workflow, not two unrelated requests.
     if topics == {"certificate", "project"}:

@@ -8,7 +8,15 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 class Category(str, Enum):
     program_info = "program_info"
+    icat_test = "icat_test"
     enrolment = "enrolment"
+    fees_payments = "fees_payments"
+    refunds = "refunds"
+    certificates_offer_letter = "certificates_offer_letter"
+    placement_hiring = "placement_hiring"
+    projects_assignments = "projects_assignments"
+    extension = "extension"
+    referral_campus = "referral_campus"
     payments_refunds = "payments_refunds"
     certificates = "certificates"
     technical_access = "technical_access"

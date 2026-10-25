@@ -18,6 +18,7 @@ CLAIM_WORDS = (
     "AICTE",
     "UGC",
     "NSDC",
+    "ISO",
     "government",
     "approved",
     "accredited",
@@ -28,35 +29,90 @@ CLAIM_WORDS = (
 )
 CLAIM_PLACEHOLDER_PARTS = (
     "AICTE", "UGC", "NSDC", "GOVERNMENT", "APPROV", "ACCREDIT",
-    "RECOGN", "GUARANTEE", "PLACEMENT_ASSURED", "STIPEND", "JOB_OFFER",
+    "RECOGN", "GUARANTEE", "PLACEMENT_ASSURED", "STIPEND", "JOB_OFFER", "ISO",
 )
 URL_RE = re.compile(r"(?:https?://|www\.)\S+", re.IGNORECASE)
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?<!\w)(?:\+?\d[\d ().-]{7,}\d)(?!\w)")
 
 
-def _read_fact_map(path: Path, *, verified: bool) -> dict[str, tuple[str, bool]]:
+def _read_fact_map(path: Path, *, verified: bool) -> dict[str, tuple[str, bool, str, str]]:
     if not path.exists():
         raise ValueError(f"fact file is missing: {path}")
     raw = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(raw, dict):
         raise ValueError(f"{path.name} must contain a YAML mapping")
-    mapping = raw.get("verified_facts", raw) if verified else raw
+    if verified:
+        fact_data = raw.get("verified_facts", raw)
+        if isinstance(fact_data, dict) and "facts" in fact_data:
+            facts = fact_data.get("facts")
+            if not isinstance(facts, list):
+                raise ValueError(f"{path.name}: facts must be a list")
+            fact_ids: set[str] = set()
+            for index, fact in enumerate(facts, start=1):
+                if not isinstance(fact, dict):
+                    raise ValueError(f"{path.name}: fact entry #{index} must be a mapping")
+                missing = {"id", "text", "source", "retrieved", "confidence"} - set(fact)
+                if missing:
+                    raise ValueError(f"{path.name}: fact entry #{index} is missing {', '.join(sorted(missing))}")
+                fact_id = fact["id"]
+                if not isinstance(fact_id, str) or not fact_id.strip():
+                    raise ValueError(f"{path.name}: fact entry #{index} has missing or unusable id")
+                if fact["confidence"] not in {"high", "medium", "low"}:
+                    raise ValueError(f"{path.name}: fact {fact_id} has invalid confidence")
+                fact_ids.add(fact_id.strip())
+            policies = fact_data.get("policies", [])
+            if not isinstance(policies, list):
+                raise ValueError(f"{path.name}: policies must be a list")
+            for index, policy in enumerate(policies, start=1):
+                if not isinstance(policy, dict):
+                    raise ValueError(f"{path.name}: policy entry #{index} must be a mapping")
+                missing = {"id", "text", "source", "retrieved", "confidence"} - set(policy)
+                if missing:
+                    raise ValueError(f"{path.name}: policy entry #{index} is missing {', '.join(sorted(missing))}")
+                policy_id = policy["id"]
+                if not isinstance(policy_id, str) or not policy_id.strip():
+                    raise ValueError(f"{path.name}: policy entry #{index} has missing or unusable id")
+                if policy["confidence"] not in {"high", "medium", "low"}:
+                    raise ValueError(f"{path.name}: policy {policy_id} has invalid confidence")
+                fact_ids.add(policy_id.strip())
+        mapping = fact_data.get("placeholders", fact_data) if isinstance(fact_data, dict) else fact_data
+    else:
+        mapping = raw
     if not isinstance(mapping, dict):
         raise ValueError(f"{path.name} fact values must be a YAML mapping")
-    result: dict[str, tuple[str, bool]] = {}
+    if verified and isinstance(fact_data, dict) and "facts" in fact_data:
+        for key, item in mapping.items():
+            if not isinstance(item, dict):
+                raise ValueError(f"{path.name}: placeholder {key} must map to a value and fact reference")
+            references = item.get("facts", item.get("fact"))
+            if isinstance(references, str):
+                references = [references]
+            if not isinstance(references, list) or not references:
+                raise ValueError(f"{path.name}: placeholder {key} has no usable fact reference")
+            for reference in references:
+                if not isinstance(reference, str) or reference not in fact_ids:
+                    raise ValueError(f"{path.name}: placeholder {key} references unknown fact {reference!r}")
+    result: dict[str, tuple[str, bool, str, str]] = {}
     for key, item in mapping.items():
         if isinstance(item, dict):
             value = item.get("value")
+            value_hinglish = item.get("value_hinglish", value)
             marked_mock = bool(item.get("mock", False))
+            confidence = str(item.get("confidence", "high" if verified else "low")).casefold()
         else:
             value = item
+            value_hinglish = value
             marked_mock = False
+            confidence = "high" if verified else "low"
         if value is None or str(value).strip() == "":
             continue
         if verified and marked_mock:
             raise ValueError(f"{path.name}: verified fact {key} cannot be marked mock")
-        result[str(key)] = (str(value).strip(), marked_mock or not verified)
+        if confidence not in {"high", "medium", "low"}:
+            raise ValueError(f"{path.name}: fact {key} has invalid confidence {confidence!r}")
+        localized = str(value_hinglish if value_hinglish is not None else value).strip()
+        result[str(key)] = (str(value).strip(), marked_mock or not verified, confidence, localized)
     return result
 
 
@@ -140,21 +196,23 @@ def validate_and_render(
         rendered = row.answer
         verified_keys: list[str] = []
         mock_keys: list[str] = []
+        confidence_keys: dict[str, str] = {}
         missing_keys: list[str] = []
         for key in keys:
             resolved = verified.get(key)
             if resolved is not None:
-                value, is_mock = resolved
+                value, is_mock, confidence, _value_hinglish = resolved
                 if is_mock:
                     mock_keys.append(key)
                 else:
                     verified_keys.append(key)
+                    confidence_keys[key] = confidence
             else:
                 fallback = mock.get(key)
                 if fallback is None:
                     missing_keys.append(key)
                     continue
-                value, _ = fallback
+                value, _, _, _value_hinglish = fallback
                 mock_keys.append(key)
             rendered = re.sub(r"\{\{\s*" + re.escape(key) + r"\s*\}\}", value, rendered)
             if key in mock_keys and any(part in key.upper() for part in CLAIM_PLACEHOLDER_PARTS):
@@ -165,17 +223,63 @@ def validate_and_render(
         if missing_keys:
             errors.append(f"{prefix}: missing fact key(s): {', '.join(missing_keys)}")
             continue
+        low_confidence = any(value in {"medium", "low"} for value in confidence_keys.values())
+        fee_keys = {"FEE_ICAT", "FEE_REGULAR", "FEE_CONFIRMATION"}
+        other_uncertain = any(
+            key not in fee_keys and value in {"medium", "low"}
+            for key, value in confidence_keys.items()
+        )
+        if low_confidence and "FEE_CONFIRMATION" in keys:
+            if other_uncertain:
+                fee_confirmation = verified.get("FEE_CONFIRMATION", ("", False, "medium", ""))[0]
+                rendered = rendered.replace(
+                    fee_confirmation,
+                    "Please confirm other details with the team; " + fee_confirmation,
+                )
+        elif low_confidence:
+            rendered = rendered.rstrip()
+            rendered += " Please confirm this on the official site or with the team."
         is_mock = bool(mock_keys)
         if is_mock:
             rendered = f"SAMPLE DATA — {rendered}"
         if len(rendered) > 500:
             errors.append(f"{prefix}: rendered answer is {len(rendered)} characters (maximum 500)")
 
-        if row.answer_hinglish:
+        rendered_hinglish: str | None = None
+        if not row.answer_hinglish or not row.answer_hinglish.strip():
+            errors.append(f"{prefix}: Hinglish answer is required")
+        else:
             if len(row.answer_hinglish) > 500:
                 errors.append(f"{prefix}: Hinglish answer exceeds 500 characters")
             if is_mock and "SAMPLE DATA" not in row.answer_hinglish:
                 errors.append(f"{prefix}: mock Hinglish answer must preserve SAMPLE DATA")
+            literal_hinglish = _row_literal(row.answer_hinglish)
+            for claim in CLAIM_WORDS:
+                if re.search(rf"(?<!\w){re.escape(claim)}(?!\w)", literal_hinglish, re.IGNORECASE):
+                    errors.append(f"{prefix}: Hinglish claim word {claim!r} must be supplied by a verified placeholder")
+            missing_hinglish = sorted(set(PLACEHOLDER_RE.findall(row.answer_hinglish)) - set(keys))
+            if missing_hinglish:
+                errors.append(f"{prefix}: Hinglish answer has unsupported placeholder(s): {', '.join(missing_hinglish)}")
+            hinglish_keys = set(PLACEHOLDER_RE.findall(row.answer_hinglish))
+            if hinglish_keys != set(keys):
+                errors.append(f"{prefix}: Hinglish answer must use the same placeholders as the English answer")
+            rendered_hinglish = row.answer_hinglish
+            for key in hinglish_keys:
+                value = (verified.get(key) or mock.get(key))
+                if value is not None:
+                    rendered_hinglish = re.sub(
+                        r"\{\{\s*" + re.escape(key) + r"\s*\}\}", value[3], rendered_hinglish
+                    )
+            if is_mock and "SAMPLE DATA" not in rendered_hinglish:
+                rendered_hinglish = f"SAMPLE DATA — {rendered_hinglish}"
+            if (
+                low_confidence
+                and "FEE_CONFIRMATION" not in hinglish_keys
+                and not re.search(r"\b(confirm|connect|sampark|verify|jude)\b", rendered_hinglish, re.IGNORECASE)
+            ):
+                rendered_hinglish = rendered_hinglish.rstrip() + " Team se confirm karein."
+            if len(rendered_hinglish) > 500:
+                errors.append(f"{prefix}: rendered Hinglish answer is {len(rendered_hinglish)} characters (maximum 500)")
         entries.append(
             BuiltEntry(
                 id=row.id,
@@ -183,7 +287,7 @@ def validate_and_render(
                 question=row.question,
                 answer_template=row.answer,
                 answer_rendered=rendered,
-                answer_hinglish=(row.answer_hinglish or "").strip() or None,
+                answer_hinglish=rendered_hinglish,
                 hinglish_variants=variants,
                 keywords=keywords,
                 risk_level=row.risk_level,
@@ -199,6 +303,8 @@ def validate_and_render(
         )
 
     for category in Category:
+        if category.value in {"payments_refunds", "certificates", "placement_support"}:
+            continue
         count = categories.get(category.value, 0)
         if count < 4:
             warnings.append(f"{category.value}: only {count} KB entries (recommended minimum: 4)")

@@ -34,12 +34,20 @@ class GuardRules:
         money = lost and self.matches("R4_ACCESS", t)
         hostile = sentiment == "angry" or (self.matches("R2", t) and not re.search(r"\bnot\s+(?:angry|furious|upset)\b", t, re.I))
         if self.matches("R3", t): return GuardResult("legal_threat", "P1", "escalate")
+        if self.matches("R12_DUPLICATE_PAYMENT", t):
+            return GuardResult("duplicate_payment", "P2", "kb_first_aid_ticket")
         if money: return GuardResult("payment_issue", "P1" if hostile else "P2", "kb_first_aid_ticket")
         if self.matches("R5", t) and (lost or hostile):
             return GuardResult("fraud_with_loss", "P1" if money else "P2", "escalate")
         if hostile: return GuardResult("anger", "P2", "escalate")
+        if self.matches("R15_ISTUDIO_PLUS", t):
+            return GuardResult("istudio_plus_human", "P3", "escalate")
         if self.matches("R6_ACTION", t): return GuardResult("refund_action", "P2", "escalate")
         if any(p.search(t) for p in _PII_PATTERNS): return GuardResult("sensitive_data", "P2", "warn")
+        if self.matches("R13_LOCATION_CONFLICT", t):
+            return GuardResult("location_conflict", "P3", "escalate")
+        if self.matches("R14_OUT_OF_SCOPE", t):
+            return GuardResult("out_of_scope", "P3", "escalate")
         if frustration_loop: return GuardResult("frustration_loop", "P3", "escalate")
         if unmatched_high_risk: return GuardResult("unmatched_high_risk", "P3", "escalate")
         if self.matches("R11", t) and not status_authorized:

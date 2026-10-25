@@ -65,8 +65,24 @@ def _source_payload(message: str, language: str, entries: list[dict[str, Any]], 
 def _fallback_text(entry: dict[str, Any], config: RagConfig, language: str = "English") -> str:
     localized = entry.get("answer_hinglish") if language == "Hinglish" else None
     reply = str(localized or entry["answer_rendered"]).strip()
-    if entry.get("handoff_offer") and "connect a team member" not in reply.casefold():
-        reply = reply.rstrip(". ") + ". I can connect a team member."
+    handoff_phrase = "I can connect a team member." if language != "Hinglish" else "Main aapko support team se connect kar sakta hoon."
+    if entry.get("handoff_offer") and not any(
+        token in reply.casefold()
+        for token in (
+            "connect a team member",
+            "support team se connect",
+            "human agent se connect",
+            "connect you with a human",
+        )
+    ):
+        fee_note = "fees can change, please confirm on the official site before paying"
+        fee_offset = reply.casefold().rfind(fee_note)
+        if fee_offset >= 0:
+            before = reply[:fee_offset].rstrip(". ")
+            suffix = reply[fee_offset:]
+            reply = before + ". " + handoff_phrase + " " + suffix
+        else:
+            reply = reply.rstrip(". ") + ". " + handoff_phrase
     if entry.get("is_mock") and config.sample_label_enabled and "SAMPLE DATA" not in reply:
         reply = "SAMPLE DATA — " + reply
     return reply[: int(config.decision.get("max_reply_chars", 600))]

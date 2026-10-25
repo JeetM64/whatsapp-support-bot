@@ -43,16 +43,20 @@ def test_loads_utf8_sig_and_hinglish_intact(tmp_path: Path) -> None:
     rows, errors = load_csv(path)
 
     assert errors == []
-    assert len(rows) == 33
+    assert len(rows) == 69
     assert "paisa cut gaya access nahi mila" in rows[12].hinglish_variants
 
 
 def test_verified_value_takes_precedence_and_clears_mock_flag(tmp_path: Path) -> None:
     root = copy_fixture(tmp_path)
     verified_path = root / "kb" / "verified_facts.yaml"
+    verified_data = yaml.safe_load(verified_path.read_text(encoding="utf-8"))
+    verified_data["verified_facts"]["placeholders"]["PROGRAM_TRACKS"] = {
+        "value": "Verified test track", "fact": "F7", "confidence": "high"
+    }
     verified_path.write_text(
         yaml.safe_dump(
-            {"verified_facts": {"PROGRAM_TRACKS": "Verified test track"}},
+            verified_data,
             allow_unicode=True,
             sort_keys=False,
         ),
@@ -64,7 +68,7 @@ def test_verified_value_takes_precedence_and_clears_mock_flag(tmp_path: Path) ->
     assert not result.errors
     track = next(entry for entry in result.entries if entry.id == "CAT-002")
     assert "Verified test track" in track.answer_rendered
-    assert track.facts_verified == ["PROGRAM_TRACKS"]
+    assert set(track.facts_verified) == {"DOMAIN_LIST_NOTE", "PROGRAM_TRACKS"}
     assert track.facts_mock == []
     assert track.is_mock is False
     assert not track.answer_rendered.startswith("SAMPLE DATA")
@@ -74,12 +78,12 @@ def test_missing_placeholder_key_is_an_error_with_row_id(tmp_path: Path) -> None
     root = copy_fixture(tmp_path)
     mock_path = root / "kb" / "mock_defaults.yaml"
     defaults = yaml.safe_load(mock_path.read_text(encoding="utf-8"))
-    defaults.pop("PROGRAM_OVERVIEW")
+    defaults.pop("PENDING_INFO")
     mock_path.write_text(yaml.safe_dump(defaults, sort_keys=False), encoding="utf-8")
 
     result = prepare_kb(root)
 
-    assert any("CAT-001: missing fact key(s): PROGRAM_OVERVIEW" in error for error in result.errors)
+    assert any("CAT-003: missing fact key(s): PENDING_INFO" in error for error in result.errors)
 
 
 def test_claim_lint_rejects_claim_in_literal_template(tmp_path: Path) -> None:
@@ -98,12 +102,12 @@ def test_rendered_answer_length_limit(tmp_path: Path) -> None:
     root = copy_fixture(tmp_path)
     mock_path = root / "kb" / "mock_defaults.yaml"
     defaults = yaml.safe_load(mock_path.read_text(encoding="utf-8"))
-    defaults["PROGRAM_FEE"]["value"] = "[MOCK] " + ("x" * 520)
+    defaults["PENDING_INFO"]["value"] = "x" * 520
     mock_path.write_text(yaml.safe_dump(defaults, sort_keys=False), encoding="utf-8")
 
     result = prepare_kb(root)
 
-    assert any("CAT-011: rendered answer is" in error for error in result.errors)
+    assert any("CAT-003: rendered answer is" in error for error in result.errors)
 
 
 def test_duplicate_ids_are_rejected(tmp_path: Path) -> None:
@@ -141,7 +145,7 @@ def test_build_is_deterministic(tmp_path: Path) -> None:
     assert result1.errors == result2.errors == []
     assert payload1 is not None and payload2 is not None
     assert first.read_bytes() == second.read_bytes()
-    assert len(payload1["entries"]) == 33
+    assert len(payload1["entries"]) == 69
 
 
 def test_report_counts_match_build_output(tmp_path: Path) -> None:
@@ -154,7 +158,73 @@ def test_report_counts_match_build_output(tmp_path: Path) -> None:
     report = render_report(payload)
     document = json.loads(destination.read_text(encoding="utf-8"))
     entries = document["entries"]
-    assert len(entries) == 33
-    assert "| program_info | 6 | 0 | 6 |" in report
-    assert sum(entry["is_mock"] for entry in entries) == 33
-    assert "PROGRAM_FEE" in report
+    assert len(entries) == 69
+    assert "| program_info | 8 |" in report
+    assert sum(entry["is_mock"] for entry in entries) == 31
+    assert "PENDING_INFO" in report
+
+
+def test_company_facts_are_sourced_and_mapped_without_unverified_answers() -> None:
+    source = yaml.safe_load((REPO_ROOT / "kb" / "verified_facts.yaml").read_text(encoding="utf-8"))
+    facts = source["verified_facts"]["facts"]
+    assert {fact["id"] for fact in facts} == {f"F{index}" for index in range(1, 18)}
+    assert all({"id", "text", "source", "retrieved", "confidence"} <= set(fact) for fact in facts)
+    assert source["verified_facts"]["policies"][0]["id"] == "P1"
+    result = prepare_kb(REPO_ROOT)
+    assert result.errors == []
+    assert len(result.entries) == 69
+    pending = next(entry for entry in result.entries if entry.id == "CAT-003")
+    assert pending.is_mock is True
+    assert pending.answer_rendered.startswith("SAMPLE DATA —")
+    assert pending.facts_mock == ["PENDING_INFO"]
+
+
+def test_fact_entry_without_usable_id_fails_with_entry_name(tmp_path: Path) -> None:
+    root = copy_fixture(tmp_path)
+    verified_path = root / "kb" / "verified_facts.yaml"
+    verified_data = yaml.safe_load(verified_path.read_text(encoding="utf-8"))
+    verified_data["verified_facts"]["facts"][0]["id"] = "  "
+    verified_path.write_text(
+        yaml.safe_dump(verified_data, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    result = prepare_kb(root)
+
+    assert any(
+        "fact entry #1 has missing or unusable id" in error
+        for error in result.errors
+    )
+
+
+def test_every_entry_requires_a_hinglish_answer(tmp_path: Path) -> None:
+    root = copy_fixture(tmp_path)
+    path = root / "kb" / "knowledge_base.csv"
+    fields, rows = read_csv_rows(path)
+    rows[0]["answer_hinglish"] = ""
+    write_csv_rows(path, fields, rows)
+
+    result = prepare_kb(root)
+
+    assert any("CAT-001: Hinglish answer is required" in error for error in result.errors)
+
+
+def test_medium_low_facts_get_confirmation_and_fees_end_with_required_note() -> None:
+    result = prepare_kb(REPO_ROOT)
+    assert result.errors == []
+    entries = {entry.id: entry for entry in result.entries}
+    assert "confirm" in entries["CAT-002"].answer_rendered.casefold()
+    assert "confirm" in entries["CAT-066"].answer_rendered.casefold()
+    required = "fees can change, please confirm on the official site before paying"
+    for entry_id in ("CAT-011", "CAT-041", "CAT-026"):
+        assert entries[entry_id].answer_rendered.rstrip(". ").endswith(required)
+
+
+def test_iso_claims_must_be_backed_by_a_verified_placeholder(tmp_path: Path) -> None:
+    root = copy_fixture(tmp_path)
+    path = root / "kb" / "knowledge_base.csv"
+    fields, rows = read_csv_rows(path)
+    rows[18]["answer"] = "The certificate is ISO verified. {{CERTIFICATE_STATUS}}."
+    write_csv_rows(path, fields, rows)
+    result = prepare_kb(root)
+    assert any("CAT-019: claim word 'ISO'" in error for error in result.errors)

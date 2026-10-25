@@ -12,8 +12,8 @@ retrieval:
   bm25_b: 0.75
   min_semantic_agreement: 0.3
 thresholds:
-  answer: 0.34
-  answer_high: 0.45
+  answer: 0.38
+  answer_high: 0.5
   low: 0.08
   margin: 0.0
   ground: 0.45
@@ -24,6 +24,7 @@ decision:
   show_sample_label: true
   max_reply_chars: 600
 provider:
+  llm_polish: false
   message_budget_seconds: 10
   hard_timeout_seconds: 8
   timeout_seconds: 8

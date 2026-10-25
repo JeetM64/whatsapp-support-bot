@@ -146,7 +146,9 @@ class RagEngine:
                     message,
                     language,
                     selected_entries,
-                    NoneProvider() if force_extractive else self.provider,
+                    NoneProvider()
+                    if force_extractive or not bool(self.config.provider.get("llm_polish", False))
+                    else self.provider,
                     self.config,
                     self.retriever.embedder,
                     deadline=deadline,

@@ -65,3 +65,67 @@ def test_payment_hinglish_first_aid_uses_rag_and_keeps_language(tmp_path):
     assert any("SAMPLE DATA" in part for part in result.messages)
     assert any("Paisa debit ho gaya hai" in part for part in result.messages)
 
+
+def test_refund_flow_clarifies_batch_and_persists_selection(tmp_path):
+    from types import SimpleNamespace
+
+    class RefundEngine:
+        def __init__(self):
+            self.calls = []
+            self.retriever = SimpleNamespace(entries={
+                "CAT-047": {"question": "Regular batch refund policy"},
+                "CAT-048": {"question": "Refund Guarantee Program conditions"},
+            }, retrieve=lambda text: None)
+            self.provider = NoneProvider()
+
+        def answer(self, text, **kwargs):
+            self.calls.append(text)
+            entry_id = "CAT-048" if "Guarantee Program" in text else "CAT-047"
+            return SimpleNamespace(
+                decision=SimpleNamespace(value="ANSWER"),
+                entries=[SimpleNamespace(id=entry_id, category="refunds", is_mock=False)],
+                reply=f"Policy for {entry_id}", language="English", confidence=0.9,
+                reason_code="test", degraded=False, latency_ms=1,
+                verifier=SimpleNamespace(passed=True), usage=SimpleNamespace(model_dump=lambda: {}),
+                estimated_cost_usd=0.0, timings_ms={}, mode="extractive",
+            )
+
+    now = datetime(2026, 10, 26, 12, tzinfo=ZoneInfo("Asia/Kolkata"))
+    store = Store(tmp_path, "test-secret")
+    engine = RefundEngine()
+    bot = Bot(Path(__file__).parents[1], engine=engine, store=store)
+    first = bot.handle_message("+919876500010", "I want a refund", "refund-1", "whatsapp", now)
+    assert "Regular batch or the Refund program batch?" in " ".join(first.messages)
+    assert engine.calls == []
+    sender_hash = store.sender_hash("+919876500010")
+    state = store.get_session(sender_hash, now)
+    assert state["pending_refund_batch"] is True
+    second = bot.handle_message("+919876500010", "Regular batch", "refund-2", "whatsapp", now)
+    assert engine.calls == ["I am in the Regular batch and want a refund. What is the policy?"]
+    state = store.get_session(sender_hash, now)
+    assert state["batch_type"] == "regular"
+    assert state["pending_refund_batch"] is False
+    assert engine.calls == ["I am in the Regular batch and want a refund. What is the policy?"]
+    assert any("Policy for CAT-047" in part for part in second.messages)
+
+
+def test_hinglish_refund_flow_clarifies_batch_in_hinglish(tmp_path):
+    bot = Bot(
+        Path(__file__).parents[1],
+        engine=None,
+        store=Store(tmp_path, "test-secret"),
+    )
+    result = bot.handle_message("demo-hinglish", "refund milega?", "refund-hi-1", "web")
+    assert any("aap Regular batch mein hain ya Refund program batch mein?" in part for part in result.messages)
+
+
+def test_duplicate_payment_creates_p2_ticket(tmp_path):
+    root = Path(__file__).parents[1]
+    engine = EngineSpy()
+    bot = Bot(root, engine=engine, store=Store(tmp_path, "test-secret"))
+    result = bot.handle_message("+919876500011", "I paid twice by mistake", "dup-1", "whatsapp")
+    assert result.ticket is not None
+    assert result.ticket["reason_code"] == "duplicate_payment"
+    assert result.ticket["priority"] == "P2"
+    assert engine.calls == [("I paid twice by mistake", {"force_extractive": True})]
+

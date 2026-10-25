@@ -1,94 +1,98 @@
 {
-  "content_hash": "68521253071e71335a3b3b3f5b49503d2d12e04bb3b9e87281e181154611e580",
+  "content_hash": "63ae3cbbc3f9eb046e4d886e674e80e0b6d2e83b69b6fa0419e20dc59c366bfe",
   "entries": [
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The program includes [MOCK] Sample skill-based internship program overview.. Review [MOCK] Sample learning materials and project activities. before deciding.",
-      "answer_template": "The program includes {{PROGRAM_OVERVIEW}}. Review {{PROGRAM_DELIVERABLES}} before deciding.",
+      "answer_hinglish": "iStudio program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai aur pehle training, uske baad internship ka mauka shamil hain.",
+      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. training followed by an internship opportunity.",
+      "answer_template": "{{PROGRAM_OVERVIEW}}. {{PROGRAM_DELIVERABLES}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
-      "facts_mock": [
-        "PROGRAM_DELIVERABLES",
-        "PROGRAM_OVERVIEW"
-      ],
+      "facts_mock": [],
       "facts_required": [
         "PROGRAM_DELIVERABLES",
         "PROGRAM_OVERVIEW"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "PROGRAM_DELIVERABLES",
+        "PROGRAM_OVERVIEW"
+      ],
       "handoff_offer": false,
       "hinglish_variants": [
-        "program kya hai",
-        "is program me kya milega",
-        "course ke andar kya hota hai"
+        "istudio program me kya hota hai",
+        "training aur internship kaise milti hai",
+        "iCAT qualify karne ke baad kya milta hai"
       ],
       "id": "CAT-001",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "program",
+        "training",
+        "internship",
         "overview",
-        "deliverables",
-        "course",
-        "kya",
-        "milega"
+        "iCAT"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
-      "question": "What is the program and what do I receive?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What does the Internship Studio program include?",
       "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Available tracks are [MOCK] Web Development; Data Analytics; Digital Marketing.. Tell me your preferred area and I can help you check it.",
-      "answer_template": "Available tracks are {{PROGRAM_TRACKS}}. Tell me your preferred area and I can help you check it.",
+      "answer_hinglish": "Domains: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java, Digital Marketing, Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning, RCC Structure Design, Software Testing, UI/UX Design, Website Design and Development, Human Resource, Finance, Video Editing, Graphic Design, Pharmaceutical, Psychology, International Business, DevOps. List badal sakti hai Team se confirm karein.",
+      "answer_rendered": "List: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java, Digital Marketing, Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning, RCC Structure Design, Software Testing, UI/UX Design, Website Design and Development, Human Resource, Finance, Video Editing, Graphic Design, Pharmaceutical, Psychology, International Business, and DevOps. The list can change. Please confirm this on the official site or with the team.",
+      "answer_template": "List: {{PROGRAM_TRACKS}}. {{DOMAIN_LIST_NOTE}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
-      "facts_mock": [
-        "PROGRAM_TRACKS"
-      ],
+      "facts_mock": [],
       "facts_required": [
+        "DOMAIN_LIST_NOTE",
         "PROGRAM_TRACKS"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "DOMAIN_LIST_NOTE",
+        "PROGRAM_TRACKS"
+      ],
       "handoff_offer": false,
       "hinglish_variants": [
-        "kaunse domains available hain",
-        "konsa track hai",
-        "kis field me internship hai"
+        "kaunse domains listed hain",
+        "kis kis field me training hai",
+        "domains ki list batao",
+        "which specializations can I choose",
+        "data analytics ka track choose kar sakte kya"
       ],
       "id": "CAT-002",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "domains",
         "tracks",
         "field",
-        "internship"
+        "skills",
+        "list",
+        "specializations",
+        "choose"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
-      "question": "Which domains or tracks are available?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Which domains are listed?",
       "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed duration is [MOCK] 6 weeks and the suggested weekly time is [MOCK] 5 hours. Check your schedule before enrolling.",
-      "answer_template": "The listed duration is {{PROGRAM_DURATION}} and the suggested weekly time is {{WEEKLY_TIME}}. Check your schedule before enrolling.",
+      "answer_hinglish": "SAMPLE DATA — Is detail ki abhi verified jaankari nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [
-        "PROGRAM_DURATION",
-        "WEEKLY_TIME"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "PROGRAM_DURATION",
-        "WEEKLY_TIME"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
-        "duration kitni hai",
-        "weekly kitna time dena padega",
-        "kitne weeks ka program hai"
+        "program kitne time ka hai",
+        "hafte me kitna time dena hoga",
+        "duration kya hai"
       ],
       "id": "CAT-003",
       "is_mock": true,
@@ -96,32 +100,32 @@
         "duration",
         "weekly",
         "time",
-        "weeks",
-        "commitment"
+        "schedule",
+        "weeks"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
-      "question": "How long is it and how much time should I plan each week?",
-      "risk_level": "low"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How long is the program and how much time should I plan each week?",
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The stated prerequisites are [MOCK] Beginner-friendly; no prior experience specified.. Share your background if you want help comparing it with the program.",
-      "answer_template": "The stated prerequisites are {{PRIOR_KNOWLEDGE}}. Share your background if you want help comparing it with the program.",
+      "answer_hinglish": "SAMPLE DATA — Prior knowledge ke baare mein verified jaankari nahi mili hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [
-        "PRIOR_KNOWLEDGE"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "PRIOR_KNOWLEDGE"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
-        "prior knowledge chahiye kya",
-        "beginner apply kar sakta hai",
-        "pehle se coding aani chahiye kya"
+        "beginner apply kar sakta hai kya",
+        "pehle se coding aani chahiye",
+        "prior knowledge zaroori hai kya"
       ],
       "id": "CAT-004",
       "is_mock": true,
@@ -129,63 +133,72 @@
         "prerequisite",
         "beginner",
         "knowledge",
-        "coding"
+        "coding",
+        "eligibility"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
       "question": "Do I need prior knowledge?",
-      "risk_level": "low"
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed eligibility is [MOCK] Students and freshers; eligible years and branches must be confirmed.. Check your year and branch against it before registering.",
-      "answer_template": "The listed eligibility is {{ELIGIBILITY_YEARS_BRANCHES}}. Check your year and branch against it before registering.",
+      "answer_hinglish": "iCAT eligibility ke liye iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility nahi hoti. Aapke course ya batch ki eligibility team se confirm kar lein.",
+      "answer_rendered": "iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible. For your specific course or batch, please confirm with the team.",
+      "answer_template": "{{ICAT_ELIGIBILITY}}. For your specific course or batch, please confirm with the team.",
       "category": "program_info",
       "escalate_if_unmatched": false,
-      "facts_mock": [
-        "ELIGIBILITY_YEARS_BRANCHES"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "ELIGIBILITY_YEARS_BRANCHES"
+        "ICAT_ELIGIBILITY"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "ICAT_ELIGIBILITY"
+      ],
       "handoff_offer": false,
       "hinglish_variants": [
-        "kaun apply kar sakta hai",
-        "btech kaunse year wale",
-        "meri branch eligible hai kya"
+        "kaun eligible hai",
+        "iCAT ke baad kaun join kar sakta hai",
+        "eligibility kya hai",
+        "do degree year and department matter",
+        "branch and year eligibility"
       ],
       "id": "CAT-005",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
+        "eligible",
         "eligibility",
+        "iCAT",
+        "qualify",
+        "join",
         "year",
-        "branch",
-        "apply"
+        "department",
+        "branch"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
-      "question": "Who can apply by year or branch?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Who is eligible to join?",
       "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed format is [MOCK] Online format; exact delivery method must be confirmed.. Review the format details before you enroll.",
-      "answer_template": "The listed format is {{ONLINE_MODE}}. Review the format details before you enroll.",
+      "answer_hinglish": "SAMPLE DATA — Training online hai ya kaise hoti hai, iski verified detail abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [
-        "ONLINE_MODE"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "ONLINE_MODE"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
-        "online hai kya",
+        "training online hai kya",
         "classes kaise hoti hain",
-        "ghar se kar sakte hain kya"
+        "ghar se kar sakte hain kya",
+        "are lessons remote or in person",
+        "remote ya in person training"
       ],
       "id": "CAT-006",
       "is_mock": true,
@@ -193,198 +206,224 @@
         "online",
         "format",
         "classes",
-        "mode"
+        "delivery",
+        "mode",
+        "remote",
+        "in-person"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Program Support",
-      "question": "Is the program online and how does it work?",
-      "risk_level": "low"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Is training online and how does it work?",
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Use these registration steps: [MOCK] Visit https://example.com/mock-register and follow the sample form.. Review each step before submitting your details.",
-      "answer_template": "Use these registration steps: {{REGISTRATION_STEPS}}. Review each step before submitting your details.",
+      "answer_hinglish": "SAMPLE DATA — Enroll karne ke steps abhi verified nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "enrolment",
       "escalate_if_unmatched": false,
       "facts_mock": [
-        "REGISTRATION_STEPS"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "REGISTRATION_STEPS"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
-        "register kaise karu",
-        "apply kaise karna hai",
-        "admission process kya hai"
+        "enroll kaise karu",
+        "admission kaise lena hai",
+        "registration process batao",
+        "where should I begin an application",
+        "application start kaise karu",
+        "regstration mein kaunse doc chahiye"
       ],
       "id": "CAT-007",
       "is_mock": true,
       "keywords": [
+        "enroll",
         "register",
-        "apply",
-        "enrolment",
-        "steps"
+        "admission",
+        "steps",
+        "batch",
+        "application",
+        "documents"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Enrolment Support",
-      "question": "How do I register?",
-      "risk_level": "low"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I enroll?",
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed requirements are [MOCK] Name, email, and academic details; confirm requirements before sharing.. Share only the information requested through [MOCK] No verified contact channel is configured..",
-      "answer_template": "The listed requirements are {{REGISTRATION_REQUIREMENTS}}. Share only the information requested through {{OFFICIAL_CONTACT_CHANNELS}}.",
+      "answer_hinglish": "SAMPLE DATA — Enrollment ke liye kaunse documents chahiye, ye detail verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "enrolment",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "REGISTRATION_REQUIREMENTS"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "REGISTRATION_REQUIREMENTS"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
         "kaunse documents chahiye",
-        "registration me kya details lagenge",
-        "kya upload karna padega"
+        "enrollment ke liye details kya du",
+        "documents list batao",
+        "regstration mein kaunse doc chahiye",
+        "which documents are required to register"
       ],
       "id": "CAT-008",
       "is_mock": true,
       "keywords": [
         "documents",
         "details",
+        "requirements",
+        "enroll",
+        "personal",
         "registration",
-        "requirements"
+        "doc"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Enrolment Support",
-      "question": "What details or documents are needed to register?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What details or documents do I need to enroll?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Listed batch dates are [MOCK] Sample batch date only; confirm the current schedule.. Check the current date before choosing a batch.",
-      "answer_template": "Listed batch dates are {{BATCH_START_DATES}}. Check the current date before choosing a batch.",
+      "answer_hinglish": "SAMPLE DATA — Agla batch kab shuru hoga, iski jaankari abhi verified nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "enrolment",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "BATCH_START_DATES"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "BATCH_START_DATES"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
         "next batch kab start hoga",
-        "start date kya hai",
-        "next batch ki date batao"
+        "batch date kya hai",
+        "naya batch kab hai",
+        "agla batch kis month se chalega"
       ],
       "id": "CAT-009",
       "is_mock": true,
       "keywords": [
         "batch",
         "start",
-        "dates",
-        "date"
+        "date",
+        "schedule",
+        "next",
+        "month"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Enrolment Support",
-      "question": "When do batches start?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "When does the next batch start?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The stated domain-change terms are [MOCK] Domain-change terms must be confirmed.. I can connect a team member if you need help with your enrolment.",
-      "answer_template": "The stated domain-change terms are {{DOMAIN_CHANGE_POLICY}}. I can connect a team member if you need help with your enrolment.",
+      "answer_hinglish": "SAMPLE DATA — Join karne ke baad domain badalne ka process verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "enrolment",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "DOMAIN_CHANGE_POLICY"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "DOMAIN_CHANGE_POLICY"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "join karne ke baad domain change hoga",
-        "track change kar sakte hain",
-        "domain switch allowed hai kya"
+        "join karne ke baad domain change kar sakte hain",
+        "domain switch kaise hoga",
+        "field change karna hai",
+        "can I move to another track once enrolled"
       ],
       "id": "CAT-010",
       "is_mock": true,
       "keywords": [
         "domain",
         "change",
-        "track",
         "switch",
-        "enrolment"
+        "field",
+        "batch",
+        "track",
+        "move"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Enrolment Support",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
       "question": "Can I change my domain after joining?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed fee is Rs [MOCK 999]. Check https://example.com/mock-payment before paying. I can connect a team member if needed.",
-      "answer_template": "The listed fee is {{PROGRAM_FEE}}. Check {{OFFICIAL_PAYMENT_PAGE}} before paying. I can connect a team member if needed.",
-      "category": "payments_refunds",
+      "answer_hinglish": "August 2026 ke iCAT page ke mutabik fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 di gayi hain. fees can change, please confirm on the official site before paying.",
+      "answer_rendered": "The supplied August 2026 iCAT page snapshot lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_template": "The supplied August 2026 iCAT page snapshot lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
+      "category": "fees_payments",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "OFFICIAL_PAYMENT_PAGE",
-        "PROGRAM_FEE"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "OFFICIAL_PAYMENT_PAGE",
-        "PROGRAM_FEE"
+        "FEE_CONFIRMATION",
+        "FEE_ICAT",
+        "FEE_REGULAR"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "FEE_CONFIRMATION",
+        "FEE_ICAT",
+        "FEE_REGULAR"
+      ],
       "handoff_offer": true,
       "hinglish_variants": [
         "fee kitni hai",
-        "total paisa kitna lagega",
-        "program ka charges kya hai"
+        "iCAT qualify hua to kitna pay karna hai",
+        "regular student ki fees kya hai",
+        "how much should I budget to join",
+        "internship ki total cost kaise pata karu"
       ],
       "id": "CAT-011",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "fee",
-        "price",
-        "charges",
-        "payment"
+        "fees",
+        "amount",
+        "iCAT",
+        "regular",
+        "payment",
+        "budget",
+        "cost"
       ],
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
-      "question": "What is the program fee?",
+      "question": "What are the listed program fees?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Listed payment methods are [MOCK] UPI or card; confirm accepted methods before paying.. Use https://example.com/mock-payment to confirm the payment route. I can connect a team member if needed.",
-      "answer_template": "Listed payment methods are {{PAYMENT_METHODS}}. Use {{OFFICIAL_PAYMENT_PAGE}} to confirm the payment route. I can connect a team member if needed.",
-      "category": "payments_refunds",
+      "answer_hinglish": "SAMPLE DATA — Kaunse payment methods accept hote hain, iski verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [
-        "OFFICIAL_PAYMENT_PAGE",
-        "PAYMENT_METHODS"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "OFFICIAL_PAYMENT_PAGE",
-        "PAYMENT_METHODS"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "payment kaise karu",
-        "kaunse payment options hain",
-        "UPI chalega kya"
+        "payment kis se kar sakte hain",
+        "UPI ya card chalta hai kya",
+        "payment methods batao",
+        "can I use UPI or a bank card",
+        "UPI or debit card accepted"
       ],
       "id": "CAT-012",
       "is_mock": true,
@@ -393,423 +432,451 @@
         "methods",
         "UPI",
         "card",
-        "options"
+        "options",
+        "bank",
+        "debit"
       ],
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
-      "question": "Which payment methods can I use?",
+      "question": "Which payment methods are accepted?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "SAMPLE DATA — Paisa debit ho gaya hai aur access nahi mil raha. Abhi dobara payment na karein. [MOCK] Transaction review ke liye team member se connect kar sakta hoon.",
-      "answer_rendered": "SAMPLE DATA — I am sorry the money was debited and access is missing. Do not pay again yet. [MOCK] I can connect a team member to review the transaction.",
-      "answer_template": "I am sorry the money was debited and access is missing. Do not pay again yet. {{PAYMENT_ESCALATION_OFFER}}",
-      "category": "payments_refunds",
+      "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Uske baad bhi update na ho, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "I understand this is worrying. The dashboard can take up to 24 hours to update after payment. If it is still missing after that, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand this is worrying. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing after that, {{PAYMENT_FOLLOWUP}}.",
+      "category": "fees_payments",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "PAYMENT_ESCALATION_OFFER"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "PAYMENT_ESCALATION_OFFER"
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
+      ],
       "handoff_offer": true,
       "hinglish_variants": [
         "paisa cut gaya access nahi mila",
-        "payment fail hua par paise kat gaye",
-        "amount debit ho gaya kya karu"
+        "paise cut gaye par access nahi aaya",
+        "payment fail hua amount debit ho gaya",
+        "transaction ke baad kya karu",
+        "transfer failed but my balance dropped",
+        "bank shows a debit but dashboard is empty",
+        "payment failed and money was deducted"
       ],
       "id": "CAT-013",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "payment",
-        "failed",
         "debited",
+        "failed",
         "access",
-        "transaction"
+        "dashboard",
+        "amount",
+        "transfer",
+        "balance",
+        "deducted",
+        "bank"
       ],
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
       "question": "My payment failed but money was debited. What should I do?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The receipt process is [MOCK] Sample receipt steps: contact support with the transaction reference.. Keep your transaction reference ready and I can connect a team member if needed.",
-      "answer_template": "The receipt process is {{RECEIPT_INVOICE_PROCESS}}. Keep your transaction reference ready and I can connect a team member if needed.",
-      "category": "payments_refunds",
+      "answer_hinglish": "Confirmation email aur spam folder check karein. 24 ghante baad bhi dashboard par payment na dikhe, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "Check your confirmation email and spam folder. If the dashboard still doesn't show payment after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "Check your confirmation email and spam folder. If the dashboard still doesn't show payment after 24 hours, {{PAYMENT_FOLLOWUP}}.",
+      "category": "fees_payments",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "RECEIPT_INVOICE_PROCESS"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "RECEIPT_INVOICE_PROCESS"
+        "PAYMENT_FOLLOWUP"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "PAYMENT_FOLLOWUP"
+      ],
       "handoff_offer": true,
       "hinglish_variants": [
-        "receipt kaise milegi",
-        "invoice chahiye",
-        "payment ki rasid kahan milegi"
+        "payment receipt kaise milegi",
+        "receipt email par nahi aayi",
+        "payment proof chahiye"
       ],
       "id": "CAT-014",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "receipt",
         "invoice",
-        "transaction",
-        "payment"
+        "payment",
+        "email",
+        "screenshot"
       ],
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
-      "question": "How do I get a receipt or invoice?",
+      "question": "How do I get a payment receipt?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed refund terms are [MOCK] Refund terms must be confirmed before payment.. I can connect a team member to review your case before you decide.",
-      "answer_template": "The listed refund terms are {{REFUND_POLICY}}. I can connect a team member to review your case before you decide.",
-      "category": "payments_refunds",
+      "answer_hinglish": "Jawab dene se pehle batayein: aap Regular batch mein hain ya Refund program batch mein?",
+      "answer_rendered": "Before I answer, are you in the Regular batch or the Refund program batch?",
+      "answer_template": "Before I answer, are you in the Regular batch or the Refund program batch?",
+      "category": "refunds",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "REFUND_POLICY"
-      ],
-      "facts_required": [
-        "REFUND_POLICY"
-      ],
+      "facts_mock": [],
+      "facts_required": [],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
+        "refund policy kya hai",
         "refund milega kya",
-        "paisa wapas kaise milega",
-        "refund policy kya hai"
+        "regular batch ya refund program batch"
       ],
       "id": "CAT-015",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "refund",
         "policy",
-        "money",
-        "back",
-        "cancellation"
+        "batch",
+        "regular",
+        "program"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Payments Support",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
       "question": "What is the refund policy?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Listed discounts and additional charges are [MOCK] Discounts and additional charges must be confirmed.. Confirm the final amount at https://example.com/mock-payment. I can connect a team member if unclear.",
-      "answer_template": "Listed discounts and additional charges are {{DISCOUNT_AND_CHARGES}}. Confirm the final amount at {{OFFICIAL_PAYMENT_PAGE}}. I can connect a team member if unclear.",
-      "category": "payments_refunds",
-      "escalate_if_unmatched": true,
+      "answer_hinglish": "SAMPLE DATA — Installment ya extra charges ki verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "fees_payments",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "DISCOUNT_AND_CHARGES",
-        "OFFICIAL_PAYMENT_PAGE"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "DISCOUNT_AND_CHARGES",
-        "OFFICIAL_PAYMENT_PAGE"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "discount code hai kya",
-        "extra charges lagenge kya",
-        "hidden fees toh nahi hain"
+        "installment mil sakta hai",
+        "extra charges hain kya",
+        "aur koi fees lagegi kya",
+        "will checkout show every extra cost",
+        "hidden costs or additional fee"
       ],
       "id": "CAT-016",
       "is_mock": true,
       "keywords": [
-        "discount",
+        "installments",
+        "additional",
         "charges",
-        "coupon",
+        "fees",
+        "payment",
         "hidden",
-        "fees"
+        "extra",
+        "cost"
       ],
-      "last_reviewed": "2026-10-24",
+      "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
-      "question": "Are there discount codes or hidden charges?",
-      "risk_level": "high"
+      "question": "Are there installments or any additional charges?",
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Certificate details are [MOCK] Certificate availability must be confirmed for the selected program.. I can connect a team member to confirm what applies to your enrolment.",
-      "answer_template": "Certificate details are {{CERTIFICATE_AVAILABILITY}}. I can connect a team member to confirm what applies to your enrolment.",
-      "category": "certificates",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "CERTIFICATE_AVAILABILITY"
-      ],
+      "answer_hinglish": "Certificate ke teen types hain: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai.",
+      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project.",
+      "answer_template": "{{CERTIFICATE_TYPES}}.",
+      "category": "certificates_offer_letter",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_AVAILABILITY"
+        "CERTIFICATE_TYPES"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "CERTIFICATE_TYPES"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
-        "certificate milega kya",
-        "internship ke baad certificate milega",
-        "certificate denge na"
+        "kitne certificates milte hain",
+        "kaun kaun se certificate hain",
+        "training certificate milega kya"
       ],
       "id": "CAT-017",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "certificate",
-        "availability",
-        "completion",
-        "issuance"
+        "types",
+        "iCAT",
+        "training",
+        "internship"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Certificate Support",
-      "question": "Will I receive a certificate?",
-      "risk_level": "high"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How many certificate types are there?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed completion requirements are [MOCK] Completion conditions must be confirmed.. Check them before starting and I can connect a team member if you need clarification.",
-      "answer_template": "The listed completion requirements are {{CERTIFICATE_REQUIREMENTS}}. Check them before starting and I can connect a team member if you need clarification.",
-      "category": "certificates",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "CERTIFICATE_REQUIREMENTS"
-      ],
+      "answer_hinglish": "iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai.",
+      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. The Internship certificate follows mentor review and project approval.",
+      "answer_template": "{{CERTIFICATE_TYPES}}. The Internship certificate follows mentor review and project approval.",
+      "category": "certificates_offer_letter",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_REQUIREMENTS"
+        "CERTIFICATE_TYPES"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "CERTIFICATE_TYPES"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
-        "certificate ke liye kya karna padega",
-        "project submit karna hai kya",
-        "completion criteria kya hai"
+        "internship certificate ke liye kya karna hoga",
+        "project submit karne ke baad certificate milega",
+        "certificate condition kya hai"
       ],
       "id": "CAT-018",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "certificate",
         "requirements",
         "project",
-        "completion"
+        "mentor",
+        "approval"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Certificate Support",
-      "question": "What do I need to do to earn a certificate?",
-      "risk_level": "high"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What do I need to complete for an Internship certificate?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Use the listed verification steps: [MOCK] Sample verification steps are not a real verification service.. I can connect a team member to help you check a specific certificate.",
-      "answer_template": "Use the listed verification steps: {{CERTIFICATE_VERIFICATION_STEPS}}. I can connect a team member to help you check a specific certificate.",
-      "category": "certificates",
+      "answer_hinglish": "Certificate status ke baare mein iStudio ke mutabik certificates ISO se verified hain. Accreditation ke baare mein Diye gaye sources mein AICTE, UGC ya NSDC recognition ki pushti nahi hai; main aapko human agent se connect kar sakta hoon.",
+      "answer_rendered": "iStudio describes the certificates as ISO-verified. The supplied sources provide no information confirming AICTE, UGC, or NSDC recognition; I can connect you with a human. Please confirm this on the official site or with the team.",
+      "answer_template": "{{CERTIFICATE_STATUS}}. {{ACCREDITATION_INFO}}.",
+      "category": "certificates_offer_letter",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "CERTIFICATE_VERIFICATION_STEPS"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_VERIFICATION_STEPS"
+        "ACCREDITATION_INFO",
+        "CERTIFICATE_STATUS"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "ACCREDITATION_INFO",
+        "CERTIFICATE_STATUS"
+      ],
       "handoff_offer": true,
       "hinglish_variants": [
-        "certificate verify kaise kare",
-        "certificate valid hai kya",
-        "certificate asli hai kaise pata chale"
+        "certificate ISO verified hai",
+        "AICTE approved hai kya",
+        "UGC ya NSDC recognition hai kya"
       ],
       "id": "CAT-019",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "certificate",
-        "verify",
-        "validity",
-        "verification"
+        "ISO",
+        "AICTE",
+        "UGC",
+        "NSDC",
+        "verified"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Certificate Support",
-      "question": "How can I verify a certificate?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Are the certificates ISO-verified or AICTE/UGC approved?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Letter details are [MOCK] Letter terms must be confirmed; no offer is promised.. I can connect a team member to confirm what applies.",
-      "answer_template": "Letter details are {{OFFER_RECOMMENDATION_LETTER_POLICY}}. I can connect a team member to confirm what applies.",
-      "category": "certificates",
-      "escalate_if_unmatched": true,
+      "answer_hinglish": "SAMPLE DATA — Offer letter download aur duration badalne ki jaankari verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "certificates_offer_letter",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "OFFER_RECOMMENDATION_LETTER_POLICY"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "OFFER_RECOMMENDATION_LETTER_POLICY"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "offer letter milega kya",
-        "recommendation letter denge",
-        "internship letter kab milega"
+        "offer letter kab milega",
+        "offer letter download kaise hoga",
+        "duration change kar sakte hain",
+        "recommendation letter kaise milega",
+        "do participants get an offer letter"
       ],
       "id": "CAT-020",
       "is_mock": true,
       "keywords": [
         "offer",
-        "recommendation",
         "letter",
-        "policy"
+        "download",
+        "duration",
+        "change",
+        "recommendation"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Certificate Support",
-      "question": "Will I get an offer or recommendation letter?",
-      "risk_level": "high"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "When can I download an offer letter, and can its duration be changed?",
+      "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — I am sorry about the certificate issue. The correction process is [MOCK] Correction steps and timelines must be confirmed.. I can connect a team member to review it.",
-      "answer_template": "I am sorry about the certificate issue. The correction process is {{CERTIFICATE_CORRECTION_PROCESS}}. I can connect a team member to review it.",
-      "category": "certificates",
-      "escalate_if_unmatched": true,
+      "answer_hinglish": "SAMPLE DATA — Certificate delay ya naam sudharne ke liye verified steps abhi nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "certificates_offer_letter",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "CERTIFICATE_CORRECTION_PROCESS"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "CERTIFICATE_CORRECTION_PROCESS"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
         "certificate late hai",
-        "naam galat hai certificate par",
-        "certificate correction kaise hoga"
+        "certificate me naam galat hai",
+        "certificate correction kaise karu"
       ],
       "id": "CAT-021",
       "is_mock": true,
       "keywords": [
         "certificate",
         "delay",
+        "wrong",
         "name",
-        "correction",
-        "support"
+        "correction"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Certificate Support",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
       "question": "My certificate is delayed or has the wrong name. What should I do?",
-      "risk_level": "high"
-    },
-    {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Use these sign-in steps: [MOCK] Use https://example.com/mock-password-reset; sample link only.. Do not share your password or one-time code here.",
-      "answer_template": "Use these sign-in steps: {{PASSWORD_RESET_STEPS}}. Do not share your password or one-time code here.",
-      "category": "technical_access",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "PASSWORD_RESET_STEPS"
-      ],
-      "facts_required": [
-        "PASSWORD_RESET_STEPS"
-      ],
-      "facts_verified": [],
-      "handoff_offer": true,
-      "hinglish_variants": [
-        "login nahi ho raha",
-        "password reset kaise karu",
-        "LMS me sign in nahi ho pa raha"
-      ],
-      "id": "CAT-022",
-      "is_mock": true,
-      "keywords": [
-        "login",
-        "password",
-        "reset",
-        "LMS",
-        "access"
-      ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Technical Support",
-      "question": "I cannot log in or need to reset my password.",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — I am sorry you are still unable to access it. Try [MOCK] Sample check: wait briefly, then ask support to review the transaction. and do not send payment details here. I can connect a team member.",
-      "answer_template": "I am sorry you are still unable to access it. Try {{ACCESS_AFTER_PAYMENT_STEPS}} and do not send payment details here. I can connect a team member.",
+      "answer_hinglish": "Password reset ke liye ye page kholein: diya gaya password reset page: https://cit2.internshipstudio.com/login/forgot_password.php. Kaam na kare toh support team se sampark karein.",
+      "answer_rendered": "Use the supplied password-reset page: https://cit2.internshipstudio.com/login/forgot_password.php. If it doesn't work, contact the support team. Please confirm this on the official site or with the team.",
+      "answer_template": "Use the supplied password-reset page: {{PASSWORD_RESET_URL}}. If it doesn't work, contact the support team.",
       "category": "technical_access",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "ACCESS_AFTER_PAYMENT_STEPS"
-      ],
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "ACCESS_AFTER_PAYMENT_STEPS"
+        "PASSWORD_RESET_URL"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "PASSWORD_RESET_URL"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
-        "payment ke baad access nahi aaya",
-        "paisa cut gaya login nahi ho raha",
-        "access issue after payment"
+        "password reset kaise karu",
+        "login password bhool gaya",
+        "password change link do",
+        "passwrd bhool gaya reset ka tarika batao"
       ],
-      "id": "CAT-023",
-      "is_mock": true,
+      "id": "CAT-022",
+      "is_mock": false,
       "keywords": [
-        "access",
-        "payment",
+        "password",
+        "reset",
         "login",
-        "transaction"
+        "forgot",
+        "access",
+        "passwrd"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Technical Support",
-      "question": "I paid but still cannot access the program.",
-      "risk_level": "high"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I reset my password?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed project steps are [MOCK] Submission format and location must be confirmed.. I can connect a team member if the submission page gives an error.",
-      "answer_template": "The listed project steps are {{PROJECT_SUBMISSION_GUIDELINES}}. I can connect a team member if the submission page gives an error.",
+      "answer_hinglish": "Samajh sakta hoon, ye pareshaan karne wala hai. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Confirmation email ka spam folder bhi dekhein. 24 ghante baad bhi access na aaye, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "I understand this is concerning. The dashboard can take up to 24 hours to update after payment. Check spam for the confirmation email. If access is still missing after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand this is concerning. {{PAYMENT_DASHBOARD_WAIT}}. Check spam for the confirmation email. If access is still missing after 24 hours, {{PAYMENT_FOLLOWUP}}.",
       "category": "technical_access",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
+      ],
+      "facts_verified": [
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "payment ke baad dashboard access nahi",
+        "paise diye par login nahi ho raha",
+        "access kab aayega"
+      ],
+      "id": "CAT-023",
+      "is_mock": false,
+      "keywords": [
+        "payment",
+        "dashboard",
+        "access",
+        "login",
+        "24 hours"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I paid but still cannot access the dashboard. What should I do?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Project submit karne ka tareeka verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "projects_assignments",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "PROJECT_SUBMISSION_GUIDELINES"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "PROJECT_SUBMISSION_GUIDELINES"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "project submit kaise karna hai",
-        "assignment upload kahan karu",
-        "project submission steps"
+        "project submit kahan karna hai",
+        "internship project kaise bheju",
+        "submission format kya hai"
       ],
       "id": "CAT-024",
       "is_mock": true,
       "keywords": [
         "project",
         "submit",
-        "assignment",
-        "upload",
-        "guidelines"
+        "submission",
+        "format",
+        "mentor"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Technical Support",
-      "question": "How do I submit a project?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I submit my internship project?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Try the listed checks: [MOCK] Check your connection and retry; exact platform steps must be confirmed.. If it still does not load I can connect a team member.",
-      "answer_template": "Try the listed checks: {{CONTENT_TROUBLESHOOTING}}. If it still does not load I can connect a team member.",
+      "answer_hinglish": "SAMPLE DATA — Videos ya training content load na ho toh kya karein, ye verified nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
       "category": "technical_access",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "CONTENT_TROUBLESHOOTING"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "CONTENT_TROUBLESHOOTING"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
         "video load nahi ho raha",
-        "content open nahi ho raha",
-        "class ka video nahi chal raha"
+        "training content nahi khul raha",
+        "portal issue kaise solve karu"
       ],
       "id": "CAT-025",
       "is_mock": true,
@@ -817,280 +884,1523 @@
         "video",
         "content",
         "loading",
-        "troubleshooting"
+        "portal",
+        "technical"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Technical Support",
-      "question": "Videos or content are not loading. What can I try?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Videos or training content are not loading. What can I try?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — I cannot confirm that from this chat. Compare the details with https://example.com/mock-verify before paying. I can connect a team member.",
-      "answer_template": "I cannot confirm that from this chat. Compare the details with {{OFFICIAL_SITE_URL}} before paying. I can connect a team member.",
+      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein fees can change, please confirm on the official site before paying.",
+      "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship is free; the fee covers training. No stipend. Placement assistance only; no outcome guaranteed. Cancellations are non-refundable except duplicate-payment requests within 7 days. Outside-site payment? Confirm with support. Never share OTP or card details here. Please confirm other details with the team; fees can change, please confirm on the official site before paying",
+      "answer_template": "{{CONTACT_CHANNELS}}. {{INTERNSHIP_FEE_NOTE}}. {{NO_STIPEND_INFO}}. {{PLACEMENT_POSITION}}. {{REFUND_STANDARD}}. {{SAFE_PAYMENT_NOTE}} {{FEE_CONFIRMATION}}",
       "category": "trust_verification",
       "escalate_if_unmatched": true,
-      "facts_mock": [
-        "OFFICIAL_SITE_URL"
-      ],
+      "facts_mock": [],
       "facts_required": [
-        "OFFICIAL_SITE_URL"
+        "CONTACT_CHANNELS",
+        "FEE_CONFIRMATION",
+        "INTERNSHIP_FEE_NOTE",
+        "NO_STIPEND_INFO",
+        "PLACEMENT_POSITION",
+        "REFUND_STANDARD",
+        "SAFE_PAYMENT_NOTE"
       ],
-      "facts_verified": [],
+      "facts_verified": [
+        "CONTACT_CHANNELS",
+        "FEE_CONFIRMATION",
+        "INTERNSHIP_FEE_NOTE",
+        "NO_STIPEND_INFO",
+        "PLACEMENT_POSITION",
+        "REFUND_STANDARD",
+        "SAFE_PAYMENT_NOTE"
+      ],
       "handoff_offer": true,
       "hinglish_variants": [
-        "ye genuine hai kya",
-        "legit kaise check karu",
-        "fake internship toh nahi hai"
+        "istudio genuine hai kya",
+        "scam to nahi hai",
+        "paise safe hain kya"
       ],
       "id": "CAT-026",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
-        "trust",
         "genuine",
+        "scam",
         "verify",
-        "legit",
-        "scam"
+        "official",
+        "safety"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Trust Support",
-      "question": "Is this genuine and how can I verify it?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Is Internship Studio genuine, or could this be a scam?",
       "risk_level": "high"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed website and contact channels are https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. Verify these details before sharing information. I can connect a team member.",
-      "answer_template": "The listed website and contact channels are {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. Verify these details before sharing information. I can connect a team member.",
+      "answer_hinglish": "Official contact details: internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Support hours: samay 11 AM se 7 PM tak; working days nahi diye gaye hain. Kaunse din support milta hai, team se confirm karein.",
+      "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. 11 AM-7 PM; the operating days are not stated. Please confirm the operating days with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "{{CONTACT_CHANNELS}}. {{SUPPORT_HOURS}}. Please confirm the operating days with the team.",
       "category": "trust_verification",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "OFFICIAL_SITE_URL"
-      ],
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "OFFICIAL_SITE_URL"
+        "CONTACT_CHANNELS",
+        "SUPPORT_HOURS"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "CONTACT_CHANNELS",
+        "SUPPORT_HOURS"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
         "official website kya hai",
-        "contact kaise karu",
-        "asli contact details bhejo"
+        "support email aur number do",
+        "contact kaise karu"
       ],
       "id": "CAT-027",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "official",
         "website",
+        "email",
+        "phone",
         "contact",
-        "channels",
-        "verify"
+        "hours"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Trust Support",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
       "question": "What are the official website and contact channels?",
-      "risk_level": "high"
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Compare any payment request with [MOCK] No verified payment channel is configured. before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
-      "answer_template": "Compare any payment request with {{OFFICIAL_PAYMENT_CHANNELS}} before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
+      "answer_hinglish": "Official site ke bahar payment? Support se verify karein. OTP/card details share na karein. Is request ko verify karne ke liye main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "Outside-site payment? Confirm with support. Never share OTP or card details here.. I can connect you with the support team to verify the request.",
+      "answer_template": "{{SAFE_PAYMENT_NOTE}}. I can connect you with the support team to verify the request.",
       "category": "trust_verification",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "OFFICIAL_PAYMENT_CHANNELS"
-      ],
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "OFFICIAL_PAYMENT_CHANNELS"
+        "SAFE_PAYMENT_NOTE"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "SAFE_PAYMENT_NOTE"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
-        "personal UPI par paisa bheju kya",
-        "official website ke bahar payment karna hai",
-        "personal number pe paise maang rahe hain"
+        "official site ke bahar payment maanga",
+        "personal UPI par pay karu kya",
+        "payment link verify karo"
       ],
       "id": "CAT-028",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
+        "outside",
+        "payment",
         "personal",
         "UPI",
-        "official",
-        "payment",
-        "scam"
-      ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Trust Support",
-      "question": "Do you ask for money outside the official website or to a personal UPI or number?",
-      "risk_level": "high"
-    },
-    {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — I cannot confirm whether the organizations are connected. Compare their details with https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. I can connect a team member.",
-      "answer_template": "I cannot confirm whether the organizations are connected. Compare their details with {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. I can connect a team member.",
-      "category": "trust_verification",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "OFFICIAL_SITE_URL"
-      ],
-      "facts_required": [
-        "OFFICIAL_CONTACT_CHANNELS",
-        "OFFICIAL_SITE_URL"
-      ],
-      "facts_verified": [],
-      "handoff_offer": true,
-      "hinglish_variants": [
-        "same company hai kya",
-        "similar naam wali company se relation hai",
-        "iStudio Technologies aap hi ho kya"
-      ],
-      "id": "CAT-029",
-      "is_mock": true,
-      "keywords": [
-        "similar",
-        "name",
-        "company",
-        "identity",
         "verify"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Trust Support",
-      "question": "Are you the same as another company with a similar name?",
-      "risk_level": "high"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Someone asked me to pay outside the official site. Is that safe?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed career-support scope is [MOCK] Career support scope must be confirmed; no job outcome is promised.. I can connect a team member if you need details for a specific program.",
-      "answer_template": "The listed career-support scope is {{CAREER_SUPPORT_SCOPE}}. I can connect a team member if you need details for a specific program.",
-      "category": "placement_support",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "CAREER_SUPPORT_SCOPE"
-      ],
+      "answer_hinglish": "Main doosri companies ke baare mein nahi keh sakta. internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Kisi message ko verify karna ho toh main team se connect kar sakta hoon.",
+      "answer_rendered": "I can't speak for other companies. https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. I can connect you with the team if you need help checking a specific message. Please confirm this on the official site or with the team.",
+      "answer_template": "I can't speak for other companies. {{CONTACT_CHANNELS}}. I can connect you with the team if you need help checking a specific message.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "CAREER_SUPPORT_SCOPE"
+        "CONTACT_CHANNELS"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "CONTACT_CHANNELS"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
-        "placement assistance milegi kya",
-        "job support hai kya",
-        "internship ke baad placement milega"
+        "iStudio Technologies same company hai kya",
+        "doosri company se relation hai kya",
+        "naam same hai kya"
+      ],
+      "id": "CAT-029",
+      "is_mock": false,
+      "keywords": [
+        "iStudio",
+        "Technologies",
+        "company",
+        "similar",
+        "identity"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Are you iStudio Technologies or the same as another company?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Placement assistance hai, outcome guarantee nahi. iStudio Plus Digital Marketing aur Robotics ke baare mein diye gaye sources mein alag wording hai; iStudio Plus Digital Marketing aur Robotics ke placement guarantee par sources mein alag wording hai; applicable terms team se confirm karne honge.",
+      "answer_rendered": "Placement assistance only; no outcome guaranteed. iStudio Plus Digital Marketing and Robotics questions have conflicting wording in supplied sources; iStudio Plus Digital Marketing and Robotics questions have conflicting placement-guarantee wording in supplied sources; a human should confirm the applicable terms. Please confirm this on the official site or with the team.",
+      "answer_template": "{{PLACEMENT_POSITION}}. iStudio Plus Digital Marketing and Robotics questions have conflicting wording in supplied sources; {{ISTUDIO_PLUS_NOTE}}.",
+      "category": "placement_hiring",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "ISTUDIO_PLUS_NOTE",
+        "PLACEMENT_POSITION"
+      ],
+      "facts_verified": [
+        "ISTUDIO_PLUS_NOTE",
+        "PLACEMENT_POSITION"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "placement guarantee hai kya",
+        "job pakki hai kya",
+        "placement assistance milti hai kya"
       ],
       "id": "CAT-030",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "placement",
-        "career",
+        "guarantee",
+        "assistance",
         "job",
-        "assistance"
+        "iStudio Plus"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Career Support",
-      "question": "What placement or job assistance is included?",
-      "risk_level": "medium"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Is placement guaranteed, or is placement assistance provided?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — Listed support hours and contact steps are [MOCK] Support hours must be confirmed. and [MOCK] Use https://example.com/mock-support; sample link only.. I can connect a team member.",
-      "answer_template": "Listed support hours and contact steps are {{SUPPORT_HOURS}} and {{HUMAN_CONTACT_CHANNEL}}. I can connect a team member.",
-      "category": "placement_support",
-      "escalate_if_unmatched": true,
-      "facts_mock": [
-        "HUMAN_CONTACT_CHANNEL",
-        "SUPPORT_HOURS"
-      ],
+      "answer_hinglish": "Team se email contact@internshipstudio.com ya phone 7507869003 par sampark karein. samay 11 AM se 7 PM tak; working days nahi diye gaye hain. Support ke din diye nahi gaye, team se confirm karein.",
+      "answer_rendered": "You can reach the team at contact@internshipstudio.com or 7507869003. 11 AM-7 PM; the operating days are not stated; operating days are not stated, so please confirm them with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "You can reach the team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}. {{SUPPORT_HOURS}}; operating days are not stated, so please confirm them with the team.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
       "facts_required": [
-        "HUMAN_CONTACT_CHANNEL",
-        "SUPPORT_HOURS"
+        "SUPPORT_EMAIL",
+        "SUPPORT_HOURS",
+        "SUPPORT_PHONE"
       ],
-      "facts_verified": [],
-      "handoff_offer": true,
+      "facts_verified": [
+        "SUPPORT_EMAIL",
+        "SUPPORT_HOURS",
+        "SUPPORT_PHONE"
+      ],
+      "handoff_offer": false,
       "hinglish_variants": [
         "support kab available hai",
-        "human se baat karni hai",
-        "agent se connect karo"
+        "human se kaise baat karu",
+        "support number kya hai"
       ],
       "id": "CAT-031",
-      "is_mock": true,
+      "is_mock": false,
       "keywords": [
         "support",
         "hours",
         "human",
-        "contact",
-        "agent"
+        "email",
+        "phone"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Support Lead",
-      "question": "What are support hours and how do I reach a person?",
-      "risk_level": "medium"
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What are support hours and how can I reach a person?",
+      "risk_level": "low"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
-      "answer_template": "The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
-      "category": "placement_support",
-      "escalate_if_unmatched": true,
+      "answer_hinglish": "SAMPLE DATA — Support ke jawab mein deri ho toh agla step verified nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "trust_verification",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "FOLLOWUP_SLA"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "FOLLOWUP_SLA"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "reply nahi aaya kya karu",
-        "response kab milega",
-        "support ne reply nahi kiya"
+        "support ne reply nahi diya",
+        "response ka wait kar raha hu",
+        "follow up kaise karu"
       ],
       "id": "CAT-032",
       "is_mock": true,
       "keywords": [
+        "support",
         "reply",
-        "followup",
         "response",
-        "SLA"
+        "followup",
+        "wait"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Support Lead",
-      "question": "What should I do if I do not hear back?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I contacted support but haven't heard back. What should I do?",
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": null,
-      "answer_rendered": "SAMPLE DATA — I am sorry you have not heard back. The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
-      "answer_template": "I am sorry you have not heard back. The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
-      "category": "placement_support",
-      "escalate_if_unmatched": true,
+      "answer_hinglish": "Samajh sakta hoon, jawab na milna pareshaan kar sakta hai. Confirmation email aur spam folder dekhein. 24 ghante baad bhi dashboard par payment na dikhe, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "I understand this is worrying. Check spam for the confirmation email. If the dashboard still doesn't show payment after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand this is worrying. Check spam for the confirmation email. If the dashboard still doesn't show payment after 24 hours, {{PAYMENT_FOLLOWUP}}.",
+      "category": "fees_payments",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "PAYMENT_FOLLOWUP"
+      ],
+      "facts_verified": [
+        "PAYMENT_FOLLOWUP"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "payment kar diya par reply nahi aaya",
+        "paise diye koi response nahi",
+        "payment followup chahiye"
+      ],
+      "id": "CAT-033",
+      "is_mock": false,
+      "keywords": [
+        "paid",
+        "reply",
+        "response",
+        "payment",
+        "followup"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "I paid but nobody replied. What should I do?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "iCAT ke baare mein: iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. Iske liye eligibility: iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility nahi hoti.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible.",
+      "answer_template": "{{ICAT_NAME}}. {{ICAT_ELIGIBILITY}}.",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "ICAT_ELIGIBILITY",
+        "ICAT_NAME"
+      ],
+      "facts_verified": [
+        "ICAT_ELIGIBILITY",
+        "ICAT_NAME"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "icat kya hai",
+        "iCAT test ka full form kya hai",
+        "internship common aptitude test kya hota hai"
+      ],
+      "id": "CAT-034",
+      "is_mock": false,
+      "keywords": [
+        "iCAT",
+        "test",
+        "aptitude",
+        "fullform",
+        "Internship Common"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What is iCAT?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "iCAT ke baad eligibility: iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility nahi hoti.",
+      "answer_rendered": "iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible.",
+      "answer_template": "{{ICAT_ELIGIBILITY}}.",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "ICAT_ELIGIBILITY"
+      ],
+      "facts_verified": [
+        "ICAT_ELIGIBILITY"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "icat qualify karne par eligible hote hain kya",
+        "iCAT ke baad kya eligibility hai",
+        "exam dena zaroori hai kya"
+      ],
+      "id": "CAT-035",
+      "is_mock": false,
+      "keywords": [
+        "iCAT",
+        "eligible",
+        "qualify",
+        "attempt",
+        "eligibility"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Who is eligible after the iCAT?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — iCAT ID, password ya exam link paane ke verified steps abhi nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
       "facts_mock": [
-        "FOLLOWUP_SLA"
+        "PENDING_INFO"
       ],
       "facts_required": [
-        "FOLLOWUP_SLA"
+        "PENDING_INFO"
       ],
       "facts_verified": [],
       "handoff_offer": true,
       "hinglish_variants": [
-        "apply kiya reply nahi aaya",
-        "fee bhar di response nahi mila",
-        "support ne jawab nahi diya"
+        "icat id password kahan milega",
+        "exam link nahi aaya",
+        "iCAT login kaise karu"
       ],
-      "id": "CAT-033",
+      "id": "CAT-036",
       "is_mock": true,
       "keywords": [
-        "application",
-        "payment",
-        "reply",
-        "response",
-        "follow-up"
+        "iCAT",
+        "ID",
+        "password",
+        "exam",
+        "link"
       ],
-      "last_reviewed": "2026-10-24",
-      "owner": "Support Lead",
-      "question": "I applied or paid but nobody replied. What should I do?",
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I get my iCAT ID, password, or exam link?",
       "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — iCAT qualifying marks aur syllabus ki verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "icat pass marks kitne hain",
+        "iCAT syllabus kya hai",
+        "qualify karne ke liye kitna score chahiye"
+      ],
+      "id": "CAT-037",
+      "is_mock": true,
+      "keywords": [
+        "iCAT",
+        "marks",
+        "syllabus",
+        "score",
+        "qualify"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What are the iCAT qualifying marks and syllabus?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — iCAT kab shuru karein aur exam link kahan milega, ye verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "icat exam kab start hoga",
+        "exam link kahan hai",
+        "test timing kya hai"
+      ],
+      "id": "CAT-038",
+      "is_mock": true,
+      "keywords": [
+        "iCAT",
+        "start",
+        "exam",
+        "link",
+        "timing"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "When can I start the iCAT and where is the exam link?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — iCAT miss ho jaaye ya qualify na ho, toh aage kya hoga, ye detail verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "icat miss ho gaya",
+        "qualify nahi hua to kya hoga",
+        "exam nahi diya ab kya karu"
+      ],
+      "id": "CAT-039",
+      "is_mock": true,
+      "keywords": [
+        "iCAT",
+        "missed",
+        "qualify",
+        "result",
+        "next"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I missed the iCAT or did not qualify. What happens next?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — iCAT ke dauraan technical problem ke liye verified steps abhi nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "icat_test",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "icat exam me technical issue hua",
+        "test beech me ruk gaya",
+        "exam problem kaise report karu",
+        "online test stopped working halfway",
+        "exam crashed during the test"
+      ],
+      "id": "CAT-040",
+      "is_mock": true,
+      "keywords": [
+        "iCAT",
+        "technical",
+        "issue",
+        "exam",
+        "support",
+        "online",
+        "stopped",
+        "halfway",
+        "crashed"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I had a technical issue during the iCAT. What should I do?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "Internship free hai; fee training ke liye hai. August 2026 ke diye gaye page par fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 hain. fees can change, please confirm on the official site before paying.",
+      "answer_rendered": "Internship is free; the fee covers training. The supplied August 2026 page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_template": "{{INTERNSHIP_FEE_NOTE}}. The supplied August 2026 page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
+      "category": "fees_payments",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "FEE_CONFIRMATION",
+        "FEE_ICAT",
+        "FEE_REGULAR",
+        "INTERNSHIP_FEE_NOTE"
+      ],
+      "facts_verified": [
+        "FEE_CONFIRMATION",
+        "FEE_ICAT",
+        "FEE_REGULAR",
+        "INTERNSHIP_FEE_NOTE"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "internship free hai phir fee kyu",
+        "internship ke paise lagte hain kya",
+        "training fee kis liye hai",
+        "internship ki total cost kaise pata karu"
+      ],
+      "id": "CAT-041",
+      "is_mock": false,
+      "keywords": [
+        "internship",
+        "free",
+        "fee",
+        "training",
+        "charges",
+        "total",
+        "cost"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "Is the internship free, and why is there a fee?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Stipend nahi milta. Training aur internship ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain.",
+      "answer_rendered": "No stipend. After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs.",
+      "answer_template": "{{NO_STIPEND_INFO}}. {{HIRING_PORTAL_INFO}}.",
+      "category": "placement_hiring",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "HIRING_PORTAL_INFO",
+        "NO_STIPEND_INFO"
+      ],
+      "facts_verified": [
+        "HIRING_PORTAL_INFO",
+        "NO_STIPEND_INFO"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "internship stipend milega kya",
+        "training ke time stipend hai",
+        "stipend kab milta hai"
+      ],
+      "id": "CAT-042",
+      "is_mock": false,
+      "keywords": [
+        "stipend",
+        "training",
+        "internship",
+        "hiring",
+        "portal"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Is there a stipend during training or the internship?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Training aur internship poori karne ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain.",
+      "answer_rendered": "After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs.",
+      "answer_template": "{{HIRING_PORTAL_INFO}}.",
+      "category": "placement_hiring",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "HIRING_PORTAL_INFO"
+      ],
+      "facts_verified": [
+        "HIRING_PORTAL_INFO"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "hiring portal access kaise milega",
+        "jobs ke liye kahan apply karu",
+        "stipend internship kaise dhundu"
+      ],
+      "id": "CAT-043",
+      "is_mock": false,
+      "keywords": [
+        "hiring",
+        "portal",
+        "apply",
+        "jobs",
+        "stipend"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I access the hiring portal and apply for jobs?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "iStudio Plus Digital Marketing aur Robotics ke placement terms par diye sources mein alag wording hai. iStudio Plus Digital Marketing aur Robotics ke placement guarantee par sources mein alag wording hai; applicable terms team se confirm karne honge.",
+      "answer_rendered": "iStudio Plus Digital Marketing and Robotics questions have conflicting placement wording in supplied sources. iStudio Plus Digital Marketing and Robotics questions have conflicting placement-guarantee wording in supplied sources; a human should confirm the applicable terms. Please confirm this on the official site or with the team.",
+      "answer_template": "iStudio Plus Digital Marketing and Robotics questions have conflicting placement wording in supplied sources. {{ISTUDIO_PLUS_NOTE}}.",
+      "category": "placement_hiring",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "ISTUDIO_PLUS_NOTE"
+      ],
+      "facts_verified": [
+        "ISTUDIO_PLUS_NOTE"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "iStudio Plus placement guarantee kya hai",
+        "robotics plus batch placement kya hai",
+        "digital marketing plus me job pakki hai"
+      ],
+      "id": "CAT-044",
+      "is_mock": false,
+      "keywords": [
+        "iStudio Plus",
+        "placement",
+        "Robotics",
+        "Digital Marketing",
+        "human"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What are the placement terms for iStudio Plus?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Diye gaye success-story figures se kisi ek vyakti ke result ka vaada nahi hota. Placement assistance hai, outcome guarantee nahi. Apne batch ki terms team se poochhein. Team se confirm karein.",
+      "answer_rendered": "No individual result is promised by the supplied success-story figures. Placement assistance only; no outcome guaranteed. Please discuss your batch terms with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "No individual result is promised by the supplied success-story figures. {{PLACEMENT_POSITION}}. Please discuss your batch terms with the team.",
+      "category": "placement_hiring",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "PLACEMENT_POSITION"
+      ],
+      "facts_verified": [
+        "PLACEMENT_POSITION"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "success story stipend mera bhi itna hoga kya",
+        "average stipend guarantee hai",
+        "job result pakka milega kya"
+      ],
+      "id": "CAT-045",
+      "is_mock": false,
+      "keywords": [
+        "success",
+        "stipend",
+        "result",
+        "average",
+        "guarantee"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Do published stipend success stories guarantee my result?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Refund ka jawab dene se pehle batayein: aap Regular batch mein hain ya Refund program batch mein?",
+      "answer_rendered": "Before I answer a refund question, are you in the Regular batch or the Refund program batch?",
+      "answer_template": "Before I answer a refund question, are you in the Regular batch or the Refund program batch?",
+      "category": "refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "refund chahiye regular ya refund program",
+        "refund milega kya kaunsa batch",
+        "refund ke liye batch batao"
+      ],
+      "id": "CAT-046",
+      "is_mock": false,
+      "keywords": [
+        "refund",
+        "batch",
+        "Regular",
+        "Refund program",
+        "clarify"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I need a refund. Which batch am I in?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Mushkil aa rahi ho toh Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges aur process nahi diye gaye. Aapki situation dekhne ke liye main team member se connect kar sakta hoon.",
+      "answer_rendered": "Cancellations are non-refundable except duplicate-payment requests within 7 days. If you are facing difficulty, If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges and process are not stated. I can connect a team member to review your situation. Please confirm this on the official site or with the team.",
+      "answer_template": "{{REFUND_STANDARD}}. If you are facing difficulty, {{REFUND_EXTENSION_OPTION}}. I can connect a team member to review your situation.",
+      "category": "refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "REFUND_EXTENSION_OPTION",
+        "REFUND_STANDARD"
+      ],
+      "facts_verified": [
+        "REFUND_EXTENSION_OPTION",
+        "REFUND_STANDARD"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "regular batch refund chahiye",
+        "regular course cancel karke paise wapas milenge",
+        "refund nahi to extension milega kya"
+      ],
+      "id": "CAT-047",
+      "is_mock": false,
+      "keywords": [
+        "regular",
+        "refund",
+        "cancellation",
+        "extension",
+        "policy"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "I am in the Regular batch and want a refund. What is the policy?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Refund program ki shartein: Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna. Naye diye gaye text mein 100% attendance hai; purane URL mein 75% hai, is shart ko team se confirm karein.",
+      "answer_rendered": "After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected duration, all assignments submitted on time, and the internship project submitted in the last week. The latest supplied text says 100% attendance; an older URL says 75%, so please confirm this condition with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "{{REFUND_PROGRAM_CONDITIONS}}. {{REFUND_ATTENDANCE_NOTE}}.",
+      "category": "refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "REFUND_ATTENDANCE_NOTE",
+        "REFUND_PROGRAM_CONDITIONS"
+      ],
+      "facts_verified": [
+        "REFUND_ATTENDANCE_NOTE",
+        "REFUND_PROGRAM_CONDITIONS"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "refund program me refund kaise milega",
+        "100 percent attendance zaroori hai kya",
+        "assignments aur project ki condition kya hai"
+      ],
+      "id": "CAT-048",
+      "is_mock": false,
+      "keywords": [
+        "refund",
+        "program",
+        "attendance",
+        "assignments",
+        "project"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What are the Refund Guarantee Program conditions?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Har test registration mein zyada se zyada 100 students; registration window khuli ho toh pehle aao, pehle pao. Expansion ki ummeed hai, par vaada nahi hai. Abhi seats available hain ya nahi, team se confirm karein.",
+      "answer_rendered": "Enrollment is capped at 100 students per test registration, first come while the registration window is open. Expansion is expected but not promised. Please confirm current availability with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "{{REFUND_PROGRAM_CAP}}. {{REFUND_PROGRAM_EXPANSION}}. Please confirm current availability with the team.",
+      "category": "refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "REFUND_PROGRAM_CAP",
+        "REFUND_PROGRAM_EXPANSION"
+      ],
+      "facts_verified": [
+        "REFUND_PROGRAM_CAP",
+        "REFUND_PROGRAM_EXPANSION"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "refund program me kitne students",
+        "cap kitna hai",
+        "seats khatam hone se pehle kaise join karu"
+      ],
+      "id": "CAT-049",
+      "is_mock": false,
+      "keywords": [
+        "refund",
+        "program",
+        "students",
+        "cap",
+        "enrollment"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How many students can join the Refund Guarantee Program?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Samajh sakta hoon, do baar charge hona pareshaan kar sakta hai. Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email karein. Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment source par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak lag sakte hain. Cash refund nahi hota.",
+      "answer_rendered": "I understand a duplicate charge is concerning. For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate payment return, your registered email ID, and payment receipt. A 100% refund goes to the same source; processing takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not offered.",
+      "answer_template": "I understand a duplicate charge is concerning. {{DUPLICATE_PAYMENT_RULE}}.",
+      "category": "fees_payments",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "DUPLICATE_PAYMENT_RULE"
+      ],
+      "facts_verified": [
+        "DUPLICATE_PAYMENT_RULE"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "paid twice",
+        "double payment ho gaya",
+        "duplicate payment refund kaise maangu",
+        "two transactions went through for one enrollment",
+        "same enrollment charged twice"
+      ],
+      "id": "CAT-050",
+      "is_mock": false,
+      "keywords": [
+        "duplicate",
+        "double",
+        "payment",
+        "refund",
+        "receipt",
+        "transactions",
+        "enrollment",
+        "charged"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "I was charged twice. How can I request a duplicate-payment refund?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Uske baad bhi update na ho, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "I understand the delay is concerning. The dashboard can take up to 24 hours to update after payment. If it is still missing after that, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand the delay is concerning. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing after that, {{PAYMENT_FOLLOWUP}}.",
+      "category": "fees_payments",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
+      ],
+      "facts_verified": [
+        "PAYMENT_DASHBOARD_WAIT",
+        "PAYMENT_FOLLOWUP"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "payment ho gaya dashboard update nahi",
+        "paise kat gaye access nahi aaya",
+        "payment ke baad wait kitna karu",
+        "portal reflect successful transfer takes how long"
+      ],
+      "id": "CAT-051",
+      "is_mock": false,
+      "keywords": [
+        "payment",
+        "dashboard",
+        "update",
+        "24 hours",
+        "access",
+        "portal",
+        "reflect",
+        "transfer"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "My payment is complete but the dashboard has not updated.",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Training portal access kab milega, iski verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "technical_access",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "training portal access kab aayega",
+        "login kitni der me milega",
+        "payment ke baad portal nahi khula"
+      ],
+      "id": "CAT-052",
+      "is_mock": true,
+      "keywords": [
+        "training",
+        "portal",
+        "access",
+        "timing",
+        "payment"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "When will training-portal access arrive?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Certificate kab download kar sakte hain, ye detail verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "certificates_offer_letter",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "certificate download kab kar sakte hain",
+        "certificate kahan se milega",
+        "training certificate only milega kya"
+      ],
+      "id": "CAT-053",
+      "is_mock": true,
+      "keywords": [
+        "certificate",
+        "download",
+        "timing",
+        "training",
+        "types"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "When can I download my certificate?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "Internship extension 6 mahine tak tak ho sakti hai. Exact process aur charges nahi diye gaye; team se confirm karein.",
+      "answer_rendered": "up to 6 months. The exact extension process and any charges are not stated; please confirm with the team.",
+      "answer_template": "{{EXTENSION_DURATION}}. The exact extension process and any charges are not stated; please confirm with the team.",
+      "category": "extension",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "EXTENSION_DURATION"
+      ],
+      "facts_verified": [
+        "EXTENSION_DURATION"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "internship extension kitne mahine ka mil sakta hai",
+        "duration extend kar sakte hain",
+        "extension max kitna hai"
+      ],
+      "id": "CAT-054",
+      "is_mock": false,
+      "keywords": [
+        "extension",
+        "duration",
+        "months",
+        "six",
+        "internship"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How long can an internship extension be?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges aur process nahi diye gaye. Request ke steps, charges aur certificate par asar ki jaankari nahi di gayi; team se confirm karein.",
+      "answer_rendered": "If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges and process are not stated. The request steps, charges, and certificate impact are not stated; please confirm with the team. Please confirm this on the official site or with the team.",
+      "answer_template": "{{REFUND_EXTENSION_OPTION}}. The request steps, charges, and certificate impact are not stated; please confirm with the team.",
+      "category": "extension",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "REFUND_EXTENSION_OPTION"
+      ],
+      "facts_verified": [
+        "REFUND_EXTENSION_OPTION"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "extension kaise request karu",
+        "extension ke charges kya hain",
+        "certificate par effect hoga kya"
+      ],
+      "id": "CAT-055",
+      "is_mock": false,
+      "keywords": [
+        "extension",
+        "request",
+        "charges",
+        "certificate",
+        "process"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I request an extension, what does it cost, and will it affect my certificate?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Batch chunne ya badalne ka process verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "enrolment",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "batch kaise select karu",
+        "batch change kar sakte hain kya",
+        "galat batch select ho gaya"
+      ],
+      "id": "CAT-056",
+      "is_mock": true,
+      "keywords": [
+        "batch",
+        "select",
+        "change",
+        "enrollment",
+        "switch"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I choose or change my batch?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Regular batch se Refund program batch mein jaane ke rules verify nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "refunds",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "regular se refund batch me change kar sakta hu",
+        "batch convert ho sakta hai kya",
+        "refund program me shift hona hai"
+      ],
+      "id": "CAT-057",
+      "is_mock": true,
+      "keywords": [
+        "regular",
+        "refund",
+        "batch",
+        "change",
+        "convert"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Can I move from a Regular batch to the Refund program batch?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Assignments kahan milenge, iski verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "projects_assignments",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "assignments kahan milenge",
+        "tasks portal me kahan hain",
+        "assignment open nahi ho raha"
+      ],
+      "id": "CAT-058",
+      "is_mock": true,
+      "keywords": [
+        "assignments",
+        "tasks",
+        "portal",
+        "location",
+        "training"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Where can I find my assignments?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Doosri internship mein enroll aur payment ka tareeka verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "enrolment",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "second internship enroll kaise karu",
+        "dusri internship ke paise kaise du",
+        "ek aur internship leni hai"
+      ],
+      "id": "CAT-059",
+      "is_mock": true,
+      "keywords": [
+        "second",
+        "internship",
+        "enroll",
+        "payment",
+        "repeat"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I enroll in a second internship and pay for it?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Fees installments mein dene ki verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "fees_payments",
+      "escalate_if_unmatched": true,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "installment me fee de sakte hain",
+        "fees parts me pay karu kya",
+        "monthly payment option hai"
+      ],
+      "id": "CAT-060",
+      "is_mock": true,
+      "keywords": [
+        "installment",
+        "fee",
+        "payment",
+        "monthly",
+        "option"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "Can I pay the program fee in installments?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Campus ambassador referral program join karne ka tareeka verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "referral_campus",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "campus ambassador kaise banu",
+        "referral program join kaise karu",
+        "college ambassador registration"
+      ],
+      "id": "CAT-061",
+      "is_mock": true,
+      "keywords": [
+        "referral",
+        "campus",
+        "ambassador",
+        "join",
+        "program"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I join the campus ambassador referral program?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Referral par milne wale benefit ya reward ki verified jaankari nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "referral_campus",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "referral par kya reward milega",
+        "friend refer karne ka benefit kya hai",
+        "referral bonus kitna hai"
+      ],
+      "id": "CAT-062",
+      "is_mock": true,
+      "keywords": [
+        "referral",
+        "reward",
+        "benefit",
+        "bonus",
+        "terms"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What referral benefit or reward is available?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Dost ko refer karne ke steps verify nahi hain. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "referral_campus",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "friend ko refer kaise karu",
+        "referral link kahan milega",
+        "dost ko internship batani hai"
+      ],
+      "id": "CAT-063",
+      "is_mock": true,
+      "keywords": [
+        "refer",
+        "friend",
+        "referral",
+        "link",
+        "steps"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How do I refer a friend?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Referral record na ho toh kya karein, iski verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "referral_campus",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "referral count nahi hua",
+        "friend join hua par credit nahi mila",
+        "referral status check karo"
+      ],
+      "id": "CAT-064",
+      "is_mock": true,
+      "keywords": [
+        "referral",
+        "recorded",
+        "tracking",
+        "credit",
+        "status"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "My referral was not recorded. What should I do?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "SAMPLE DATA — Attendance kaise mark hoti hai ya ek din miss ho jaaye toh kya karein, ye verify nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
+      "answer_rendered": "SAMPLE DATA — This detail is not verified yet. I can connect you with the team.",
+      "answer_template": "{{PENDING_INFO}}",
+      "category": "projects_assignments",
+      "escalate_if_unmatched": false,
+      "facts_mock": [
+        "PENDING_INFO"
+      ],
+      "facts_required": [
+        "PENDING_INFO"
+      ],
+      "facts_verified": [],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "attendance kaise mark hoti hai",
+        "ek din miss hua to kya hoga",
+        "duration kam kar sakte hain kya"
+      ],
+      "id": "CAT-065",
+      "is_mock": true,
+      "keywords": [
+        "attendance",
+        "absent",
+        "miss",
+        "duration",
+        "schedule"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "How is attendance recorded, and what if I miss a day?",
+      "risk_level": "medium"
+    },
+    {
+      "answer_hinglish": "Diye gaye sources mein Pune aur Ahmednagar ka farq hai; office address confirm nahi hai. Sources mein location ke baare mein farq hai, isliye main office address nahi doonga. Confirm karne ke liye main aapko human agent se connect kar sakta hoon.",
+      "answer_rendered": "The supplied sources conflict between Pune and Ahmednagar; I cannot confirm an office address. I won't provide an office address while the supplied sources conflict; I can connect you with a human to confirm. Please confirm this on the official site or with the team.",
+      "answer_template": "{{LOCATION_NOTE}}. I won't provide an office address while the supplied sources conflict; I can connect you with a human to confirm.",
+      "category": "trust_verification",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "LOCATION_NOTE"
+      ],
+      "facts_verified": [
+        "LOCATION_NOTE"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "istudio office kahan hai",
+        "office address batao",
+        "Pune ya Ahmednagar office hai kya"
+      ],
+      "id": "CAT-066",
+      "is_mock": false,
+      "keywords": [
+        "office",
+        "location",
+        "address",
+        "Pune",
+        "Ahmednagar"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Where is Internship Studio's office?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai. Baad mein Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Placement assistance hai, outcome guarantee nahi. Team se confirm karein.",
+      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. Placement assistance only; no outcome guaranteed. Please confirm this on the official site or with the team.",
+      "answer_template": "{{PROGRAM_OVERVIEW}}. {{HIRING_PORTAL_INFO}}. {{PLACEMENT_POSITION}}.",
+      "category": "program_info",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "HIRING_PORTAL_INFO",
+        "PLACEMENT_POSITION",
+        "PROGRAM_OVERVIEW"
+      ],
+      "facts_verified": [
+        "HIRING_PORTAL_INFO",
+        "PLACEMENT_POSITION",
+        "PROGRAM_OVERVIEW"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "program se kya benefit milega",
+        "training aur internship ke fayde kya hain",
+        "completion ke baad kya support hai"
+      ],
+      "id": "CAT-067",
+      "is_mock": false,
+      "keywords": [
+        "benefits",
+        "training",
+        "internship",
+        "hiring",
+        "placement"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "What benefits are included in the program?",
+      "risk_level": "low"
+    },
+    {
+      "answer_hinglish": "Refund program ki enrollment fee mein kya shamil hai: Enrollment fee mein structured training, support, placement assistance aur commitment shamil hain. Team se confirm karein.",
+      "answer_rendered": "The enrollment fee covers structured training, support, placement assistance, and commitment. Please confirm this on the official site or with the team.",
+      "answer_template": "{{REFUND_PROGRAM_FEE_COVERS}}.",
+      "category": "fees_payments",
+      "escalate_if_unmatched": true,
+      "facts_mock": [],
+      "facts_required": [
+        "REFUND_PROGRAM_FEE_COVERS"
+      ],
+      "facts_verified": [
+        "REFUND_PROGRAM_FEE_COVERS"
+      ],
+      "handoff_offer": true,
+      "hinglish_variants": [
+        "refund program ki fee me kya include hai",
+        "enrollment fee kis kaam ki hai",
+        "support aur training milti hai kya"
+      ],
+      "id": "CAT-068",
+      "is_mock": false,
+      "keywords": [
+        "refund",
+        "program",
+        "enrollment",
+        "fee",
+        "training",
+        "support"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Payments Support",
+      "question": "What does the Refund Guarantee Program enrollment fee cover?",
+      "risk_level": "high"
+    },
+    {
+      "answer_hinglish": "Internship Studio ke learners: Engineering, commerce/management, pharma aur psychology learners, saath hi campus ambassadors.",
+      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors.",
+      "answer_template": "{{LEARNER_AUDIENCE}}.",
+      "category": "program_info",
+      "escalate_if_unmatched": false,
+      "facts_mock": [],
+      "facts_required": [
+        "LEARNER_AUDIENCE"
+      ],
+      "facts_verified": [
+        "LEARNER_AUDIENCE"
+      ],
+      "handoff_offer": false,
+      "hinglish_variants": [
+        "kaun log istudio me learn karte hain",
+        "kis field ke learners ke liye hai",
+        "students ke alawa kaun join karta hai"
+      ],
+      "id": "CAT-069",
+      "is_mock": false,
+      "keywords": [
+        "learners",
+        "engineering",
+        "commerce",
+        "pharma",
+        "psychology"
+      ],
+      "last_reviewed": "2026-10-25",
+      "owner": "Learner Support",
+      "question": "Who does Internship Studio serve?",
+      "risk_level": "low"
     }
   ],
   "schema_version": 1

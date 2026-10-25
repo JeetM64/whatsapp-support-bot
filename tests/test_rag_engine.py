@@ -31,7 +31,9 @@ def test_engine_none_provider_uses_zero_network_extractively(tmp_path: Path) -> 
 
     assert result.mode == "extractive"
     assert result.decision.value == "ANSWER"
-    assert result.reply.startswith("SAMPLE DATA")
+    assert "Rs 880" in result.reply
+    assert "Rs 8,500" in result.reply
+    assert result.reply.endswith("fees can change, please confirm on the official site before paying.")
     assert result.estimated_cost_usd == 0.0
 
 
@@ -75,6 +77,19 @@ def test_prompt_injection_does_not_call_provider(tmp_path: Path) -> None:
 
     assert result.reason_code == "prompt_injection_blocked"
     assert result.decision.value == "NO_MATCH"
+    assert provider.calls == []
+
+
+def test_default_polishing_disabled_uses_no_provider_calls(tmp_path: Path) -> None:
+    root = _project(tmp_path)
+    retriever = Retriever(root, embedder=None, use_model_cache=False)
+    provider = FakeProvider([])
+    engine = RagEngine(root, provider=provider, retriever=retriever)
+
+    result = engine.answer("fee kitni hai")
+
+    assert result.mode == "extractive"
+    assert result.decision.value == "ANSWER"
     assert provider.calls == []
 
 

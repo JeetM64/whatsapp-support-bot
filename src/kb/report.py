@@ -7,6 +7,8 @@ from typing import Any
 from .loader import PrepareResult, prepare_kb
 from .models import Category
 
+LEGACY_CATEGORIES = {"payments_refunds", "certificates", "placement_support"}
+
 
 def render_report(payload: dict[str, Any]) -> str:
     entries = payload["entries"]
@@ -27,6 +29,8 @@ def render_report(payload: dict[str, Any]) -> str:
     ]
     for category in Category:
         name = category.value
+        if name in LEGACY_CATEGORIES:
+            continue
         lines.append(f"| {name} | {totals[name]} | {verified[name]} | {mock[name]} |")
     lines.extend(["", "## Entries using mock facts", ""])
     mocked_entries = [entry for entry in entries if entry["facts_mock"]]

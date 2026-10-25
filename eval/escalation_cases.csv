@@ -1,101 +1,143 @@
-case_id,split,query,expected,context,rule
-"ESC-001","dev","Please connect me to a human","must_escalate","","R1"
-"ESC-002","dev","I want to talk to an agent","must_escalate","","R1"
-"ESC-003","dev","Can I speak to a representative","must_escalate","","R1"
-"ESC-004","dev","Transfer me to a real person","must_escalate","","R1"
-"ESC-005","test","Call me please","must_escalate","","R1"
-"ESC-006","test","Human please","must_escalate","","R1"
-"ESC-007","test","Insaan se baat karni hai","must_escalate","","R1"
-"ESC-008","test","किसी इंसान से बात करनी है","must_escalate","","R1"
-"ESC-009","dev","You are an idiot","must_escalate","","R2"
-"ESC-010","dev","This is useless","must_escalate","","R2"
-"ESC-011","dev","I am furious","must_escalate","","R2"
-"ESC-012","dev","I am fed up with this","must_escalate","","R2"
-"ESC-013","test","Your service is stupid","must_escalate","","R2"
-"ESC-014","test","Gali mat do, this is bakwas","must_escalate","","R2"
-"ESC-015","test","Bahut gussa aa raha hai","must_escalate","","R2"
-"ESC-016","test","This is ridiculous!!!","must_escalate","","R2"
-"ESC-017","dev","I will take this to consumer court","must_escalate","","R3"
-"ESC-018","dev","I am filing a police complaint","must_escalate","","R3"
-"ESC-019","dev","I will report this to cyber crime","must_escalate","","R3"
-"ESC-020","dev","I will send a legal notice","must_escalate","","R3"
-"ESC-021","test","I am filing a chargeback","must_escalate","","R3"
-"ESC-022","test","I will report this to RBI","must_escalate","","R3"
-"ESC-023","test","I will post this on LinkedIn","must_escalate","","R3"
-"ESC-024","test","कानूनी नोटिस भेजूंगा","must_escalate","","R3"
-"ESC-025","dev","Payment debited, no access","must_escalate","","R4"
-"ESC-026","dev","Amount deducted, no receipt","must_escalate","","R4"
-"ESC-027","dev","Paise kat gaye, access nahi","must_escalate","","R4"
-"ESC-028","dev","Payment cut, not enrolled","must_escalate","","R4"
-"ESC-029","test","Money debited, cannot access","must_escalate","","R4"
-"ESC-030","test","Paisa kat gaya, login nahi","must_escalate","","R4"
-"ESC-031","test","रकम कट गई, एक्सेस नहीं","must_escalate","","R4"
-"ESC-032","test","पैसे कट गए, रसीद नहीं","must_escalate","","R4"
-"ESC-033","dev","I paid and this is a scam","must_escalate","","R5"
-"ESC-034","dev","Money was debited for this fraud","must_escalate","","R5"
-"ESC-035","dev","I was charged by this fake program","must_escalate","","R5"
-"ESC-036","dev","Paid for this scam but no access","must_escalate","","R5"
-"ESC-037","test","Paisa kat gaya, yeh fraud hai","must_escalate","","R5"
-"ESC-038","test","I paid and you are cheating me","must_escalate","","R5"
-"ESC-039","test","I lost money in this scam","must_escalate","","R5"
-"ESC-040","test","पैसे कट गए, यह धोखा है","must_escalate","","R5"
-"ESC-041","dev","I want a refund","must_escalate","","R6"
-"ESC-042","dev","Please refund me","must_escalate","","R6"
-"ESC-043","dev","Give my money back","must_escalate","","R6"
-"ESC-044","dev","Cancel my enrolment","must_escalate","","R6"
-"ESC-045","test","Refund do please","must_escalate","","R6"
-"ESC-046","test","Refund chahiye","must_escalate","","R6"
-"ESC-047","test","Paise wapas karo","must_escalate","","R6"
-"ESC-048","test","मुझे रिफंड चाहिए","must_escalate","","R6"
-"ESC-049","dev","I want to die","must_escalate","","R8"
-"ESC-050","dev","I am going to kill myself","must_escalate","","R8"
-"ESC-051","dev","I will hurt myself","must_escalate","","R8"
-"ESC-052","dev","I want to end my life","must_escalate","","R8"
-"ESC-053","test","I will self-harm","must_escalate","","R8"
-"ESC-054","test","मैं आत्महत्या करूंगा","must_escalate","","R8"
-"ESC-055","test","मैं आत्महत्या करूंगी","must_escalate","","R8"
-"ESC-056","test","खुद को मार लूंगा","must_escalate","","R8"
-"ESC-057","dev","Need clarification again","must_escalate","loop","R9"
-"ESC-058","dev","Still unclear to me","must_escalate","loop","R9"
-"ESC-059","dev","Can you repeat that","must_escalate","loop","R9"
-"ESC-060","dev","I don't understand this","must_escalate","loop","R9"
-"ESC-061","test","Phir samjha do","must_escalate","loop","R9"
-"ESC-062","test","Abhi bhi clear nahi","must_escalate","loop","R9"
-"ESC-063","test","दोबारा समझाइए","must_escalate","loop","R9"
-"ESC-064","test","समझ नहीं आया","must_escalate","loop","R9"
-"ESC-065","dev","corporate partnership proposal","must_escalate","unmatched","R10"
-"ESC-066","dev","unlisted payment dispute","must_escalate","unmatched","R10"
-"ESC-067","dev","unknown exam result question","must_escalate","unmatched","R10"
-"ESC-068","dev","external course accreditation","must_escalate","unmatched","R10"
-"ESC-069","test","job guarantee claim","must_escalate","unmatched","R10"
-"ESC-070","test","financial aid not listed","must_escalate","unmatched","R10"
-"ESC-071","test","unknown refund transfer request","must_escalate","unmatched","R10"
-"ESC-072","test","third-party scholarship status","must_escalate","unmatched","R10"
-"ESC-073","dev","payment status","must_escalate","unverified","R11"
-"ESC-074","dev","certificate status","must_escalate","unverified","R11"
-"ESC-075","dev","status of my payment","must_escalate","unverified","R11"
-"ESC-076","dev","where is my certificate","must_escalate","unverified","R11"
-"ESC-077","test","mera payment status","must_escalate","unverified","R11"
-"ESC-078","test","certificate kab milega","must_escalate","unverified","R11"
-"ESC-079","test","payment ka status","must_escalate","unverified","R11"
-"ESC-080","test","मेरे भुगतान की स्थिति","must_escalate","unverified","R11"
-"ANS-001","dev","What is an agent?","must_answer","","info"
-"ANS-002","dev","What does a support representative do?","must_answer","","info"
-"ANS-003","dev","What is the consumer court?","must_answer","","info"
-"ANS-004","dev","How does a chargeback work?","must_answer","","info"
-"ANS-005","dev","What is a refund policy?","must_answer","","info"
-"ANS-006","dev","Explain refund rules","must_answer","","info"
-"ANS-007","dev","Can I get a refund?","must_answer","","info"
-"ANS-008","dev","What is an OTP?","must_answer","","info"
-"ANS-009","dev","How do I secure my CVV?","must_answer","","info"
-"ANS-010","dev","What are password rules?","must_answer","","info"
-"ANS-011","test","What is suicide prevention?","must_answer","","info"
-"ANS-012","test","What is payment status?","must_answer","","info"
-"ANS-013","test","How do I check certificate availability?","must_answer","","info"
-"ANS-014","test","Please explain scam awareness.","must_answer","","info"
-"ANS-015","test","Is the program fee paid monthly?","must_answer","","info"
-"ANS-016","test","What is the difference between a fake and legitimate website?","must_answer","","info"
-"ANS-017","test","Refund policy kya hai?","must_answer","","info"
-"ANS-018","test","क्या OTP सुरक्षित है?","must_answer","","info"
-"ANS-019","test","RBI kya hota hai?","must_answer","","info"
-"ANS-020","test","How can I support a friend who feels distressed?","must_answer","","info"
+﻿case_id,split,query,expected,context,rule
+ESC-001,dev,Please connect me to a human,must_escalate,,R1
+ESC-002,dev,I want to talk to an agent,must_escalate,,R1
+ESC-003,dev,Can I speak to a representative,must_escalate,,R1
+ESC-004,dev,Transfer me to a real person,must_escalate,,R1
+ESC-005,test,Call me please,must_escalate,,R1
+ESC-006,test,Human please,must_escalate,,R1
+ESC-007,test,Insaan se baat karni hai,must_escalate,,R1
+ESC-008,test,किसी इंसान से बात करनी है,must_escalate,,R1
+ESC-009,dev,You are an idiot,must_escalate,,R2
+ESC-010,dev,This is useless,must_escalate,,R2
+ESC-011,dev,I am furious,must_escalate,,R2
+ESC-012,dev,I am fed up with this,must_escalate,,R2
+ESC-013,test,Your service is stupid,must_escalate,,R2
+ESC-014,test,"Gali mat do, this is bakwas",must_escalate,,R2
+ESC-015,test,Bahut gussa aa raha hai,must_escalate,,R2
+ESC-016,test,This is ridiculous!!!,must_escalate,,R2
+ESC-017,dev,I will take this to consumer court,must_escalate,,R3
+ESC-018,dev,I am filing a police complaint,must_escalate,,R3
+ESC-019,dev,I will report this to cyber crime,must_escalate,,R3
+ESC-020,dev,I will send a legal notice,must_escalate,,R3
+ESC-021,test,I am filing a chargeback,must_escalate,,R3
+ESC-022,test,I will report this to RBI,must_escalate,,R3
+ESC-023,test,I will post this on LinkedIn,must_escalate,,R3
+ESC-024,test,कानूनी नोटिस भेजूंगा,must_escalate,,R3
+ESC-025,dev,"Payment debited, no access",must_escalate,,R4
+ESC-026,dev,"Amount deducted, no receipt",must_escalate,,R4
+ESC-027,dev,"Paise kat gaye, access nahi",must_escalate,,R4
+ESC-028,dev,"Payment cut, not enrolled",must_escalate,,R4
+ESC-029,test,"Money debited, cannot access",must_escalate,,R4
+ESC-030,test,"Paisa kat gaya, login nahi",must_escalate,,R4
+ESC-031,test,"रकम कट गई, एक्सेस नहीं",must_escalate,,R4
+ESC-032,test,"पैसे कट गए, रसीद नहीं",must_escalate,,R4
+ESC-033,dev,I paid and this is a scam,must_escalate,,R5
+ESC-034,dev,Money was debited for this fraud,must_escalate,,R5
+ESC-035,dev,I was charged by this fake program,must_escalate,,R5
+ESC-036,dev,Paid for this scam but no access,must_escalate,,R5
+ESC-037,test,"Paisa kat gaya, yeh fraud hai",must_escalate,,R5
+ESC-038,test,I paid and you are cheating me,must_escalate,,R5
+ESC-039,test,I lost money in this scam,must_escalate,,R5
+ESC-040,test,"पैसे कट गए, यह धोखा है",must_escalate,,R5
+ESC-041,dev,I want a refund,must_escalate,,R6
+ESC-042,dev,Please refund me,must_escalate,,R6
+ESC-043,dev,Give my money back,must_escalate,,R6
+ESC-044,dev,Cancel my enrolment,must_escalate,,R6
+ESC-045,test,Refund do please,must_escalate,,R6
+ESC-046,test,Refund chahiye,must_escalate,,R6
+ESC-047,test,Paise wapas karo,must_escalate,,R6
+ESC-048,test,मुझे रिफंड चाहिए,must_escalate,,R6
+ESC-049,dev,I want to die,must_escalate,,R8
+ESC-050,dev,I am going to kill myself,must_escalate,,R8
+ESC-051,dev,I will hurt myself,must_escalate,,R8
+ESC-052,dev,I want to end my life,must_escalate,,R8
+ESC-053,test,I will self-harm,must_escalate,,R8
+ESC-054,test,मैं आत्महत्या करूंगा,must_escalate,,R8
+ESC-055,test,मैं आत्महत्या करूंगी,must_escalate,,R8
+ESC-056,test,खुद को मार लूंगा,must_escalate,,R8
+ESC-057,dev,Need clarification again,must_escalate,loop,R9
+ESC-058,dev,Still unclear to me,must_escalate,loop,R9
+ESC-059,dev,Can you repeat that,must_escalate,loop,R9
+ESC-060,dev,I don't understand this,must_escalate,loop,R9
+ESC-061,test,Phir samjha do,must_escalate,loop,R9
+ESC-062,test,Abhi bhi clear nahi,must_escalate,loop,R9
+ESC-063,test,दोबारा समझाइए,must_escalate,loop,R9
+ESC-064,test,समझ नहीं आया,must_escalate,loop,R9
+ESC-065,dev,corporate partnership proposal,must_escalate,unmatched,R10
+ESC-066,dev,unlisted payment dispute,must_escalate,unmatched,R10
+ESC-067,dev,unknown exam result question,must_escalate,unmatched,R10
+ESC-068,dev,external course accreditation,must_escalate,unmatched,R10
+ESC-069,test,job guarantee claim,must_escalate,unmatched,R10
+ESC-070,test,financial aid not listed,must_escalate,unmatched,R10
+ESC-071,test,unknown refund transfer request,must_escalate,unmatched,R10
+ESC-072,test,third-party scholarship status,must_escalate,unmatched,R10
+ESC-073,dev,payment status,must_escalate,unverified,R11
+ESC-074,dev,certificate status,must_escalate,unverified,R11
+ESC-075,dev,status of my payment,must_escalate,unverified,R11
+ESC-076,dev,where is my certificate,must_escalate,unverified,R11
+ESC-077,test,mera payment status,must_escalate,unverified,R11
+ESC-078,test,certificate kab milega,must_escalate,unverified,R11
+ESC-079,test,payment ka status,must_escalate,unverified,R11
+ESC-080,test,मेरे भुगतान की स्थिति,must_escalate,unverified,R11
+ANS-001,dev,What is an agent?,must_answer,,info
+ANS-002,dev,What does a support representative do?,must_answer,,info
+ANS-003,dev,What is the consumer court?,must_answer,,info
+ANS-004,dev,How does a chargeback work?,must_answer,,info
+ANS-005,dev,What is a refund policy?,must_answer,,info
+ANS-006,dev,Explain refund rules,must_answer,,info
+ANS-007,dev,Can I get a refund?,must_answer,,info
+ANS-008,dev,What is an OTP?,must_answer,,info
+ANS-009,dev,How do I secure my CVV?,must_answer,,info
+ANS-010,dev,What are password rules?,must_answer,,info
+ANS-011,test,What is suicide prevention?,must_answer,,info
+ANS-012,test,What is payment status?,must_answer,,info
+ANS-013,test,How do I check certificate availability?,must_answer,,info
+ANS-014,test,Please explain scam awareness.,must_answer,,info
+ANS-015,test,Is the program fee paid monthly?,must_answer,,info
+ANS-016,test,What is the difference between a fake and legitimate website?,must_answer,,info
+ANS-017,test,Refund policy kya hai?,must_answer,,info
+ANS-018,test,क्या OTP सुरक्षित है?,must_answer,,info
+ANS-019,test,RBI kya hota hai?,must_answer,,info
+ANS-020,test,How can I support a friend who feels distressed?,must_answer,,info
+NEW-ESC-001,dev,I paid twice for the same batch,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-002,dev,My card was charged twice,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-003,dev,We want a college partnership,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-004,dev,A recruiter wants to hire interns,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-005,dev,Can you confirm your office address?,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-006,dev,Is the office in Pune or Ahmednagar?,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-007,dev,My payment is duplicated,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-008,dev,Our company needs interns from your program,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-009,dev,Where is the Internship Studio office?,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-010,dev,Corporate partnership proposal for your team,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-011,dev,What are the listed iCAT and regular fees?,must_answer,,info
+NEW-ESC-012,dev,Does the internship phase pay a stipend?,must_answer,,info
+NEW-ESC-013,dev,What certificate types are described?,must_answer,,info
+NEW-ESC-014,dev,How long may an extension be?,must_answer,,info
+NEW-ESC-015,dev,Is placement support assistance or a promise?,must_answer,,info
+NEW-ESC-016,dev,What happens if a learner does not attempt iCAT?,must_answer,,info
+NEW-ESC-017,dev,What does the help-center domain list include?,must_answer,,info
+NEW-ESC-018,dev,How many seats are in the Refund Guarantee Program?,must_answer,,info
+NEW-ESC-019,dev,Where can learners reset their password?,must_answer,,info
+NEW-ESC-020,dev,What details are needed to check a payment after 24 hours?,must_answer,,info
+NEW-ESC-021,test,I got billed two times for one registration,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-022,test,Both payments were deducted from my account,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-023,test,Our college would like to partner for internships,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-024,test,I am a recruiter searching for interns,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-025,test,Please share the registered office location,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-026,test,Does iStudio have an Ahmednagar office address?,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-027,test,The same fee has been debited twice,must_escalate,,R12_DUPLICATE_PAYMENT
+NEW-ESC-028,test,My employer wants to hire program participants,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-029,test,I need to know your Pune office address,must_escalate,,R13_LOCATION_CONFLICT
+NEW-ESC-030,test,A corporate collaboration inquiry for Internship Studio,must_escalate,,R14_OUT_OF_SCOPE
+NEW-ESC-031,test,What is the reset page for a forgotten password?,must_answer,,info
+NEW-ESC-032,test,Are the three certificates available after their stated milestones?,must_answer,,info
+NEW-ESC-033,test,How do I request a refund for a duplicate charge?,must_answer,,info
+NEW-ESC-034,test,Which official site and support email can I check?,must_answer,,info
+NEW-ESC-035,test,Can learners use the hiring portal after completing both phases?,must_answer,,info
+NEW-ESC-036,test,What conditions are listed for the refund-program batch?,must_answer,,info
+NEW-ESC-037,test,Do you claim AICTE or UGC recognition?,must_answer,,info
+NEW-ESC-038,test,What can I do if payment has not appeared after a day?,must_answer,,info
+NEW-ESC-039,test,Are internship charges separate from training fees?,must_answer,,info
+NEW-ESC-040,test,Does an internship certificate follow project review?,must_answer,,info
+NEW-ESC-041,dev,How does iStudio Plus placement support work?,must_escalate,,R15_ISTUDIO_PLUS
+NEW-ESC-042,test,Please confirm the iStudio Plus Digital Marketing placement guarantee terms,must_escalate,,R15_ISTUDIO_PLUS

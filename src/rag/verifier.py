@@ -15,6 +15,7 @@ CLAIM_WORDS = (
     "AICTE",
     "UGC",
     "NSDC",
+    "ISO",
     "government",
     "approved",
     "accredited",
@@ -167,14 +168,27 @@ def verified_extractive_reply(
     reply: str, selected_entries: list[dict[str, Any]], max_chars: int
 ) -> VerifierReport:
     source_answers = {str(entry.get(key, "")) for entry in selected_entries for key in ("answer_rendered", "answer_hinglish") if entry.get(key)}
-    exact_source_with_handoff = any(
-        entry.get("handoff_offer")
-        and "connect a team member" not in str(entry.get("answer_rendered", "")).casefold()
-        and reply
-        == str(entry.get("answer_rendered", "")).rstrip(". ")
-        + ". I can connect a team member."
-        for entry in selected_entries
-    )
+    exact_source_with_handoff = False
+    fee_note = "fees can change, please confirm on the official site before paying"
+    for entry in selected_entries:
+        if not entry.get("handoff_offer"):
+            continue
+        for field, phrase in (
+            ("answer_rendered", "I can connect a team member."),
+            ("answer_hinglish", "Main aapko support team se connect kar sakta hoon."),
+        ):
+            source = str(entry.get(field, "") or "")
+            if not source or phrase.casefold() in source.casefold():
+                continue
+            expected = source.rstrip(". ") + ". " + phrase
+            fee_offset = source.casefold().rfind(fee_note)
+            if fee_offset >= 0:
+                expected = source[:fee_offset].rstrip(". ") + ". " + phrase + " " + source[fee_offset:]
+            if reply == expected:
+                exact_source_with_handoff = True
+                break
+        if exact_source_with_handoff:
+            break
     checks = {
         "source_exact": bool(selected_entries)
         and (reply in source_answers or exact_source_with_handoff),

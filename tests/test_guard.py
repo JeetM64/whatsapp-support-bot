@@ -54,6 +54,24 @@ def test_sla_skips_closed_hours_and_sunday():
     got = sla_deadline(datetime(2026, 10, 25, 20, 30, tzinfo=ist), "P2", 1)
     assert got == datetime(2026, 10, 26, 11, 0, tzinfo=ist)
 
+
+@pytest.mark.parametrize(
+    ("phrase", "reason", "priority", "action"),
+    [
+        ("I paid twice by mistake", "duplicate_payment", "P2", "kb_first_aid_ticket"),
+        ("My payment is duplicated", "duplicate_payment", "P2", "kb_first_aid_ticket"),
+        ("I got billed two times for one registration", "duplicate_payment", "P2", "kb_first_aid_ticket"),
+        ("Can our college partner with you?", "out_of_scope", "P3", "escalate"),
+        ("A corporate collaboration inquiry", "out_of_scope", "P3", "escalate"),
+        ("Is your office in Pune or Ahmednagar?", "location_conflict", "P3", "escalate"),
+        ("Where is the Internship Studio office?", "location_conflict", "P3", "escalate"),
+        ("What are iStudio Plus placement terms?", "istudio_plus_human", "P3", "escalate"),
+    ],
+)
+def test_company_specific_handoff_rules(phrase, reason, priority, action):
+    result = GUARD.classify(phrase)
+    assert (result.reason_code, result.priority, result.action) == (reason, priority, action)
+
 @pytest.mark.parametrize("rule,phrases,context", [
 ("R1", ["What is an agent?", "How does a representative work?", "Can you explain human review?", "What does real person mean?", "Where can I read about agents?"], {}),
 ("R2", ["What is the issue?", "I am not angry about this.", "Please explain the process.", "I need help with enrollment.", "This is an urgent question."], {}),
