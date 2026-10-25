@@ -166,7 +166,7 @@ def verify_reply(
 def verified_extractive_reply(
     reply: str, selected_entries: list[dict[str, Any]], max_chars: int
 ) -> VerifierReport:
-    source_answers = {str(entry.get("answer_rendered", "")) for entry in selected_entries}
+    source_answers = {str(entry.get(key, "")) for entry in selected_entries for key in ("answer_rendered", "answer_hinglish") if entry.get(key)}
     exact_source_with_handoff = any(
         entry.get("handoff_offer")
         and "connect a team member" not in str(entry.get("answer_rendered", "")).casefold()

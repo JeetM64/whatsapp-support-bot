@@ -1,0 +1,7 @@
+title: "Smooth resolution: fees and curriculum"
+sender: "+919000000201"
+turns:
+  - user: "What is the program fee?"
+    message_id: smooth-1
+  - user: "What does the curriculum cover?"
+    message_id: smooth-2

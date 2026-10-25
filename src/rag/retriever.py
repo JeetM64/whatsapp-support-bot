@@ -3,8 +3,9 @@ from __future__ import annotations
 import json
 import math
 import sqlite3
+import time
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,7 @@ class RetrievalOutput:
     lexical_agreement: bool
     semantic_available: bool
     query_token_count: int
+    timings_ms: dict[str, float] = field(default_factory=dict)
 
 
 def load_kb(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
@@ -76,10 +78,10 @@ def _bm25_scores(
     query_tokens: list[str],
     documents: list[dict[str, Any]],
     config: RagConfig,
+    tokenized_documents: list[list[str]] | None = None,
 ) -> tuple[dict[str, float], dict[str, float]]:
-    tokenized = [
-        tokenize(str(document["text"]), config.root / "kb" / "lexicon.yaml")
-        for document in documents
+    tokenized = tokenized_documents or [
+        tokenize(str(document["text"]), config.root / "kb" / "lexicon.yaml") for document in documents
     ]
     if not query_tokens or not tokenized:
         return {}, {}
@@ -128,26 +130,54 @@ class Retriever:
         self.config = config or RagConfig.load(self.root)
         self.entries, self.kb_hash = load_kb(self.root)
         self.documents = _source_documents(self.entries)
+        self._tokenized_documents = [
+            tokenize(str(document["text"]), self.root / "kb" / "lexicon.yaml")
+            for document in self.documents
+        ]
         self._provided_embedder = embedder is not None
         self.embedder = embedder
+        self._chroma_client: Any | None = None
+        self._cached_collection: Any | None = None
         if self.embedder is None and use_model_cache:
             try:
                 self.embedder = FastEmbedder(self.config, allow_download=False)
             except Exception:
                 self.embedder = None
         self.degraded = self.embedder is None
+        self.warmup()
+
+    def warmup(self) -> bool:
+        """Load the local encoder and persistent Chroma collection once per process."""
+        if self.embedder is None:
+            self.degraded = True
+            return False
+        try:
+            self.embedder.encode(["warmup"])
+            self._collection()
+            self.degraded = False
+            return True
+        except ChromaStorageBusy:
+            raise
+        except Exception:
+            self.embedder = None
+            self._cached_collection = None
+            self.degraded = True
+            return False
 
     @property
     def collection_name(self) -> str:
         return f"kb_{self.kb_hash[:24]}"
 
     def _collection(self) -> Any:
+        if self._cached_collection is not None:
+            return self._cached_collection
         try:
-            client = chromadb.PersistentClient(
-                path=str(self.config.chroma_path),
-                settings=Settings(anonymized_telemetry=False),
-            )
-            collection = client.get_or_create_collection(
+            if self._chroma_client is None:
+                self._chroma_client = chromadb.PersistentClient(
+                    path=str(self.config.chroma_path),
+                    settings=Settings(anonymized_telemetry=False),
+                )
+            collection = self._chroma_client.get_or_create_collection(
                 name=self.collection_name,
                 metadata={
                     "kb_content_hash": self.kb_hash,
@@ -158,8 +188,8 @@ class Retriever:
             expected = len(self.documents)
             present = collection.count()
             if present not in {0, expected}:
-                client.delete_collection(name=self.collection_name)
-                collection = client.get_or_create_collection(
+                self._chroma_client.delete_collection(name=self.collection_name)
+                collection = self._chroma_client.get_or_create_collection(
                     name=self.collection_name,
                     metadata={
                         "kb_content_hash": self.kb_hash,
@@ -188,6 +218,7 @@ class Retriever:
                             for item in batch
                         ],
                     )
+            self._cached_collection = collection
             return collection
         except (PermissionError, OSError, sqlite3.OperationalError) as exc:
             raise ChromaStorageBusy(
@@ -203,21 +234,34 @@ class Retriever:
             raise
 
     def retrieve(self, query: str) -> RetrievalOutput:
+        started = time.perf_counter()
+        timings: dict[str, float] = {}
         lexicon_path = self.root / "kb" / "lexicon.yaml"
+        stage_started = time.perf_counter()
         query_tokens = tokenize(query, lexicon_path)
-        lexical_scores, lexical_overlaps = _bm25_scores(query_tokens, self.documents, self.config)
+        timings["normalize_ms"] = (time.perf_counter() - stage_started) * 1000
+        stage_started = time.perf_counter()
+        lexical_scores, lexical_overlaps = _bm25_scores(
+            query_tokens, self.documents, self.config, self._tokenized_documents
+        )
         lexical_ranked = sorted(
             lexical_scores,
             key=lambda entry_id: (-lexical_scores[entry_id], entry_id),
         )
+        timings["lexical_ms"] = (time.perf_counter() - stage_started) * 1000
         semantic_scores: dict[str, float] = {}
         semantic_ranked: list[str] = []
         collection = None
+        stage_started = time.perf_counter()
         if self.embedder is not None:
             collection = self._collection()
+        timings["collection_ms"] = (time.perf_counter() - stage_started) * 1000
+        stage_started = time.perf_counter()
         if collection is not None and self.embedder is not None:
             try:
                 query_vector = self.embedder.encode([query])[0]
+                timings["embedding_ms"] = (time.perf_counter() - stage_started) * 1000
+                stage_started = time.perf_counter()
                 result = collection.query(
                     query_embeddings=[query_vector],
                     n_results=min(max(int(self.config.retrieval["top_k"]) * 4, 24), len(self.documents)),
@@ -236,11 +280,15 @@ class Retriever:
                     semantic_scores,
                     key=lambda entry_id: (-semantic_scores[entry_id], entry_id),
                 )
+                timings["chroma_query_ms"] = (time.perf_counter() - stage_started) * 1000
             except (PermissionError, OSError, sqlite3.OperationalError) as exc:
                 raise ChromaStorageBusy(
                     "ChromaDB storage is locked or unavailable. Close any other process using "
                     "chroma_db and retry; the index was not cleared."
                 ) from exc
+        if "embedding_ms" not in timings:
+            timings["embedding_ms"] = 0.0
+            timings["chroma_query_ms"] = 0.0
 
         k = int(self.config.retrieval.get("rrf_k", 60))
         sem_rank = {entry_id: rank for rank, entry_id in enumerate(semantic_ranked, start=1)}
@@ -289,6 +337,11 @@ class Retriever:
         best_lexical = candidates[0].lexical_score if candidates else 0.0
         min_overlap = float(self.config.retrieval.get("min_lexical_overlap", 0.10))
         lexical_agreement = best_lexical >= min_overlap
+        timings["retrieval_total_ms"] = (time.perf_counter() - started) * 1000
+        accounted = sum(timings.get(key, 0.0) for key in (
+            "normalize_ms", "lexical_ms", "collection_ms", "embedding_ms", "chroma_query_ms"
+        ))
+        timings["fusion_ms"] = max(0.0, timings["retrieval_total_ms"] - accounted)
         return RetrievalOutput(
             candidates=candidates,
             confidence=confidence,
@@ -297,4 +350,5 @@ class Retriever:
             lexical_agreement=lexical_agreement,
             semantic_available=semantic_available,
             query_token_count=len(set(query_tokens)),
+            timings_ms=timings,
         )

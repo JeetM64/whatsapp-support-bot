@@ -1,11 +1,12 @@
 {
-  "content_hash": "3b49d6775248e17db8335296a287734c7ec87782224f6e813108d6b0306fa9af",
+  "content_hash": "68521253071e71335a3b3b3f5b49503d2d12e04bb3b9e87281e181154611e580",
   "entries": [
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The program includes [MOCK] Sample skill-based internship program overview.. Review [MOCK] Sample learning materials and project activities. before deciding.",
       "answer_template": "The program includes {{PROGRAM_OVERVIEW}}. Review {{PROGRAM_DELIVERABLES}} before deciding.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "PROGRAM_DELIVERABLES",
         "PROGRAM_OVERVIEW"
@@ -37,10 +38,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Available tracks are [MOCK] Web Development; Data Analytics; Digital Marketing.. Tell me your preferred area and I can help you check it.",
       "answer_template": "Available tracks are {{PROGRAM_TRACKS}}. Tell me your preferred area and I can help you check it.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "PROGRAM_TRACKS"
       ],
@@ -68,10 +70,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed duration is [MOCK] 6 weeks and the suggested weekly time is [MOCK] 5 hours. Check your schedule before enrolling.",
       "answer_template": "The listed duration is {{PROGRAM_DURATION}} and the suggested weekly time is {{WEEKLY_TIME}}. Check your schedule before enrolling.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "PROGRAM_DURATION",
         "WEEKLY_TIME"
@@ -102,10 +105,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The stated prerequisites are [MOCK] Beginner-friendly; no prior experience specified.. Share your background if you want help comparing it with the program.",
       "answer_template": "The stated prerequisites are {{PRIOR_KNOWLEDGE}}. Share your background if you want help comparing it with the program.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "PRIOR_KNOWLEDGE"
       ],
@@ -133,10 +137,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed eligibility is [MOCK] Students and freshers; eligible years and branches must be confirmed.. Check your year and branch against it before registering.",
       "answer_template": "The listed eligibility is {{ELIGIBILITY_YEARS_BRANCHES}}. Check your year and branch against it before registering.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "ELIGIBILITY_YEARS_BRANCHES"
       ],
@@ -164,10 +169,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed format is [MOCK] Online format; exact delivery method must be confirmed.. Review the format details before you enroll.",
       "answer_template": "The listed format is {{ONLINE_MODE}}. Review the format details before you enroll.",
       "category": "program_info",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "ONLINE_MODE"
       ],
@@ -195,10 +201,11 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Use these registration steps: [MOCK] Visit https://example.com/mock-register and follow the sample form.. Review each step before submitting your details.",
       "answer_template": "Use these registration steps: {{REGISTRATION_STEPS}}. Review each step before submitting your details.",
       "category": "enrolment",
-      "escalate_if_unmatched": true,
+      "escalate_if_unmatched": false,
       "facts_mock": [
         "REGISTRATION_STEPS"
       ],
@@ -226,6 +233,7 @@
       "risk_level": "low"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed requirements are [MOCK] Name, email, and academic details; confirm requirements before sharing.. Share only the information requested through [MOCK] No verified contact channel is configured..",
       "answer_template": "The listed requirements are {{REGISTRATION_REQUIREMENTS}}. Share only the information requested through {{OFFICIAL_CONTACT_CHANNELS}}.",
       "category": "enrolment",
@@ -259,6 +267,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Listed batch dates are [MOCK] Sample batch date only; confirm the current schedule.. Check the current date before choosing a batch.",
       "answer_template": "Listed batch dates are {{BATCH_START_DATES}}. Check the current date before choosing a batch.",
       "category": "enrolment",
@@ -290,6 +299,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The stated domain-change terms are [MOCK] Domain-change terms must be confirmed.. I can connect a team member if you need help with your enrolment.",
       "answer_template": "The stated domain-change terms are {{DOMAIN_CHANGE_POLICY}}. I can connect a team member if you need help with your enrolment.",
       "category": "enrolment",
@@ -322,6 +332,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed fee is Rs [MOCK 999]. Check https://example.com/mock-payment before paying. I can connect a team member if needed.",
       "answer_template": "The listed fee is {{PROGRAM_FEE}}. Check {{OFFICIAL_PAYMENT_PAGE}} before paying. I can connect a team member if needed.",
       "category": "payments_refunds",
@@ -355,6 +366,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Listed payment methods are [MOCK] UPI or card; confirm accepted methods before paying.. Use https://example.com/mock-payment to confirm the payment route. I can connect a team member if needed.",
       "answer_template": "Listed payment methods are {{PAYMENT_METHODS}}. Use {{OFFICIAL_PAYMENT_PAGE}} to confirm the payment route. I can connect a team member if needed.",
       "category": "payments_refunds",
@@ -389,6 +401,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": "SAMPLE DATA — Paisa debit ho gaya hai aur access nahi mil raha. Abhi dobara payment na karein. [MOCK] Transaction review ke liye team member se connect kar sakta hoon.",
       "answer_rendered": "SAMPLE DATA — I am sorry the money was debited and access is missing. Do not pay again yet. [MOCK] I can connect a team member to review the transaction.",
       "answer_template": "I am sorry the money was debited and access is missing. Do not pay again yet. {{PAYMENT_ESCALATION_OFFER}}",
       "category": "payments_refunds",
@@ -421,6 +434,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The receipt process is [MOCK] Sample receipt steps: contact support with the transaction reference.. Keep your transaction reference ready and I can connect a team member if needed.",
       "answer_template": "The receipt process is {{RECEIPT_INVOICE_PROCESS}}. Keep your transaction reference ready and I can connect a team member if needed.",
       "category": "payments_refunds",
@@ -452,6 +466,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed refund terms are [MOCK] Refund terms must be confirmed before payment.. I can connect a team member to review your case before you decide.",
       "answer_template": "The listed refund terms are {{REFUND_POLICY}}. I can connect a team member to review your case before you decide.",
       "category": "payments_refunds",
@@ -484,6 +499,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Listed discounts and additional charges are [MOCK] Discounts and additional charges must be confirmed.. Confirm the final amount at https://example.com/mock-payment. I can connect a team member if unclear.",
       "answer_template": "Listed discounts and additional charges are {{DISCOUNT_AND_CHARGES}}. Confirm the final amount at {{OFFICIAL_PAYMENT_PAGE}}. I can connect a team member if unclear.",
       "category": "payments_refunds",
@@ -518,6 +534,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Certificate details are [MOCK] Certificate availability must be confirmed for the selected program.. I can connect a team member to confirm what applies to your enrolment.",
       "answer_template": "Certificate details are {{CERTIFICATE_AVAILABILITY}}. I can connect a team member to confirm what applies to your enrolment.",
       "category": "certificates",
@@ -549,6 +566,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed completion requirements are [MOCK] Completion conditions must be confirmed.. Check them before starting and I can connect a team member if you need clarification.",
       "answer_template": "The listed completion requirements are {{CERTIFICATE_REQUIREMENTS}}. Check them before starting and I can connect a team member if you need clarification.",
       "category": "certificates",
@@ -580,6 +598,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Use the listed verification steps: [MOCK] Sample verification steps are not a real verification service.. I can connect a team member to help you check a specific certificate.",
       "answer_template": "Use the listed verification steps: {{CERTIFICATE_VERIFICATION_STEPS}}. I can connect a team member to help you check a specific certificate.",
       "category": "certificates",
@@ -611,6 +630,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Letter details are [MOCK] Letter terms must be confirmed; no offer is promised.. I can connect a team member to confirm what applies.",
       "answer_template": "Letter details are {{OFFER_RECOMMENDATION_LETTER_POLICY}}. I can connect a team member to confirm what applies.",
       "category": "certificates",
@@ -642,6 +662,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — I am sorry about the certificate issue. The correction process is [MOCK] Correction steps and timelines must be confirmed.. I can connect a team member to review it.",
       "answer_template": "I am sorry about the certificate issue. The correction process is {{CERTIFICATE_CORRECTION_PROCESS}}. I can connect a team member to review it.",
       "category": "certificates",
@@ -674,6 +695,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Use these sign-in steps: [MOCK] Use https://example.com/mock-password-reset; sample link only.. Do not share your password or one-time code here.",
       "answer_template": "Use these sign-in steps: {{PASSWORD_RESET_STEPS}}. Do not share your password or one-time code here.",
       "category": "technical_access",
@@ -706,6 +728,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — I am sorry you are still unable to access it. Try [MOCK] Sample check: wait briefly, then ask support to review the transaction. and do not send payment details here. I can connect a team member.",
       "answer_template": "I am sorry you are still unable to access it. Try {{ACCESS_AFTER_PAYMENT_STEPS}} and do not send payment details here. I can connect a team member.",
       "category": "technical_access",
@@ -737,6 +760,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed project steps are [MOCK] Submission format and location must be confirmed.. I can connect a team member if the submission page gives an error.",
       "answer_template": "The listed project steps are {{PROJECT_SUBMISSION_GUIDELINES}}. I can connect a team member if the submission page gives an error.",
       "category": "technical_access",
@@ -769,6 +793,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Try the listed checks: [MOCK] Check your connection and retry; exact platform steps must be confirmed.. If it still does not load I can connect a team member.",
       "answer_template": "Try the listed checks: {{CONTENT_TROUBLESHOOTING}}. If it still does not load I can connect a team member.",
       "category": "technical_access",
@@ -800,6 +825,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — I cannot confirm that from this chat. Compare the details with https://example.com/mock-verify before paying. I can connect a team member.",
       "answer_template": "I cannot confirm that from this chat. Compare the details with {{OFFICIAL_SITE_URL}} before paying. I can connect a team member.",
       "category": "trust_verification",
@@ -832,6 +858,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed website and contact channels are https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. Verify these details before sharing information. I can connect a team member.",
       "answer_template": "The listed website and contact channels are {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. Verify these details before sharing information. I can connect a team member.",
       "category": "trust_verification",
@@ -866,6 +893,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Compare any payment request with [MOCK] No verified payment channel is configured. before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
       "answer_template": "Compare any payment request with {{OFFICIAL_PAYMENT_CHANNELS}} before paying. Do not send money to a personal account based only on a chat message. I can connect a team member.",
       "category": "trust_verification",
@@ -898,6 +926,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — I cannot confirm whether the organizations are connected. Compare their details with https://example.com/mock-verify and [MOCK] No verified contact channel is configured.. I can connect a team member.",
       "answer_template": "I cannot confirm whether the organizations are connected. Compare their details with {{OFFICIAL_SITE_URL}} and {{OFFICIAL_CONTACT_CHANNELS}}. I can connect a team member.",
       "category": "trust_verification",
@@ -932,6 +961,7 @@
       "risk_level": "high"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed career-support scope is [MOCK] Career support scope must be confirmed; no job outcome is promised.. I can connect a team member if you need details for a specific program.",
       "answer_template": "The listed career-support scope is {{CAREER_SUPPORT_SCOPE}}. I can connect a team member if you need details for a specific program.",
       "category": "placement_support",
@@ -963,6 +993,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — Listed support hours and contact steps are [MOCK] Support hours must be confirmed. and [MOCK] Use https://example.com/mock-support; sample link only.. I can connect a team member.",
       "answer_template": "Listed support hours and contact steps are {{SUPPORT_HOURS}} and {{HUMAN_CONTACT_CHANNEL}}. I can connect a team member.",
       "category": "placement_support",
@@ -997,6 +1028,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
       "answer_template": "The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
       "category": "placement_support",
@@ -1028,6 +1060,7 @@
       "risk_level": "medium"
     },
     {
+      "answer_hinglish": null,
       "answer_rendered": "SAMPLE DATA — I am sorry you have not heard back. The listed follow-up target is [MOCK] Reply target must be confirmed.. I can connect a team member to check your request.",
       "answer_template": "I am sorry you have not heard back. The listed follow-up target is {{FOLLOWUP_SLA}}. I can connect a team member to check your request.",
       "category": "placement_support",

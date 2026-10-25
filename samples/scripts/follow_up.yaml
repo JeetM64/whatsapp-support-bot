@@ -1,0 +1,7 @@
+title: "Follow-up: certificate after a track"
+sender: "+919000000202"
+turns:
+  - user: "What is included in the web development track?"
+    message_id: follow-1
+  - user: "And certificate?"
+    message_id: follow-2

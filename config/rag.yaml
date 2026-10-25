@@ -24,10 +24,15 @@ decision:
   show_sample_label: true
   max_reply_chars: 600
 provider:
-  timeout_seconds: 15
+  message_budget_seconds: 10
+  hard_timeout_seconds: 8
+  timeout_seconds: 8
   max_retries: 1
+  retry_min_remaining_seconds: 1.0
   temperature: 0.0
   max_tokens: 256
+  fallback_models:
+  - gemini-2.5-flash-lite
 pricing:
   gemini:
     input_per_million_usd: null

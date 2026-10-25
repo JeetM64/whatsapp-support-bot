@@ -29,6 +29,7 @@ class KBRow(BaseModel):
     category: Category
     question: str = Field(min_length=3)
     answer: str = Field(min_length=1)
+    answer_hinglish: str | None = None
     hinglish_variants: str
     keywords: str
     risk_level: RiskLevel
@@ -57,6 +58,7 @@ class BuiltEntry(BaseModel):
     question: str
     answer_template: str
     answer_rendered: str
+    answer_hinglish: str | None = None
     hinglish_variants: list[str]
     keywords: list[str]
     risk_level: RiskLevel

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from collections import deque
 from dataclasses import dataclass
 from typing import Any, Protocol
@@ -81,27 +82,61 @@ class SDKProvider:
 
 
 class GeminiProvider(SDKProvider):
-    def __init__(self, api_key: str, model: str, max_tokens: int = 256) -> None:
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        max_tokens: int = 256,
+        fallback_models: list[str] | None = None,
+    ) -> None:
         super().__init__("gemini", api_key, model, max_tokens=max_tokens)
+        self.fallback_models = [item for item in (fallback_models or []) if item != model]
 
     def generate_json(self, system, user, schema, timeout):
         from google import genai
         from google.genai import types
 
-        client = genai.Client(
-            api_key=self.api_key,
-            http_options=types.HttpOptions(timeout=int(timeout * 1000)),
-        )
-        response = client.models.generate_content(
-            model=self.model,
-            contents=f"{system}\n\n{user}",
-            config=types.GenerateContentConfig(
-                temperature=self.temperature,
-                max_output_tokens=self.max_tokens,
-                response_mime_type="application/json",
-                response_schema=_gemini_schema(schema),
-            ),
-        )
+        started = time.perf_counter()
+        response = None
+        errors: list[Exception] = []
+        models = [self.model, *self.fallback_models]
+        for index, model in enumerate(models):
+            remaining = timeout - (time.perf_counter() - started)
+            if remaining <= 0:
+                break
+            client = genai.Client(
+                api_key=self.api_key,
+                                # Gemini rejects X-Server-Timeout values below 10 seconds.
+                # The transport timeout still enforces the caller budget.
+                http_options=types.HttpOptions(
+                    timeout=max(1, int(remaining * 1000)),
+                    headers={"X-Server-Timeout": "10"},
+                    retry_options=types.HttpRetryOptions(attempts=1),
+                ),
+            )
+            try:
+                response = client.models.generate_content(
+                    model=model,
+                    contents=f"{system}\n\n{user}",
+                    config=types.GenerateContentConfig(
+                        temperature=self.temperature,
+                        max_output_tokens=self.max_tokens,
+                        response_mime_type="application/json",
+                        response_schema=_gemini_schema(schema),
+                    ),
+                )
+                break
+            except Exception as exc:
+                errors.append(exc)
+                code = getattr(exc, "code", None) or getattr(exc, "status_code", None)
+                status = str(getattr(exc, "status", "")).casefold()
+                transient = code in {429, 503} or status in {"unavailable", "resource_exhausted"}
+                if not transient or index + 1 >= len(models):
+                    raise
+        if response is None:
+            if errors:
+                raise errors[-1]
+            raise TimeoutError("Gemini fallback models exhausted the call budget")
         raw = response.text or ""
         usage = getattr(response, "usage_metadata", None)
         return self._json_response(raw), {
@@ -160,7 +195,11 @@ class AnthropicProvider(SDKProvider):
         }
 
 
-def create_provider(name: str | None, max_tokens: int = 256) -> Provider:
+def create_provider(
+    name: str | None,
+    max_tokens: int = 256,
+    fallback_models: list[str] | None = None,
+) -> Provider:
     selected = (name or os.getenv("LLM_PROVIDER", "none")).strip().casefold()
     if selected in {"", "none"}:
         return NoneProvider()
@@ -173,7 +212,12 @@ def create_provider(name: str | None, max_tokens: int = 256) -> Provider:
             raise ProviderConfigError(
                 "Gemini requires GEMINI_API_KEY and GEMINI_MODEL in .env; values were not displayed."
             )
-        return GeminiProvider(key, model, max_tokens=max_tokens)
+        return GeminiProvider(
+            key,
+            model,
+            max_tokens=max_tokens,
+            fallback_models=fallback_models,
+        )
     if selected == "anthropic":
         key = os.getenv("ANTHROPIC_API_KEY", "")
         model = os.getenv("ANTHROPIC_MODEL", "")

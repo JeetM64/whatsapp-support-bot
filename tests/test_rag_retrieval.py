@@ -58,6 +58,33 @@ def test_fusion_order_is_deterministic(tmp_path: Path) -> None:
     assert first.candidates[0].id == "CAT-011"
 
 
+def test_chroma_client_is_opened_once_and_timing_components_are_reported(
+    tmp_path: Path, monkeypatch
+) -> None:
+    root = copy_project(tmp_path)
+    config = RagConfig.load(root)
+    real_client = chromadb.PersistentClient
+    calls = 0
+
+    def counted_client(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        return real_client(*args, **kwargs)
+
+    monkeypatch.setattr("src.rag.retriever.chromadb.PersistentClient", counted_client)
+    retriever = Retriever(root, config, embedder=StableFakeEmbedder(root), use_model_cache=False)
+    assert calls == 1
+
+    first = retriever.retrieve("fee kitni hai")
+    second = retriever.retrieve("certificate verify kaise kare")
+
+    assert calls == 1
+    for result in (first, second):
+        assert result.timings_ms["embedding_ms"] >= 0
+        assert result.timings_ms["chroma_query_ms"] >= 0
+        assert result.timings_ms["retrieval_total_ms"] >= 0
+
+
 def test_document_index_contains_base_and_each_variant(tmp_path: Path) -> None:
     root = copy_project(tmp_path)
     config = RagConfig.load(root)

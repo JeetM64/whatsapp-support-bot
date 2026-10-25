@@ -15,6 +15,7 @@ CSV_FIELDS = (
     "category",
     "question",
     "answer",
+    "answer_hinglish",
     "hinglish_variants",
     "keywords",
     "risk_level",

@@ -5,3 +5,8 @@ chroma_db/
 model_cache/
 __pycache__/
 .pytest_cache/
+data/app.db
+data/app.db-wal
+data/app.db-shm
+data/replay_runtime/
+data/traces/

@@ -1,0 +1,29 @@
+timezone: Asia/Kolkata
+business_hours:
+  weekdays: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+  start: "10:00"
+  end: "19:00"
+sla_hours: {P1: 1, P2: 8, P3: 24, P4: 72}
+rules:
+  R1:
+    patterns: ["\\b(talk to|speak to|connect me to|transfer me to) ((a|an) )?(human|agent|representative|real person)\\b", "\\b(call me|human please|agent please)\\b", "insaan se baat karni hai", "\\bbaat karni hai\\b", "किसी इंसान से बात", "मानव एजेंट"]
+  R2:
+    patterns: ["\\b(idiot|stupid|useless|damn|hell|angry|furious|fed up|threaten to quit|I will quit|I am quitting|cancel everything)\\b", "!{3,}", "\\b(gali|bakwas|bekaar|bahut gussa|tang aa gaya|band kar dunga)\\b", "बहुत गुस्सा", "बंद कर दूंगा"]
+  R3:
+    patterns: ["\\b(go to|take this to|file a complaint with|report this to|contact) (the )?(consumer court|police|cyber crime|RBI)\\b", "\\b(fil(e|ing)|send|issue|serve) (a )?(police|cyber crime|legal) complaint\\b|\\b(send|file|issue) (a )?legal notice\\b|\\b(fil(e|ing)|file) (a )?chargeback\\b", "\\b(sue you|post( this)? on linkedin|post( this)? on twitter|post a review|leave a review)\\b", "consumer forum me shikayat", "उपभोक्ता अदालत जाऊंगा", "पुलिस में शिकायत करूंगा", "कानूनी नोटिस भेजूंगा"]
+  R4_MONEY:
+    patterns: ["\\b(debited|deducted|cut|charged|paid|money gone|lost money|money lost|paisa kat|paise kat|payment cut|amount deducted)\\b", "पैसे कट", "रकम कट"]
+  R4_ACCESS:
+    patterns: ["\\b(no access|cannot access|can't access|didn't get access|did not get access|access not received|access not provided|no receipt|not enrolled|not enrolled|enrolment missing|login nahi|access nahi|receipt nahi|enrollment nahi)\\b", "एक्सेस नहीं", "रसीद नहीं", "नामांकन नहीं"]
+  R5:
+    patterns: ["\\b(scam|fraud|fake|cheat|cheating)\\b|फ्रॉड|धोखा"]
+  R6_ACTION:
+    patterns: ["\\b(refund (me|my|do|please)|want a refund|give my money back|cancel my (enrolment|enrollment|admission)|refund chahiye|refund do|paise wapas|paisa wapas|enrolment cancel|enrollment cancel)\\b", "रिफंड चाहिए", "पैसे वापस"]
+  R6_POLICY:
+    patterns: ["\\b(refund policy|refund rules|refund eligibility|can i get a refund|refund kab|refund kitne din)\\b", "refund policy kya", "रिफंड नीति", "रिफंड पॉलिसी"]
+  R7:
+    patterns: ["\\b(otp|one[- ]time password|cvv|cvc|aadhaar|aadhar|pan card|password|passwd|passcode)\\b", "ओटीपी", "आधार", "पासवर्ड"]
+  R8:
+    patterns: ["\\b(i want to die|i am going to kill myself|kill myself|hurt myself|i will self[- ]?harm|end my life|cant go on living)\\b", "मैं आत्महत्या करूंगा", "मैं आत्महत्या करूंगी", "खुद को मार लूंगा", "खुद को मार लूंगी", "जीना नहीं चाहता", "जीना नहीं चाहती"]
+  R11:
+    patterns: ["\\b(payment status|certificate status|status of my payment|where is my certificate|mera payment status|certificate kab milega|payment ka status)\\b", "मेरे भुगतान की स्थिति", "सर्टिफिकेट की स्थिति"]

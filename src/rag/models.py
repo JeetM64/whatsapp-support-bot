@@ -54,6 +54,7 @@ class RagResult(BaseModel):
     verifier: VerifierReport
     language: Literal["English", "Hinglish", "Hindi"]
     latency_ms: float
+    timings_ms: dict[str, float] = Field(default_factory=dict)
     usage: TokenUsage = Field(default_factory=TokenUsage)
     estimated_cost_usd: float | str = "unknown"
 

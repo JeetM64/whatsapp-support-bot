@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import time
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ from src.rag.config import RagConfig
 from src.rag.models import LLMReply
 from src.rag.providers import FakeProvider, NoneProvider
 from src.rag.providers import _gemini_schema
+from src.rag.providers import GeminiProvider
 from src.rag.verifier import verify_reply
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -171,3 +173,105 @@ def test_none_provider_is_extractive_only(tmp_path: Path) -> None:
     assert result.mode == "extractive"
     assert result.reply == entry["answer_rendered"]
     assert result.verifier.passed
+
+
+def test_budget_caps_provider_timeout_and_skips_call_when_budget_is_exhausted(tmp_path: Path) -> None:
+    _, config, entry = _project(tmp_path)
+
+    class TimeoutCaptureProvider:
+        name = "capture"
+
+        def __init__(self):
+            self.timeouts = []
+
+        def generate_json(self, system, user, schema, timeout):
+            self.timeouts.append(timeout)
+            return {
+                "reply": entry["answer_rendered"],
+                "used_entry_ids": [entry["id"]],
+                "language": "English",
+            }, {"input_tokens": 10, "output_tokens": 10}
+
+    provider = TimeoutCaptureProvider()
+    result = compose(
+        "fee amount?", "English", [entry], provider, config, SameVectorEmbedder(),
+        deadline=time.perf_counter() + 2.0,
+    )
+    assert result.mode == "llm"
+    assert len(provider.timeouts) == 1
+    assert 0 < provider.timeouts[0] <= 2.0
+
+    exhausted = TimeoutCaptureProvider()
+    result = compose(
+        "fee amount?", "English", [entry], exhausted, config, SameVectorEmbedder(),
+        deadline=time.perf_counter() + 0.01,
+    )
+    assert result.mode == "fallback"
+    assert exhausted.timeouts == []
+
+
+def test_language_mismatch_failure_is_included_in_retry_prompt(tmp_path: Path) -> None:
+    _, config, entry = _project(tmp_path)
+    provider = FakeProvider([
+        {
+            "reply": entry["answer_rendered"],
+            "used_entry_ids": [entry["id"]],
+            "language": "English",
+        },
+        {
+            "reply": "SAMPLE DATA — Fee Rs [MOCK 999] hai.",
+            "used_entry_ids": [entry["id"]],
+            "language": "Hinglish",
+        },
+    ])
+    result = compose(
+        "fee kitni hai", "Hinglish", [entry], provider, config, SameVectorEmbedder()
+    )
+    assert result.mode == "llm"
+    assert result.verifier.checks["language_matches"] is True
+    assert "reply language English does not match Hinglish" in provider.calls[1]["user"]
+
+
+def test_gemini_falls_back_to_listed_model_on_503(monkeypatch) -> None:
+    import json
+    import sys
+    import types
+
+    calls = []
+    google = types.ModuleType("google")
+    genai = types.ModuleType("google.genai")
+    sdk_types = types.ModuleType("google.genai.types")
+
+    class ApiError(Exception):
+        code = 503
+        status = "UNAVAILABLE"
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            self.models = self
+
+        def generate_content(self, model, **kwargs):
+            calls.append(model)
+            if model == "gemini-primary":
+                raise ApiError("message deliberately not inspected")
+            return types.SimpleNamespace(
+                text=json.dumps({"ok": True}),
+                usage_metadata=types.SimpleNamespace(prompt_token_count=3, candidates_token_count=2),
+            )
+
+    genai.Client = FakeClient
+    sdk_types.HttpOptions = lambda **kwargs: kwargs
+    sdk_types.HttpRetryOptions = lambda **kwargs: kwargs
+    sdk_types.GenerateContentConfig = lambda **kwargs: kwargs
+    google.genai = genai
+    genai.types = sdk_types
+    monkeypatch.setitem(sys.modules, "google", google)
+    monkeypatch.setitem(sys.modules, "google.genai", genai)
+    monkeypatch.setitem(sys.modules, "google.genai.types", sdk_types)
+
+    provider = GeminiProvider("dummy-key-never-printed", "gemini-primary", fallback_models=["gemini-fallback"])
+    result, usage = provider.generate_json("system", "user", {"type": "object"}, 2.0)
+
+    assert calls == ["gemini-primary", "gemini-fallback"]
+    assert result == {"ok": True}
+    assert usage == {"input_tokens": 3, "output_tokens": 2}

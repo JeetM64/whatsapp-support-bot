@@ -171,6 +171,11 @@ def validate_and_render(
         if len(rendered) > 500:
             errors.append(f"{prefix}: rendered answer is {len(rendered)} characters (maximum 500)")
 
+        if row.answer_hinglish:
+            if len(row.answer_hinglish) > 500:
+                errors.append(f"{prefix}: Hinglish answer exceeds 500 characters")
+            if is_mock and "SAMPLE DATA" not in row.answer_hinglish:
+                errors.append(f"{prefix}: mock Hinglish answer must preserve SAMPLE DATA")
         entries.append(
             BuiltEntry(
                 id=row.id,
@@ -178,6 +183,7 @@ def validate_and_render(
                 question=row.question,
                 answer_template=row.answer,
                 answer_rendered=rendered,
+                answer_hinglish=(row.answer_hinglish or "").strip() or None,
                 hinglish_variants=variants,
                 keywords=keywords,
                 risk_level=row.risk_level,

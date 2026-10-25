@@ -1,0 +1,63 @@
+scenarios:
+  - id: followup
+    type: follow-up
+    turns:
+      - "What are the program tracks?"
+      - "And certificate?"
+  - id: option_choice
+    type: option-choice
+    turns:
+      - "Which program options can I choose?"
+      - "payment wala"
+  - id: loop
+    type: loop-to-escalate
+    turns:
+      - "?"
+      - "??"
+      - "???"
+  - id: post_handoff
+    type: post-handoff
+    turns:
+      - "Please connect me to a human."
+      - "I want to add details."
+      - "status"
+  - id: duplicate
+    type: dedupe
+    duplicate_message_id: true
+    turns:
+      - "Please connect me to a human."
+      - "Please connect me to a human."
+  - id: out_of_hours
+    type: out-of-hours
+    now: "2026-10-25T21:00:00+05:30"
+    turns:
+      - "Please connect me to a human."
+  - id: identity_mismatch
+    type: identity-mismatch
+    sender: +919000000099
+    turns:
+      - "What is my payment status?"
+  - id: sensitive_data
+    type: sensitive-data
+    turns:
+      - "My OTP: 123456 and card 4111111111111111"
+  - id: same_question_loop
+    type: same-question-loop
+    turns:
+      - "???"
+      - "???"
+  - id: multiple_escalations_single_ticket
+    type: one-open-ticket
+    turns:
+      - "Please connect me to a human."
+      - "I want a refund."
+  - id: human_reply_outbox
+    type: human-outbox
+    human_reply: "We received your request. We will review it."
+    turns:
+      - "Please connect me to a human."
+  - id: resolved_ticket_release
+    type: resolved-release
+    turns:
+      - "Please connect me to a human."
+      - "status"

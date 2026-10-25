@@ -1,0 +1,15 @@
+demo_notice:
+  english: "Demo mode: this bot uses SAMPLE DATA and messages may be logged for the assignment."
+human_offer:
+  english: "I can connect a team member if you prefer."
+sensitive_data:
+  english: "For your safety, I masked the sensitive detail. Never share an OTP, CVV, card number, password, Aadhaar, or PAN here."
+distress:
+  english: "I am sorry you are going through this. If you may be in immediate danger, contact local emergency services or someone you trust now."
+escalation:
+  english:
+    customer: "I understand this is concerning. I have sent this to the support team as ticket {ticket_id}. Current response target: {eta}. This is not a promise of a particular outcome."
+    suggested_reply: "Review the masked conversation and verified knowledge base before responding. Do not promise a refund or outcome."
+  hinglish:
+    customer: "Samajh sakta hoon ki yeh concern ki baat hai. Maine support team ko ticket {ticket_id} bheja hai. Current response target: {eta}. Kisi specific outcome ka promise nahi hai."
+    suggested_reply: "Masked conversation aur verified knowledge base check karke reply dein. Refund ya outcome ka promise na karein."

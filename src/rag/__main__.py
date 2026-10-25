@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from .config import RagConfig, load_dotenv
+from .benchmark import run_benchmark
 from .decision import decide
 from .embeddings import FastEmbedder, cosine_similarity, supported_multilingual_models
 from .engine import RagEngine
@@ -66,6 +67,7 @@ def _print_result(result) -> None:
     print(
         f"usage={result.usage.model_dump()} estimated_cost_usd={result.estimated_cost_usd}"
     )
+    print("timings_ms=" + json.dumps(result.timings_ms, sort_keys=True))
 
 
 def warmup(root: Path) -> int:
@@ -134,6 +136,9 @@ def main() -> int:
     ask_parser.add_argument("message")
     ask_parser.add_argument("--provider", choices=("none", "fake", "gemini", "anthropic"))
     eval_parser = subparsers.add_parser("eval")
+    benchmark_parser = subparsers.add_parser("benchmark")
+    benchmark_parser.add_argument("--provider", choices=("none", "gemini"), default="none")
+    benchmark_parser.add_argument("--count", type=int, default=50)
     explain_parser = subparsers.add_parser("explain")
     explain_parser.add_argument("message")
     explain_parser.add_argument("--provider", choices=("none", "fake", "gemini", "anthropic"))
@@ -165,6 +170,14 @@ def main() -> int:
             return 0
         except Exception as exc:
             print(f"Evaluation failed: {type(exc).__name__}: {exc}", file=sys.stderr)
+            return 1
+
+    if args.command == "benchmark":
+        try:
+            print(run_benchmark(root, args.provider, args.count))
+            return 0
+        except Exception as exc:
+            print(f"Benchmark failed: {type(exc).__name__}: {exc}", file=sys.stderr)
             return 1
 
     provider = _provider(args.provider, root)

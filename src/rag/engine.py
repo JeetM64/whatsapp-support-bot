@@ -70,7 +70,9 @@ class RagEngine:
         self._init_error: Exception | None = None
         try:
             self.provider = provider or create_provider(
-                None, max_tokens=int(self.config.provider.get("max_tokens", 256))
+                None,
+                max_tokens=int(self.config.provider.get("max_tokens", 256)),
+                fallback_models=list(self.config.provider.get("fallback_models", [])),
             )
         except Exception as exc:
             self.provider = NoneProvider()
@@ -81,15 +83,39 @@ class RagEngine:
             self._init_error = self._init_error or exc
             self.retriever = None
 
-    def answer(self, message: str, session: dict | None = None) -> RagResult:
+    def answer(self, message: str, session: dict | None = None, *, force_extractive: bool = False) -> RagResult:
         started = time.perf_counter()
+        deadline = started + float(self.config.provider.get("message_budget_seconds", 10))
+        timings: dict[str, float] = {}
+        normalize_started = time.perf_counter()
         language = detect_language(message)
+        timings["normalize_ms"] = (time.perf_counter() - normalize_started) * 1000
         retrieval: RetrievalOutput | None = None
         try:
             if self._init_error is not None or self.retriever is None:
                 raise self._init_error or RuntimeError("retriever unavailable")
-            retrieval = self.retriever.retrieve(message)
-            decision = decide(message, retrieval, self.retriever.entries, self.config)
+            retrieve_started = time.perf_counter()
+            retrieval_query = message
+            if force_extractive:
+                payment_loss = re.search(r"\b(debited|deducted|payment cut|paisa kat|paise kat|amount cut)\b|पैसे कट|रकम कट", message, re.IGNORECASE)
+                missing_access = re.search(r"\b(no access|cannot access|can't access|didn't get access|did not get access|access nahi|login nahi)\b|एक्सेस नहीं", message, re.IGNORECASE)
+                if payment_loss and missing_access:
+                    retrieval_query = "My payment failed but money was debited. What should I do?"
+            retrieval = self.retriever.retrieve(retrieval_query)
+            component_timings = retrieval.timings_ms
+            timings["normalize_ms"] += component_timings.get("normalize_ms", 0.0)
+            timings["embed_ms"] = component_timings.get("embedding_ms", 0.0)
+            timings["retrieve_ms"] = max(
+                0.0,
+                component_timings.get("retrieval_total_ms", (time.perf_counter() - retrieve_started) * 1000)
+                - component_timings.get("normalize_ms", 0.0)
+                - component_timings.get("embedding_ms", 0.0),
+            )
+            decide_started = time.perf_counter()
+            decision = decide(retrieval_query, retrieval, self.retriever.entries, self.config)
+            timings["decide_ms"] = (time.perf_counter() - decide_started) * 1000
+            timings["llm_ms"] = 0.0
+            timings["verify_ms"] = 0.0
             refs = _refs(retrieval)
             if decision.decision == Decision.NO_MATCH:
                 reply = no_match_reply()
@@ -120,14 +146,16 @@ class RagEngine:
                     message,
                     language,
                     selected_entries,
-                    self.provider,
+                    NoneProvider() if force_extractive else self.provider,
                     self.config,
                     self.retriever.embedder,
+                    deadline=deadline,
                 )
                 reply = composition.reply
                 mode = composition.mode
                 verifier = composition.verifier
                 usage = composition.usage
+                timings.update(composition.timings_ms)
                 refs = [
                     EntryRef(
                         id=entry["id"],
@@ -156,6 +184,7 @@ class RagEngine:
                 verifier=verifier,
                 language=language,
                 latency_ms=(time.perf_counter() - started) * 1000,
+                timings_ms={**timings, "total_ms": (time.perf_counter() - started) * 1000},
                 usage=usage,
                 estimated_cost_usd=_cost(self.provider, usage, self.config),
             )
@@ -187,6 +216,7 @@ class RagEngine:
                 ),
                 language=language,
                 latency_ms=(time.perf_counter() - started) * 1000,
+                timings_ms={**timings, "total_ms": (time.perf_counter() - started) * 1000},
                 usage=TokenUsage(),
                 estimated_cost_usd="unknown",
             )
