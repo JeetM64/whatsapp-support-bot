@@ -23,26 +23,55 @@ def _local_now(value: datetime | None) -> datetime:
     if value is None: return datetime.now(IST)
     return value.replace(tzinfo=IST) if value.tzinfo is None else value.astimezone(IST)
 
-def _next_open(t: datetime) -> datetime:
+def _next_open(
+    t: datetime,
+    *,
+    start_hour: int = 11,
+    end_hour: int = 19,
+    working_weekdays: set[int] | None = None,
+) -> datetime:
     t = t.astimezone(IST)
-    while t.weekday() == 6:
-        t = (t + timedelta(days=1)).replace(hour=10, minute=0, second=0, microsecond=0)
-    if t.hour < 10: return t.replace(hour=10, minute=0, second=0, microsecond=0)
-    if t.hour >= 19 or t.weekday() == 6:
-        t = (t + timedelta(days=1)).replace(hour=10, minute=0, second=0, microsecond=0)
-        while t.weekday() == 6: t += timedelta(days=1)
+    working_weekdays = working_weekdays or set(range(6))
+    while t.weekday() not in working_weekdays:
+        t = (t + timedelta(days=1)).replace(hour=start_hour, minute=0, second=0, microsecond=0)
+    if t.hour < start_hour:
+        return t.replace(hour=start_hour, minute=0, second=0, microsecond=0)
+    if t.hour >= end_hour:
+        t = (t + timedelta(days=1)).replace(hour=start_hour, minute=0, second=0, microsecond=0)
+        while t.weekday() not in working_weekdays:
+            t += timedelta(days=1)
     return t
 
-def sla_deadline(now: datetime, priority: str, hours: int) -> datetime:
-    t = _next_open(now)
+def sla_deadline(
+    now: datetime,
+    priority: str,
+    hours: int,
+    *,
+    start_hour: int = 11,
+    end_hour: int = 19,
+    working_weekdays: set[int] | None = None,
+    business_days: int | None = None,
+) -> datetime:
+    working_weekdays = working_weekdays or set(range(6))
+    t = _next_open(now, start_hour=start_hour, end_hour=end_hour, working_weekdays=working_weekdays)
+    if business_days is not None:
+        target = t
+        remaining_days = business_days
+        while remaining_days:
+            target = (target + timedelta(days=1)).replace(second=0, microsecond=0)
+            while target.weekday() not in working_weekdays:
+                target += timedelta(days=1)
+            remaining_days -= 1
+        return target
     remaining = float(hours)
     while remaining > 0:
-        t = _next_open(t)
-        close = t.replace(hour=19, minute=0, second=0, microsecond=0)
+        t = _next_open(t, start_hour=start_hour, end_hour=end_hour, working_weekdays=working_weekdays)
+        close = t.replace(hour=end_hour, minute=0, second=0, microsecond=0)
         available = (close - t).total_seconds() / 3600
         if remaining <= available: return t + timedelta(hours=remaining)
         remaining -= available
         t = close + timedelta(seconds=1)
+        t = _next_open(t, start_hour=start_hour, end_hour=end_hour, working_weekdays=working_weekdays)
     return t
 
 class Bot:
@@ -67,7 +96,24 @@ class Bot:
 
     def _eta(self, now: datetime, priority: str) -> str:
         hrs = int(self.hours.get("sla_hours", {}).get(priority, 24))
-        deadline = sla_deadline(now, priority, hrs)
+        business_days = self.hours.get("sla_business_days", {}).get(priority)
+        business_hours = self.hours.get("business_hours", {})
+        weekdays = business_hours.get("weekdays", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
+        weekday_map = {name: index for index, name in enumerate((
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ))}
+        weekday_numbers = {weekday_map[day] for day in weekdays if day in weekday_map}
+        start_hour = int(str(business_hours.get("start", "11:00")).split(":", 1)[0])
+        end_hour = int(str(business_hours.get("end", "19:00")).split(":", 1)[0])
+        deadline = sla_deadline(
+            now,
+            priority,
+            hrs,
+            start_hour=start_hour,
+            end_hour=end_hour,
+            working_weekdays=weekday_numbers,
+            business_days=int(business_days) if business_days is not None else None,
+        )
         return deadline.strftime("%a %d %b, %I:%M %p IST")
 
     def _ticket(self, sender_hash, now, text, result, guard_result, turns):
@@ -111,13 +157,15 @@ class Bot:
                 elif re.search(r"refund (?:guarantee )?program|program batch|रिफंड प्रोग्राम", clean, re.I):
                     refund_selection = "refund_program"
             if refund_selection:
+                refund_language = state.pop("pending_refund_language", detect_language(clean))
                 state["batch_type"] = refund_selection
                 state["pending_refund_batch"] = False
-                raw_text = (
-                    "I am in the Regular batch and want a refund. What is the policy?"
-                    if refund_selection == "regular"
-                    else "What are the Refund Guarantee Program conditions?"
-                )
+                if refund_language == "Hinglish":
+                    raw_text = ("Regular batch mein refund ki kya policy hai?" if refund_selection == "regular"
+                                else "Refund program ki conditions kya hain?")
+                else:
+                    raw_text = ("I am in the Regular batch and want a refund. What is the policy?"
+                                if refund_selection == "regular" else "What are the Refund Guarantee Program conditions?")
                 refund_flow_override = True
             else:
                 refund_request = bool(
@@ -132,12 +180,15 @@ class Bot:
                 duplicate_payment = self.guard.matches("R12_DUPLICATE_PAYMENT", clean)
                 if refund_request and not duplicate_payment and not state.get("batch_type"):
                     state["pending_refund_batch"] = True
+                    state["pending_refund_language"] = detect_language(clean)
                     clarification = (
                         "Jawab dene se pehle batayein: aap Regular batch mein hain ya Refund program batch mein?"
                         if detect_language(clean) == "Hinglish"
                         else "Before I answer a refund question, are you in the Regular batch or the Refund program batch?"
                     )
-                    out = queued_messages + ([self.messages["demo_notice"]["english"]] if self.demo_mode and not state.get("notice_sent") else []) + [clarification]
+                    notice_language = detect_language(clean).casefold()
+                    notice_language = notice_language if notice_language in {"english", "hinglish"} else "english"
+                    out = queued_messages + ([self.messages["demo_notice"][notice_language]] if self.demo_mode and not state.get("notice_sent") else []) + [clarification]
                     state["notice_sent"] = state.get("notice_sent", False) or self.demo_mode
                     state["turns"].append({"role":"assistant", "text":mask_pii(clarification)})
                     state["turns"] = state["turns"][-10:]
@@ -154,13 +205,21 @@ class Bot:
                         else "What are the Refund Guarantee Program conditions?"
                     )
                     refund_flow_override = True
+            human_offer_accepted = bool(
+                state.get("pending_human_offer")
+                and re.search(r"\b(yes|yeah|yep|haan|ha|ji|sure|okay|ok|connect|go ahead)\b", clean, re.I)
+            )
+            if human_offer_accepted:
+                state["pending_human_offer"] = False
             if state.get("handed_off"):
                 open_ticket = self.store.ticket(state.get("open_ticket_id", ""))
                 if open_ticket and open_ticket.get("status") == "open":
                     self.store.append_ticket_message(open_ticket["ticket_id"], clean)
                     human_messages = queued_messages
                     if raw_text.strip().casefold() in {"status", "ticket status"}:
-                        out = human_messages + [f"Your ticket {open_ticket['ticket_id']} is open. Current ETA: {open_ticket['sla_deadline']}."]
+                        lang = detect_language(clean).casefold()
+                        lang = lang if lang in {"english", "hinglish"} else "english"
+                        out = human_messages + [self.messages["ticket_status"][lang].format(ticket_id=open_ticket["ticket_id"], eta=open_ticket["sla_deadline"])]
                     else:
                         out = human_messages
                     result = BotReply(out, open_ticket, {"decision":"HANDOFF","reason":"ticket_open","priority":open_ticket.get("priority"),"kb_ids":[]})
@@ -169,13 +228,17 @@ class Bot:
                 state["handed_off"] = False
                 state["open_ticket_id"] = None            # Handle CLARIFY selection and terse follow-up against stored options/KB id.
             follow = raw_text.strip().casefold()
-            if refund_flow_override:
+            if refund_flow_override or human_offer_accepted:
                 pass
             elif state.get("pending_options") and re.match(r"^(1|2|3|one|two|three|payment wala|certificate wala)$", follow):
                 options = state["pending_options"]
                 idx = 0 if follow in {"1","one","payment wala"} else 1
                 if idx < len(options): raw_text = f"{raw_text} {options[idx]}"
-            elif len(follow.split()) <= 4 and state.get("last_kb_ids"):
+            elif (
+                len(follow.split()) <= 4
+                and state.get("last_kb_ids")
+                and re.match(r"^(and|also|what about|how about|aur|iska|iske|uska|uske|there|that|it|fee|price|duration)\b", follow)
+            ):
                 prior_id = state["last_kb_ids"][0]
                 prior = self.engine.retriever.entries.get(prior_id, {}) if self.engine else {}
                 raw_text = f"{raw_text} about {prior.get('question', prior_id)}"
@@ -183,12 +246,21 @@ class Bot:
                 raw_text = clean
             same_query = state.get("last_query_hash") == __import__("hashlib").sha256(clean.casefold().encode()).hexdigest()
             # L0 runs first; deterministic RAG is called only if no hard rule fires.
-            guess = self.guard.classify(clean, frustration_loop=state.get("clarify_no_match_streak",0) >= 2 or same_query,
-                                        status_authorized=self._identity_ok(sender))
+            if human_offer_accepted:
+                from src.guard import GuardResult
+                from types import SimpleNamespace
+                guess = GuardResult("human_offer_accepted", "P3", "escalate")
+                rag = SimpleNamespace(
+                    language=detect_language(clean), confidence=0.0, entries=[],
+                    reason_code="human_offer_accepted", decision=SimpleNamespace(value="NO_MATCH")
+                )
+            else:
+                guess = self.guard.classify(clean, frustration_loop=state.get("clarify_no_match_streak",0) >= 2 or same_query,
+                                            status_authorized=self._identity_ok(sender))
+                rag = None
             if refund_flow_override and guess.reason_code == "refund_action":
                 from src.guard import GuardResult
                 guess = GuardResult()
-            rag = None
             if self.engine and guess.action == "continue":
                 from concurrent.futures import ThreadPoolExecutor
                 from types import SimpleNamespace
@@ -217,10 +289,12 @@ class Bot:
                     rag = self.engine.answer(raw_text, force_extractive=True)
             if rag and rag.decision.value == "NO_MATCH" and guess.action in {"continue", "offer_human"} and self.guard.matches("R5", clean):
                 guess = self.guard.classify(clean, unmatched_high_risk=True, status_authorized=self._identity_ok(sender))
-            if guess.action == "continue" and rag and rag.decision.value == "NO_MATCH":
+            if rag and getattr(rag, "decision", None) and rag.decision.value == "NO_MATCH" and (
+                guess.action == "continue" or rag.reason_code == "out_of_scope_request"
+            ):
                 top_entry = self.engine.retriever.entries.get(rag.entries[0].id, {}) if self.engine and rag.entries else {}
                 high_risk_kb = bool(top_entry.get("escalate_if_unmatched")) or top_entry.get("risk_level") == "high"
-                if high_risk_kb:
+                if guess.action == "continue" and high_risk_kb and rag.reason_code != "prompt_injection_blocked":
                     guess = self.guard.classify(clean, unmatched_high_risk=True, status_authorized=self._identity_ok(sender))
                 self.store.gap(sender_hash, clean, when)
             if rag and rag.decision.value == "CLARIFY" and self.engine:
@@ -231,35 +305,79 @@ class Bot:
             if guess.action == "continue" and rag and rag.decision.value in {"CLARIFY", "NO_MATCH"}:
                 state["clarify_no_match_streak"] = int(state.get("clarify_no_match_streak",0)) + 1
             elif guess.action == "continue": state["clarify_no_match_streak"] = 0
-            if guess.action == "warn":
-                if state.get("sensitive_warned"):
-                    out = ["Sensitive information was masked. Please do not share it here."]
+            same_answer_followup = bool(
+                guess.action == "continue" and rag and rag.decision.value == "ANSWER" and rag.entries
+                and state.get("last_answer_core") == rag.reply
+                and set(state.get("last_kb_ids", [])) & {entry.id for entry in rag.entries}
+            )
+            if same_answer_followup:
+                lang = rag.language.casefold() if rag.language.casefold() in {"english", "hinglish"} else "english"
+                previous_ack = bool(state.get("repeat_ack_sent"))
+                if any(entry.id == "CAT-048" for entry in rag.entries):
+                    out = [self.messages["repeat_answer"][lang] if previous_ack else self.messages["refund_review"][lang]]
                 else:
-                    out = [self.messages["sensitive_data"]["english"]]
+                    out = [self.messages["repeat_answer"][lang]]
+                state["pending_human_offer"] = True
+                state["repeat_ack_sent"] = True
+                ticket = None
+            elif guess.action == "warn":
+                lang = (rag.language if rag else detect_language(clean)).casefold()
+                lang = lang if lang in {"english", "hinglish"} else "english"
+                if state.get("sensitive_warned"):
+                    out = [self.messages["sensitive_data"][lang]]
+                else:
+                    out = [self.messages["sensitive_data"][lang]]
                     state["sensitive_warned"] = True
             elif guess.action == "support":
-                reply_text = self.messages["distress"]["english"]
+                lang = (rag.language if rag else detect_language(clean)).casefold()
+                lang = lang if lang in {"english", "hinglish"} else "english"
+                reply_text = self.messages["distress"][lang]
                 ticket = self._ticket(sender_hash, when, clean, rag, guess, state["turns"])
                 out = [reply_text + " " + self._escalation_message(ticket, rag.language if rag else "English", when)]
                 state.update(handed_off=True, open_ticket_id=ticket["ticket_id"])
             elif guess.action in {"escalate", "kb_first_aid_ticket"}:
                 ticket = self._ticket(sender_hash, when, clean, rag, guess, state["turns"])
-                base = rag.reply if guess.action == "kb_first_aid_ticket" and rag else ""
+                from src.rag.composer import strip_handoff_offer
+                base = strip_handoff_offer(rag.reply, rag.language) if guess.action == "kb_first_aid_ticket" and rag else ""
                 escalation = self._escalation_message(ticket, rag.language if rag else "English", when)
                 out = ([base] if base else []) + [escalation]
                 state.update(handed_off=True, open_ticket_id=ticket["ticket_id"])
             elif guess.action == "offer_human":
-                out = [rag.reply + " " + self.messages["human_offer"]["english"]] if rag else [self.messages["human_offer"]["english"]]
+                lang = (rag.language if rag else detect_language(clean)).casefold()
+                lang = lang if lang in {"english", "hinglish"} else "english"
+                if rag and rag.reason_code == "out_of_scope_request":
+                    if re.search(r"\b(college|campus)\b", clean, re.I): topic = "college partnerships" if lang == "english" else "college partnership"
+                    elif re.search(r"\b(corporate|employer|company|recruiter)\b", clean, re.I): topic = "company partnerships" if lang == "english" else "company partnership"
+                    else: topic = "partnerships" if lang == "english" else "partnership"
+                    out = [self.messages["out_of_scope"][lang].format(topic=topic)]
+                else:
+                    offer = self.messages["human_offer"][lang]
+                    base = rag.reply if rag else ""
+                    out = [base if offer.casefold() in base.casefold() else (base + " " + offer).strip()]
+                state["pending_human_offer"] = True
+            elif rag and rag.reason_code == "prompt_injection_blocked" and re.search(
+                r"\b(refund|money back|money)\b|रिफंड|पैसे वापस", clean, re.I
+            ):
+                lang = rag.language.casefold() if rag.language.casefold() in {"english", "hinglish"} else "english"
+                out = [self.messages["injection_refund"][lang]]
+                state["pending_refund_batch"] = True
+                state["pending_human_offer"] = True
+                state["pending_refund_language"] = rag.language
             else:
                 ticket = None
                 out = [rag.reply if rag else "Sorry, I could not help with that just now. Please try again."]
+                if rag and rag.decision.value == "NO_MATCH":
+                    state["pending_human_offer"] = True
             if self.demo_mode and not state.get("notice_sent"):
-                out.insert(0, self.messages["demo_notice"]["english"]); state["notice_sent"] = True
+                notice_language = (rag.language if rag else detect_language(clean)).casefold()
+                notice_language = notice_language if notice_language in {"english", "hinglish"} else "english"
+                out.insert(0, self.messages["demo_notice"][notice_language]); state["notice_sent"] = True
             out = queued_messages + out
             out = [msg[i:i+600] for msg in out for i in range(0, len(msg), 600)] or ["Sorry, I could not help with that just now."]
             if rag:
                 state["last_kb_ids"] = [e.id for e in rag.entries]
                 state["last_intent"] = rag.reason_code
+                if rag.decision.value == "ANSWER": state["last_answer_core"] = rag.reply
             state["last_query_hash"] = __import__("hashlib").sha256(clean.casefold().encode()).hexdigest()
             state["turns"].append({"role":"assistant", "text":mask_pii(" ".join(out))})
             state["turns"] = state["turns"][-10:]
@@ -275,7 +393,9 @@ class Bot:
         except Exception as exc:
             # Safe apology and masked trace on any internal exception.
             ticket = self._ticket(sender_hash, when, clean, None, type("R", (), {"priority":"P3", "reason_code":"internal_error"})(), [])
-            reply = BotReply(["Sorry, something went wrong. I have created a support ticket for follow-up."], ticket,
+            lang = detect_language(clean)
+            escalation = self._escalation_message(ticket, lang, when)
+            reply = BotReply([escalation], ticket,
                              {"decision":"HANDOFF","reason":"internal_error","priority":"P3","kb_ids":[],"internal_error_type":type(exc).__name__,"internal_error_line":__import__("traceback").extract_tb(exc.__traceback__)[-1].lineno,"internal_error_trace":[{"file":__import__("pathlib").Path(frame.filename).name,"line":frame.lineno,"function":frame.name} for frame in __import__("traceback").extract_tb(exc.__traceback__)]})
             self._write_trace(reply, sender_hash, when)
             return reply

@@ -1,0 +1,8 @@
+title: Hinglish — certificate and payment access
+sender: replay:hinglish-payment-certificate
+now: 2026-10-26T13:40:00+05:30
+turns:
+  - user: Btech web dev internship ka certificate milega kya?
+    message_id: hinglish-cert-1
+  - user: Payment cut gaya par access nahi aaya.
+    message_id: hinglish-payment-2

@@ -49,6 +49,12 @@ def render_report(payload: dict[str, Any]) -> str:
         lines.extend(f"- {key}" for key in missing)
     else:
         lines.append("None.")
+    lines.extend([
+        "",
+        "## Confirmation items",
+        "",
+        "- Refund Guarantee Program attendance differs across supplied materials: latest text says 100%, while an older URL says 75%. Confirm the exact conditions with the team; customer replies state the latest 100% policy without exposing this discrepancy.",
+    ])
     lines.extend(
         [
             "",

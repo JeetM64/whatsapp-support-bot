@@ -68,6 +68,11 @@ class Store:
         with self.connect() as db:
             row = db.execute("SELECT payload FROM tickets WHERE ticket_id=?", (ticket_id,)).fetchone()
             return json.loads(row["payload"]) if row else None
+    def last_customer_message_at(self, ticket_id: str) -> str | None:
+        with self.connect() as db:
+            row = db.execute("""SELECT m.created_at FROM messages m JOIN tickets t ON t.sender_hash=m.sender_hash
+                                WHERE t.ticket_id=? AND m.role='customer' ORDER BY m.created_at DESC LIMIT 1""", (ticket_id,)).fetchone()
+            return str(row[0]) if row else None
     def list_tickets(self) -> list[dict[str, Any]]:
         with self.connect() as db:
             return [json.loads(row[0]) for row in db.execute("SELECT payload FROM tickets ORDER BY created_at")]

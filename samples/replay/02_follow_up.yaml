@@ -1,0 +1,8 @@
+title: Follow-up — certificates after a domain
+sender: replay:domain-certificate-follow-up
+now: 2026-10-26T13:10:00+05:30
+turns:
+  - user: Which domains are listed?
+    message_id: follow-1
+  - user: certificate types?
+    message_id: follow-2

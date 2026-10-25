@@ -1,0 +1,10 @@
+title: Refund dispute — identify batch, then apply the program conditions
+sender: replay:refund-dispute
+now: 2026-10-26T14:00:00+05:30
+turns:
+  - user: Refund milega?
+    message_id: refund-1
+  - user: Refund program batch.
+    message_id: refund-2
+  - user: Main Refund program batch mein hoon. Attendance aur assignments poore kiye, aur last week internship project submit kiya. Kya yahi program conditions hain?
+    message_id: refund-3

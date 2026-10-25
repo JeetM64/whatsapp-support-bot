@@ -17,6 +17,9 @@ INJECTION_PATTERNS = (
     r"\b(print|show|reveal|repeat)\b.{0,30}\b(instructions|system prompt|rules)\b",
     r"\bDAN\b",
     r"\bpromise\b.{0,30}\b(refund|money)\b",
+    r"\b(rules|niyam)\b.{0,30}\b(ignore|bhool)\b.{0,80}\b(refund|vaada|waada)\b",
+    r"\b(ignore|disregard)\b.{0,50}\b(rules|instructions|niyam)\b.{0,80}\b(refund|vaada|waada)\b",
+    r"\b(refund|paise|paisa)\b.{0,25}\b(vaada|waada)\b",
     r"\bact as\b.{0,20}\b(unrestricted|developer|admin)\b",
 )
 
@@ -150,6 +153,14 @@ def decide(
 
     if len(retrieval.candidates) >= 2:
         second = retrieval.candidates[1]
+        ambiguity_limit = float(config.decision.get("ambiguity_margin", 0.10))
+        if retrieval.margin < ambiguity_limit:
+            return QueryDecision(
+                decision=Decision.CLARIFY,
+                reason_code="low_margin_entry_conflict",
+                confidence=retrieval.confidence,
+                candidate_ids=[first.id, second.id],
+            )
         topics = _distinct_topics(message)
         explicit_multi_topic = len(topics) >= 2 and bool(
             re.search(r"\b(and|also|plus|as well as|aur|par|but)\b", message, re.IGNORECASE)
@@ -157,7 +168,7 @@ def decide(
         close_cross_topic = (
             len(topics) >= 2
             and first.category != second.category
-            and retrieval.margin < float(config.decision.get("ambiguity_margin", 0.10))
+            and retrieval.margin < ambiguity_limit
         )
         if (
             explicit_multi_topic or close_cross_topic
@@ -216,8 +227,19 @@ def compose_clarification(
     return response[:600]
 
 
-def no_match_reply() -> str:
-    return (
-        "I do not have this information in the current knowledge base. "
-        "I can connect a team member."
-    )
+def no_match_reply(language: str = "English", query: str = "") -> str:
+    clean = query.strip().rstrip("?.! ")
+    lowered = clean.casefold()
+    if re.search(r"\b(college|campus).{0,30}\b(partnership|partner|collaborat)|\b(partnership|partner|collaborat).{0,30}\b(college|campus)", lowered):
+        topic_en, topic_hi = "college partnerships", "college partnership ke baare mein"
+    elif "istudio technologies" in lowered:
+        topic_en, topic_hi = "whether iStudio is affiliated with another company", "iStudio aur doosri company ke sambandh ke baare mein"
+    elif re.search(r"\b(aicte|ugc|nsdc)\b", lowered):
+        topic_en, topic_hi = "AICTE, UGC, or NSDC approval", "AICTE, UGC ya NSDC approval ke baare mein"
+    else:
+        topic_en, topic_hi = (clean[:70] or "this topic"), (clean[:70] or "is topic ke baare mein")
+    if language == "Hinglish":
+        return f"Mere paas {topic_hi} ki details nahi hain. Kya main aapko human agent se connect kar doon?"
+    if language == "Hindi":
+        return f"मुझे {topic_en} की जानकारी नहीं है। क्या मैं आपको मानव एजेंट से जोड़ दूँ?"
+    return f"I don't have details on {topic_en}. Would you like me to connect you with a human?"

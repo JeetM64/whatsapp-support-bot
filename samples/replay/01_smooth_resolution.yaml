@@ -1,0 +1,8 @@
+title: Smooth resolution — fees and domains
+sender: replay:smooth-resolution
+now: 2026-10-26T13:00:00+05:30
+turns:
+  - user: What are the listed program fees?
+    message_id: smooth-1
+  - user: Which domains are listed?
+    message_id: smooth-2

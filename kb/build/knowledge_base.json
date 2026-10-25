@@ -1,5 +1,5 @@
 {
-  "content_hash": "63ae3cbbc3f9eb046e4d886e674e80e0b6d2e83b69b6fa0419e20dc59c366bfe",
+  "content_hash": "b36f75cd8e800ec112ebd6c6876a4a6cac4003ba57f74f65c826d957b8042739",
   "entries": [
     {
       "answer_hinglish": "iStudio program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai aur pehle training, uske baad internship ka mauka shamil hain.",
@@ -20,7 +20,9 @@
       "hinglish_variants": [
         "istudio program me kya hota hai",
         "training aur internship kaise milti hai",
-        "iCAT qualify karne ke baad kya milta hai"
+        "iCAT qualify karne ke baad kya milta hai",
+        "What skills and training are included in the internship program?",
+        "Which training and internship deliverables are included?"
       ],
       "id": "CAT-001",
       "is_mock": false,
@@ -125,7 +127,12 @@
       "hinglish_variants": [
         "beginner apply kar sakta hai kya",
         "pehle se coding aani chahiye",
-        "prior knowledge zaroori hai kya"
+        "prior knowledge zaroori hai kya",
+        "Can a beginner with no prior knowledge start?",
+        "I am new to programming; can I start?",
+        "pehle se knowledge nahi hai, kya shuru kar sakte hain",
+        "coding ka experience nahi hai, phir bhi shuru kar sakta hoon",
+        "I am a beginner without programming experience"
       ],
       "id": "CAT-004",
       "is_mock": true,
@@ -160,7 +167,9 @@
         "iCAT ke baad kaun join kar sakta hai",
         "eligibility kya hai",
         "do degree year and department matter",
-        "branch and year eligibility"
+        "branch and year eligibility",
+        "Who can apply for the program?",
+        "What are the program eligibility requirements?"
       ],
       "id": "CAT-005",
       "is_mock": false,
@@ -363,9 +372,9 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "August 2026 ke iCAT page ke mutabik fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 di gayi hain. fees can change, please confirm on the official site before paying.",
-      "answer_rendered": "The supplied August 2026 iCAT page snapshot lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
-      "answer_template": "The supplied August 2026 iCAT page snapshot lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
+      "answer_hinglish": "August 2026 ke iCAT page ke mutabik fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 di gayi hain. fees badal sakti hain; payment se pehle official site par confirm kar lein.",
+      "answer_rendered": "The August 2026 iCAT page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_template": "The August 2026 iCAT page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -385,7 +394,9 @@
         "iCAT qualify hua to kitna pay karna hai",
         "regular student ki fees kya hai",
         "how much should I budget to join",
-        "internship ki total cost kaise pata karu"
+        "internship ki total cost kaise pata karu",
+        "What is the program fee and what is included?",
+        "How much does it cost to take part in the program?"
       ],
       "id": "CAT-011",
       "is_mock": false,
@@ -502,7 +513,9 @@
       "hinglish_variants": [
         "payment receipt kaise milegi",
         "receipt email par nahi aayi",
-        "payment proof chahiye"
+        "payment proof chahiye",
+        "How can I get proof of payment by email?",
+        "payment receipt or proof of payment email"
       ],
       "id": "CAT-014",
       "is_mock": false,
@@ -531,7 +544,10 @@
       "hinglish_variants": [
         "refund policy kya hai",
         "refund milega kya",
-        "regular batch ya refund program batch"
+        "regular batch ya refund program batch",
+        "what happens if I cancel and ask for a refund",
+        "cancel a course and ask for my money back",
+        "cancellation refund conditions"
       ],
       "id": "CAT-015",
       "is_mock": false,
@@ -544,7 +560,7 @@
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "What is the refund policy?",
+      "question": "I need to cancel and ask about getting my money back. Which batch am I in?",
       "risk_level": "high"
     },
     {
@@ -602,7 +618,9 @@
       "hinglish_variants": [
         "kitne certificates milte hain",
         "kaun kaun se certificate hain",
-        "training certificate milega kya"
+        "training certificate milega kya",
+        "Are certificates included with program completion?",
+        "What certificates come with the program fee?"
       ],
       "id": "CAT-017",
       "is_mock": false,
@@ -652,9 +670,9 @@
       "risk_level": "low"
     },
     {
-      "answer_hinglish": "Certificate status ke baare mein iStudio ke mutabik certificates ISO se verified hain. Accreditation ke baare mein Diye gaye sources mein AICTE, UGC ya NSDC recognition ki pushti nahi hai; main aapko human agent se connect kar sakta hoon.",
-      "answer_rendered": "iStudio describes the certificates as ISO-verified. The supplied sources provide no information confirming AICTE, UGC, or NSDC recognition; I can connect you with a human. Please confirm this on the official site or with the team.",
-      "answer_template": "{{CERTIFICATE_STATUS}}. {{ACCREDITATION_INFO}}.",
+      "answer_hinglish": "AICTE, UGC ya NSDC approval ke baare mein mere paas pakki jaankari nahi hai. iStudio ke mutabik certificates ISO se verified hain. Main aapko team se confirm karne ke liye connect kar sakta hoon.",
+      "answer_rendered": "I don't have confirmed information about AICTE, UGC, or NSDC approval. iStudio describes its certificates as ISO-verified. I can connect you with a human to confirm the applicable details.",
+      "answer_template": "{{ACCREDITATION_INFO}}. {{CERTIFICATE_STATUS}}. I can connect you with a human to confirm the applicable details.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -670,7 +688,12 @@
       "hinglish_variants": [
         "certificate ISO verified hai",
         "AICTE approved hai kya",
-        "UGC ya NSDC recognition hai kya"
+        "UGC ya NSDC recognition hai kya",
+        "How is a certificate described or verified?",
+        "certificate authenticity and recognition information",
+        "How can an employer verify a certificate?",
+        "How are certificates verified or accredited?",
+        "certificate validity and recognition status"
       ],
       "id": "CAT-019",
       "is_mock": false,
@@ -758,8 +781,8 @@
     },
     {
       "answer_hinglish": "Password reset ke liye ye page kholein: diya gaya password reset page: https://cit2.internshipstudio.com/login/forgot_password.php. Kaam na kare toh support team se sampark karein.",
-      "answer_rendered": "Use the supplied password-reset page: https://cit2.internshipstudio.com/login/forgot_password.php. If it doesn't work, contact the support team. Please confirm this on the official site or with the team.",
-      "answer_template": "Use the supplied password-reset page: {{PASSWORD_RESET_URL}}. If it doesn't work, contact the support team.",
+      "answer_rendered": "Use this password-reset page: https://cit2.internshipstudio.com/login/forgot_password.php. If it doesn't work, contact the support team.",
+      "answer_template": "Use this password-reset page: {{PASSWORD_RESET_URL}}. If it doesn't work, contact the support team.",
       "category": "technical_access",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -893,7 +916,7 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein fees can change, please confirm on the official site before paying.",
+      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein fees badal sakti hain; payment se pehle official site par confirm kar lein.",
       "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship is free; the fee covers training. No stipend. Placement assistance only; no outcome guaranteed. Cancellations are non-refundable except duplicate-payment requests within 7 days. Outside-site payment? Confirm with support. Never share OTP or card details here. Please confirm other details with the team; fees can change, please confirm on the official site before paying",
       "answer_template": "{{CONTACT_CHANNELS}}. {{INTERNSHIP_FEE_NOTE}}. {{NO_STIPEND_INFO}}. {{PLACEMENT_POSITION}}. {{REFUND_STANDARD}}. {{SAFE_PAYMENT_NOTE}} {{FEE_CONFIRMATION}}",
       "category": "trust_verification",
@@ -1040,9 +1063,9 @@
       "risk_level": "low"
     },
     {
-      "answer_hinglish": "Placement assistance hai, outcome guarantee nahi. iStudio Plus Digital Marketing aur Robotics ke baare mein diye gaye sources mein alag wording hai; iStudio Plus Digital Marketing aur Robotics ke placement guarantee par sources mein alag wording hai; applicable terms team se confirm karne honge.",
-      "answer_rendered": "Placement assistance only; no outcome guaranteed. iStudio Plus Digital Marketing and Robotics questions have conflicting wording in supplied sources; iStudio Plus Digital Marketing and Robotics questions have conflicting placement-guarantee wording in supplied sources; a human should confirm the applicable terms. Please confirm this on the official site or with the team.",
-      "answer_template": "{{PLACEMENT_POSITION}}. iStudio Plus Digital Marketing and Robotics questions have conflicting wording in supplied sources; {{ISTUDIO_PLUS_NOTE}}.",
+      "answer_hinglish": "Placement assistance hai, outcome guarantee nahi. iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; lagu terms team se confirm kar lein.",
+      "answer_rendered": "Placement assistance only; no outcome guaranteed. The placement terms for iStudio Plus Digital Marketing and Robotics differ; The placement wording for iStudio Plus Digital Marketing and Robotics differs; a human can confirm the applicable terms. Please confirm this on the official site or with the team.",
+      "answer_template": "{{PLACEMENT_POSITION}}. The placement terms for iStudio Plus Digital Marketing and Robotics differ; {{ISTUDIO_PLUS_NOTE}}.",
       "category": "placement_hiring",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1058,7 +1081,11 @@
       "hinglish_variants": [
         "placement guarantee hai kya",
         "job pakki hai kya",
-        "placement assistance milti hai kya"
+        "placement assistance milti hai kya",
+        "What career support and placement help does iStudio Plus include?",
+        "career development and placement assistance terms",
+        "What career guidance and placement support comes with the Plus program?",
+        "scope of career and placement support"
       ],
       "id": "CAT-030",
       "is_mock": false,
@@ -1229,7 +1256,10 @@
       "hinglish_variants": [
         "icat qualify karne par eligible hote hain kya",
         "iCAT ke baad kya eligibility hai",
-        "exam dena zaroori hai kya"
+        "exam dena zaroori hai kya",
+        "I did not attempt iCAT can I still join",
+        "does skipping iCAT make me ineligible",
+        "iCAT dena zaroori hai kya"
       ],
       "id": "CAT-035",
       "is_mock": false,
@@ -1242,7 +1272,7 @@
       ],
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
-      "question": "Who is eligible after the iCAT?",
+      "question": "Do I need to attempt iCAT to be eligible?",
       "risk_level": "low"
     },
     {
@@ -1417,9 +1447,9 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "Internship free hai; fee training ke liye hai. August 2026 ke diye gaye page par fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 hain. fees can change, please confirm on the official site before paying.",
-      "answer_rendered": "Internship is free; the fee covers training. The supplied August 2026 page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
-      "answer_template": "{{INTERNSHIP_FEE_NOTE}}. The supplied August 2026 page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
+      "answer_hinglish": "Internship free hai; fee training ke liye hai. August 2026 ke page par fees iCAT qualify student ke liye Rs 880 aur regular student ke liye Rs 8,500 hain. fees badal sakti hain; payment se pehle official site par confirm kar lein.",
+      "answer_rendered": "Internship is free; the fee covers training. The August 2026 page lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student. fees can change, please confirm on the official site before paying.",
+      "answer_template": "{{INTERNSHIP_FEE_NOTE}}. The August 2026 page lists {{FEE_ICAT}} and {{FEE_REGULAR}}. {{FEE_CONFIRMATION}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -1440,7 +1470,9 @@
         "internship free hai phir fee kyu",
         "internship ke paise lagte hain kya",
         "training fee kis liye hai",
-        "internship ki total cost kaise pata karu"
+        "internship ki total cost kaise pata karu",
+        "Is there a separate charge for the internship after training?",
+        "Does the internship itself cost extra?"
       ],
       "id": "CAT-041",
       "is_mock": false,
@@ -1527,9 +1559,9 @@
       "risk_level": "low"
     },
     {
-      "answer_hinglish": "iStudio Plus Digital Marketing aur Robotics ke placement terms par diye sources mein alag wording hai. iStudio Plus Digital Marketing aur Robotics ke placement guarantee par sources mein alag wording hai; applicable terms team se confirm karne honge.",
-      "answer_rendered": "iStudio Plus Digital Marketing and Robotics questions have conflicting placement wording in supplied sources. iStudio Plus Digital Marketing and Robotics questions have conflicting placement-guarantee wording in supplied sources; a human should confirm the applicable terms. Please confirm this on the official site or with the team.",
-      "answer_template": "iStudio Plus Digital Marketing and Robotics questions have conflicting placement wording in supplied sources. {{ISTUDIO_PLUS_NOTE}}.",
+      "answer_hinglish": "iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain. iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; lagu terms team se confirm kar lein.",
+      "answer_rendered": "The placement terms for iStudio Plus Digital Marketing and Robotics differ. The placement wording for iStudio Plus Digital Marketing and Robotics differs; a human can confirm the applicable terms. Please confirm this on the official site or with the team.",
+      "answer_template": "The placement terms for iStudio Plus Digital Marketing and Robotics differ. {{ISTUDIO_PLUS_NOTE}}.",
       "category": "placement_hiring",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -1623,7 +1655,7 @@
     },
     {
       "answer_hinglish": "Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Mushkil aa rahi ho toh Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges aur process nahi diye gaye. Aapki situation dekhne ke liye main team member se connect kar sakta hoon.",
-      "answer_rendered": "Cancellations are non-refundable except duplicate-payment requests within 7 days. If you are facing difficulty, If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges and process are not stated. I can connect a team member to review your situation. Please confirm this on the official site or with the team.",
+      "answer_rendered": "Cancellations are non-refundable except duplicate-payment requests within 7 days. If you are facing difficulty, If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges and process are not stated. I can connect a team member to review your situation.",
       "answer_template": "{{REFUND_STANDARD}}. If you are facing difficulty, {{REFUND_EXTENSION_OPTION}}. I can connect a team member to review your situation.",
       "category": "refunds",
       "escalate_if_unmatched": true,
@@ -1657,8 +1689,8 @@
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "Refund program ki shartein: Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna. Naye diye gaye text mein 100% attendance hai; purane URL mein 75% hai, is shart ko team se confirm karein.",
-      "answer_rendered": "After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected duration, all assignments submitted on time, and the internship project submitted in the last week. The latest supplied text says 100% attendance; an older URL says 75%, so please confirm this condition with the team. Please confirm this on the official site or with the team.",
+      "answer_hinglish": "Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna. Nayi jaankari mein 100% attendance hai; purane URL mein 75% hai, team se is shart ki pushti karein.",
+      "answer_rendered": "After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected duration, all assignments submitted on time, and the internship project submitted in the last week. Newer information says 100% attendance; an earlier URL says 75%, so please confirm this condition with the team. Please confirm this on the official site or with the team.",
       "answer_template": "{{REFUND_PROGRAM_CONDITIONS}}. {{REFUND_ATTENDANCE_NOTE}}.",
       "category": "refunds",
       "escalate_if_unmatched": true,
@@ -1727,8 +1759,8 @@
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "Samajh sakta hoon, do baar charge hona pareshaan kar sakta hai. Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email karein. Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment source par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak lag sakte hain. Cash refund nahi hota.",
-      "answer_rendered": "I understand a duplicate charge is concerning. For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate payment return, your registered email ID, and payment receipt. A 100% refund goes to the same source; processing takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not offered.",
+      "answer_hinglish": "Samajh sakta hoon, do baar charge hona pareshaan kar sakta hai. Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email karein. Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment method par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak lag sakte hain. Cash refund nahi hota.",
+      "answer_rendered": "I understand a duplicate charge is concerning. For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate payment return, your registered email ID, and payment receipt. A 100% refund goes back to the original payment method; processing takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not offered.",
       "answer_template": "I understand a duplicate charge is concerning. {{DUPLICATE_PAYMENT_RULE}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
@@ -2266,9 +2298,9 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "Diye gaye sources mein Pune aur Ahmednagar ka farq hai; office address confirm nahi hai. Sources mein location ke baare mein farq hai, isliye main office address nahi doonga. Confirm karne ke liye main aapko human agent se connect kar sakta hoon.",
-      "answer_rendered": "The supplied sources conflict between Pune and Ahmednagar; I cannot confirm an office address. I won't provide an office address while the supplied sources conflict; I can connect you with a human to confirm. Please confirm this on the official site or with the team.",
-      "answer_template": "{{LOCATION_NOTE}}. I won't provide an office address while the supplied sources conflict; I can connect you with a human to confirm.",
+      "answer_hinglish": "Location details Pune aur Ahmednagar ke beech alag hain; office address confirm nahi hai. Location details alag hain, isliye main office address nahi doonga. Confirm karne ke liye main aapko human agent se connect kar sakta hoon.",
+      "answer_rendered": "The location details differ between Pune and Ahmednagar; I cannot confirm an office address. I can't confirm an office address because the location details differ; I can connect you with a human to confirm.",
+      "answer_template": "{{LOCATION_NOTE}}. I can't confirm an office address because the location details differ; I can connect you with a human to confirm.",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],

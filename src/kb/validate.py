@@ -237,8 +237,9 @@ def validate_and_render(
                     "Please confirm other details with the team; " + fee_confirmation,
                 )
         elif low_confidence:
-            rendered = rendered.rstrip()
-            rendered += " Please confirm this on the official site or with the team."
+            if not re.search(r"connect (?:you with a human|a team member)|support team", rendered, re.IGNORECASE):
+                rendered = rendered.rstrip()
+                rendered += " Please confirm this on the official site or with the team."
         is_mock = bool(mock_keys)
         if is_mock:
             rendered = f"SAMPLE DATA — {rendered}"
@@ -275,7 +276,7 @@ def validate_and_render(
             if (
                 low_confidence
                 and "FEE_CONFIRMATION" not in hinglish_keys
-                and not re.search(r"\b(confirm|connect|sampark|verify|jude)\b", rendered_hinglish, re.IGNORECASE)
+                and not re.search(r"\b(confirm|connect|sampark|verify|jude|pushti)\b", rendered_hinglish, re.IGNORECASE)
             ):
                 rendered_hinglish = rendered_hinglish.rstrip() + " Team se confirm karein."
             if len(rendered_hinglish) > 500:

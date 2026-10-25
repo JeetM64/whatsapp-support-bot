@@ -1,0 +1,6 @@
+title: Payment done — dashboard access missing
+sender: replay:payment-access
+now: 2026-10-26T13:30:00+05:30
+turns:
+  - user: I paid, money was debited, and I cannot access the dashboard.
+    message_id: payment-1

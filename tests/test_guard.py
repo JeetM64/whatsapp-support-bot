@@ -52,7 +52,7 @@ def test_mask_pii_removes_sensitive_seed_values(raw):
 def test_sla_skips_closed_hours_and_sunday():
     ist = ZoneInfo("Asia/Kolkata")
     got = sla_deadline(datetime(2026, 10, 25, 20, 30, tzinfo=ist), "P2", 1)
-    assert got == datetime(2026, 10, 26, 11, 0, tzinfo=ist)
+    assert got == datetime(2026, 10, 26, 12, 0, tzinfo=ist)
 
 
 @pytest.mark.parametrize(
@@ -61,8 +61,8 @@ def test_sla_skips_closed_hours_and_sunday():
         ("I paid twice by mistake", "duplicate_payment", "P2", "kb_first_aid_ticket"),
         ("My payment is duplicated", "duplicate_payment", "P2", "kb_first_aid_ticket"),
         ("I got billed two times for one registration", "duplicate_payment", "P2", "kb_first_aid_ticket"),
-        ("Can our college partner with you?", "out_of_scope", "P3", "escalate"),
-        ("A corporate collaboration inquiry", "out_of_scope", "P3", "escalate"),
+        ("Can our college partner with you?", "out_of_scope", None, "offer_human"),
+        ("A corporate collaboration inquiry", "out_of_scope", None, "offer_human"),
         ("Is your office in Pune or Ahmednagar?", "location_conflict", "P3", "escalate"),
         ("Where is the Internship Studio office?", "location_conflict", "P3", "escalate"),
         ("What are iStudio Plus placement terms?", "istudio_plus_human", "P3", "escalate"),

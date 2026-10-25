@@ -1,15 +1,44 @@
 demo_notice:
-  english: "Demo bot built for Internship Studio's Founder Office assignment: answers use public help-center information plus labeled SAMPLE DATA. Messages are logged (masked)."
+  english: 'Demo bot built for Internship Studio''s Founder Office assignment: answers use public help-center information
+    plus labeled SAMPLE DATA. Messages are logged (masked).'
+  hinglish: 'Yeh Internship Studio ke Founder Office assignment ke liye demo bot hai: jawaab public help-center information
+    aur labeled SAMPLE DATA par based hain. Messages log hote hain (masked).'
 human_offer:
-  english: "I can connect a team member if you prefer."
+  english: Would you like me to connect you with a team member?
+  hinglish: Kya main aapko support team se connect kar doon?
 sensitive_data:
-  english: "For your safety, I masked the sensitive detail. Never share an OTP, CVV, card number, password, Aadhaar, or PAN here."
+  english: For your safety, I masked the sensitive detail. Never share an OTP, CVV, card number, password, Aadhaar, or PAN
+    here.
+  hinglish: Aapki suraksha ke liye sensitive detail mask kar di hai. OTP, CVV, card number, password, Aadhaar ya PAN yahan
+    share na karein.
 distress:
-  english: "I am sorry you are going through this. If you may be in immediate danger, contact local emergency services or someone you trust now."
+  english: I am sorry you are going through this. If you may be in immediate danger, contact local emergency services or someone
+    you trust now.
+  hinglish: Mujhe afsos hai ki aap is mushkil se guzar rahe hain. Agar aap turant khatre mein hain, local emergency services
+    ya apne bharosemand vyakti se abhi sampark karein.
 escalation:
   english:
-    customer: "I understand this is concerning. I have sent this to the support team as ticket {ticket_id}. Current response target: {eta}. This is not a promise of a particular outcome."
-    suggested_reply: "Review the masked conversation and verified knowledge base before responding. Do not promise a refund or outcome."
+    customer: I understand this is concerning. I've sent your message to our support team as ticket {ticket_id}. We aim to reply by {eta}.
+    suggested_reply: Review the masked conversation and verified knowledge base before responding. Do not promise a refund
+      or outcome.
   hinglish:
-    customer: "Samajh sakta hoon ki yeh concern ki baat hai. Maine support team ko ticket {ticket_id} bheja hai. Current response target: {eta}. Kisi specific outcome ka promise nahi hai."
-    suggested_reply: "Masked conversation aur verified knowledge base check karke reply dein. Refund ya outcome ka promise na karein."
+    customer: Samajh raha hoon ki yeh pareshaani ki baat hai. Maine aapka message support team ko ticket {ticket_id} ke through bheja hai. Hum {eta} tak jawab dene ki koshish karenge.
+    suggested_reply: Masked conversation aur verified knowledge base check karke reply dein. Refund ya outcome ka promise
+      na karein.
+out_of_scope:
+  english: I don't have details on {topic}. Would you like me to connect you with a human?
+  hinglish: Mere paas {topic} ki details nahi hain. Kya main aapko human agent se connect kar doon?
+injection_refund:
+  english: 'I can''t promise a refund or outcome. The policy depends on your batch: Regular or Refund program? I can connect
+    you with a human if you prefer.'
+  hinglish: 'Main refund ya kisi outcome ka vaada nahi kar sakta. Policy aapke batch par nirbhar hai: Regular batch ya Refund
+    program? Aap chahein toh main aapko human agent se connect kar sakta hoon.'
+ticket_status:
+  english: 'Your ticket {ticket_id} is open. Current ETA: {eta}.'
+  hinglish: 'Aapka ticket {ticket_id} open hai. Abhi ka expected time: {eta}.'
+refund_review:
+  english: Thanks for the update. The team can review your eligibility against the batch conditions. Would you like me to raise a ticket?
+  hinglish: Update dene ke liye shukriya. Team aapke batch conditions ke mutabik eligibility check kar sakti hai. Kya main ticket raise kar doon?
+repeat_answer:
+  english: Thanks for following up. I shared the available details above. What specific point would you like me to clarify? Would you like me to raise a ticket?
+  hinglish: Follow-up ke liye shukriya. Upar di hui details hi available hain. Aap kaunsi baat clear karna chahte hain? Kya main ticket raise kar doon?

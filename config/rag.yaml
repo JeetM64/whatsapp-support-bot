@@ -13,9 +13,9 @@ retrieval:
   min_semantic_agreement: 0.3
 thresholds:
   answer: 0.38
-  answer_high: 0.5
-  low: 0.08
-  margin: 0.0
+  answer_high: 0.6
+  low: 0.16
+  margin: 0.08
   ground: 0.45
   ambiguity_margin: 0.03
 decision:

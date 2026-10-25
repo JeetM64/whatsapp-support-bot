@@ -33,7 +33,8 @@ def test_engine_none_provider_uses_zero_network_extractively(tmp_path: Path) -> 
     assert result.decision.value == "ANSWER"
     assert "Rs 880" in result.reply
     assert "Rs 8,500" in result.reply
-    assert result.reply.endswith("fees can change, please confirm on the official site before paying.")
+    assert result.reply.rstrip(". ").endswith("fees badal sakti hain; payment se pehle official site par confirm kar lein")
+    assert "fees can change" not in result.reply.casefold()
     assert result.estimated_cost_usd == 0.0
 
 
@@ -100,3 +101,8 @@ def test_pii_masking_covers_email_phone_otp_and_card() -> None:
     assert "98765" not in masked
     assert "123456" not in masked
     assert "4111" not in masked
+
+
+def test_pii_masking_preserves_calendar_years() -> None:
+    assert mask_pii("August 2026") == "August 2026"
+    assert "123456" not in mask_pii("OTP 123456")

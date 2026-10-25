@@ -18,14 +18,24 @@ LOGGER = logging.getLogger("customer_support.rag")
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 CARD_RE = re.compile(r"(?<!\d)(?:\d[ -]?){13,19}(?!\d)")
 PHONE_RE = re.compile(r"(?<!\d)(?:\+?\d[\d ().-]{8,}\d)(?!\d)")
-OTP_RE = re.compile(r"(?<!\d)\d{4,8}(?!\d)")
+OTP_RE = re.compile(r"(?<![A-Z0-9-])(?!19\d{2}\b|20\d{2}\b)\d{4,8}(?!\d)", re.IGNORECASE)
 
 
 def mask_pii(text: str) -> str:
+    preserved: dict[str, str] = {}
+    for index, official in enumerate(("contact@internshipstudio.com", "7507869003")):
+        token = f"__OFFICIAL_CONTACT_{index}__"
+        masked = re.sub(re.escape(official), token, text, flags=re.IGNORECASE)
+        if masked != text:
+            preserved[token] = official
+        text = masked
     masked = EMAIL_RE.sub("[EMAIL]", text)
     masked = CARD_RE.sub("[CARD]", masked)
     masked = PHONE_RE.sub("[PHONE]", masked)
-    return OTP_RE.sub("[CODE]", masked)
+    masked = OTP_RE.sub("[CODE]", masked)
+    for token, official in preserved.items():
+        masked = masked.replace(token, official)
+    return masked
 
 
 def _cost(provider: Provider, usage: TokenUsage, config: RagConfig) -> float | str:
@@ -118,7 +128,7 @@ class RagEngine:
             timings["verify_ms"] = 0.0
             refs = _refs(retrieval)
             if decision.decision == Decision.NO_MATCH:
-                reply = no_match_reply()
+                reply = no_match_reply(language, message)
                 mode = "fallback"
                 verifier = VerifierReport(
                     passed=True,
@@ -207,7 +217,7 @@ class RagEngine:
                 reason_code=reason,
                 confidence=0.0,
                 entries=_refs(retrieval),
-                reply=no_match_reply(),
+                reply=no_match_reply(language, message),
                 mode="fallback",
                 degraded=True,
                 verifier=VerifierReport(

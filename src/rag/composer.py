@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from dataclasses import dataclass, field
 from typing import Any
@@ -62,27 +63,44 @@ def _source_payload(message: str, language: str, entries: list[dict[str, Any]], 
     return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
 
 
+def strip_handoff_offer(text: str, language: str = "English") -> str:
+    english_offer = re.compile(r"\b(?:I can|I could|Would you like me to) connect\b[^.!?]*[.!?]?", re.I)
+    hinglish_offer = re.compile(r"\b(?:main|aap chahein toh main|kya main)\b[^.!?]*\bconnect kar (?:sakta hoon|doon|dun)[.!?]?", re.I)
+    offer_pattern = hinglish_offer if language == "Hinglish" else english_offer
+    return offer_pattern.sub("", text).strip().rstrip(" .;:")
+
+
 def _fallback_text(entry: dict[str, Any], config: RagConfig, language: str = "English") -> str:
     localized = entry.get("answer_hinglish") if language == "Hinglish" else None
     reply = str(localized or entry["answer_rendered"]).strip()
-    handoff_phrase = "I can connect a team member." if language != "Hinglish" else "Main aapko support team se connect kar sakta hoon."
-    if entry.get("handoff_offer") and not any(
-        token in reply.casefold()
-        for token in (
-            "connect a team member",
-            "support team se connect",
-            "human agent se connect",
-            "connect you with a human",
+    before_strip = reply
+    reply = strip_handoff_offer(reply, language)
+    had_offer = reply != before_strip
+    lower = reply.casefold()
+    fee_note = (
+        "fees badal sakti hain, isliye payment se pehle official site par confirm kar lein"
+        if language == "Hinglish"
+        else "fees can change, so please confirm on the official site before paying"
+    )
+    old_fee_notes = (
+        "fees can change, please confirm on the official site before paying",
+        "fees badal sakti hain; payment se pehle official site par confirm kar lein",
+        fee_note,
+    )
+    for old_note in old_fee_notes:
+        pos = reply.casefold().rfind(old_note)
+        if pos >= 0:
+            facts = reply[:pos].strip().rstrip(" .;:")
+            caveat = old_note[0].upper() + old_note[1:]
+            reply = (facts + ". " if facts else "") + caveat.rstrip(".") + "."
+            break
+    if entry.get("handoff_offer") or had_offer:
+        offer_question = (
+            "Kya main aapko support team se connect kar doon?"
+            if language == "Hinglish"
+            else "Would you like me to connect you with a team member?"
         )
-    ):
-        fee_note = "fees can change, please confirm on the official site before paying"
-        fee_offset = reply.casefold().rfind(fee_note)
-        if fee_offset >= 0:
-            before = reply[:fee_offset].rstrip(". ")
-            suffix = reply[fee_offset:]
-            reply = before + ". " + handoff_phrase + " " + suffix
-        else:
-            reply = reply.rstrip(". ") + ". " + handoff_phrase
+        reply = reply.rstrip(" .;:") + ". " + offer_question if reply else offer_question
     if entry.get("is_mock") and config.sample_label_enabled and "SAMPLE DATA" not in reply:
         reply = "SAMPLE DATA — " + reply
     return reply[: int(config.decision.get("max_reply_chars", 600))]

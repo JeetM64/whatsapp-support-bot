@@ -46,10 +46,10 @@ class GuardRules:
         if any(p.search(t) for p in _PII_PATTERNS): return GuardResult("sensitive_data", "P2", "warn")
         if self.matches("R13_LOCATION_CONFLICT", t):
             return GuardResult("location_conflict", "P3", "escalate")
-        if self.matches("R14_OUT_OF_SCOPE", t):
-            return GuardResult("out_of_scope", "P3", "escalate")
         if frustration_loop: return GuardResult("frustration_loop", "P3", "escalate")
         if unmatched_high_risk: return GuardResult("unmatched_high_risk", "P3", "escalate")
+        if self.matches("R14_OUT_OF_SCOPE", t):
+            return GuardResult("out_of_scope", None, "offer_human")
         if self.matches("R11", t) and not status_authorized:
             return GuardResult("identity_mismatch", "P3", "escalate")
         if self.matches("R5", t): return GuardResult("fraud_question", "P3", "offer_human")
@@ -67,6 +67,13 @@ _PII_PATTERNS = [
 ]
 def mask_pii(text: str) -> str:
     masked = text
+    protected: dict[str, str] = {}
+    for index, official in enumerate(("contact@internshipstudio.com", "7507869003")):
+        token = f"__OFFICIAL_CONTACT_{index}__"
+        masked = re.sub(re.escape(official), token, masked, flags=re.IGNORECASE)
+        if token in masked: protected[token] = official
     for pattern in _PII_PATTERNS:
         masked = pattern.sub("[REDACTED]", masked)
+    for token, official in protected.items():
+        masked = masked.replace(token, official)
     return masked

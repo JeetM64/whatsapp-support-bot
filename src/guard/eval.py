@@ -10,7 +10,9 @@ def evaluate(root: Path) -> str:
     for row in rows:
         ctx=row["context"]
         got=rules.classify(row["query"],frustration_loop=ctx=="loop",unmatched_high_risk=ctx=="unmatched",status_authorized=ctx!="unverified")
-        escalated=got.action in {"escalate","support","kb_first_aid_ticket"}
+        # An offer_human result meets a must-escalate routing expectation while
+        # remaining ticket-free until the customer accepts that offer.
+        escalated=got.action in {"escalate","support","kb_first_aid_ticket","offer_human"}
         result.append((row,escalated,got.action,got.reason_code))
     lines=["| Split | Must escalate | Correct escalations | Recall | Must answer | False escalations | False escalate rate |","|---|---:|---:|---:|---:|---:|---:|"]
     for split in ("dev","test"):

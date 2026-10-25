@@ -1,0 +1,6 @@
+title: One-word message — unclear request
+sender: replay:one-word
+now: 2026-10-26T14:20:00+05:30
+turns:
+  - user: Refund
+    message_id: one-word-1

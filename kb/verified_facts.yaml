@@ -169,10 +169,10 @@ verified_facts:
       confidence: medium
       value_hinglish: 'diya gaya password reset page: https://cit2.internshipstudio.com/login/forgot_password.php'
     LOCATION_NOTE:
-      value: The supplied sources conflict between Pune and Ahmednagar; I cannot confirm an office address
+      value: The location details differ between Pune and Ahmednagar; I cannot confirm an office address
       fact: F4
       confidence: low
-      value_hinglish: Diye gaye sources mein Pune aur Ahmednagar ka farq hai; office address confirm nahi hai
+      value_hinglish: Location details Pune aur Ahmednagar ke beech alag hain; office address confirm nahi hai
     PROGRAM_OVERVIEW:
       value: Training is paired with an internship opportunity for iCAT qualifiers
       fact: F5
@@ -211,10 +211,10 @@ verified_facts:
       confidence: medium
       value_hinglish: regular student ke liye Rs 8,500
     FEE_CONFIRMATION:
-      value: fees can change, please confirm on the official site before paying
+      value: Fees can change, so please confirm on the official site before paying
       fact: F6
       confidence: medium
-      value_hinglish: fees can change, please confirm on the official site before paying
+      value_hinglish: Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein
     PROGRAM_TRACKS:
       value: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java, Digital Marketing,
         Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning, RCC Structure Design, Software
@@ -239,17 +239,15 @@ verified_facts:
       value_hinglish: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review
         aur project approval ke baad Internship certificate milta hai
     CERTIFICATE_STATUS:
-      value: iStudio describes the certificates as ISO-verified
+      value: iStudio describes its certificates as ISO-verified
       fact: F8
       confidence: medium
       value_hinglish: iStudio ke mutabik certificates ISO se verified hain
     ACCREDITATION_INFO:
-      value: The supplied sources provide no information confirming AICTE, UGC, or NSDC recognition; I can connect you with
-        a human
+      value: I don't have confirmed information about AICTE, UGC, or NSDC approval
       fact: F8
       confidence: high
-      value_hinglish: Diye gaye sources mein AICTE, UGC ya NSDC recognition ki pushti nahi hai; main aapko human agent se
-        connect kar sakta hoon
+      value_hinglish: AICTE, UGC ya NSDC approval ke baare mein mere paas pakki jaankari nahi hai
     REFUND_STANDARD:
       value: Cancellations are non-refundable except duplicate-payment requests within 7 days
       fact: F9
@@ -257,12 +255,12 @@ verified_facts:
       value_hinglish: Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein
     DUPLICATE_PAYMENT_RULE:
       value: For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate payment
-        return, your registered email ID, and payment receipt. A 100% refund goes to the same source; processing takes 5-7
-        working days, and card issuers may take up to 30 days. Cash refunds are not offered
+        return, your registered email ID, and payment receipt. A 100% refund goes back to the original payment method; processing
+        takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not offered
       fact: F9
       confidence: high
       value_hinglish: 'Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email karein.
-        Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment source
+        Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment method
         par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak lag sakte hain. Cash refund
         nahi hota'
     EXTENSION_DURATION:
@@ -294,11 +292,10 @@ verified_facts:
       confidence: medium
       value_hinglish: Enrollment fee mein structured training, support, placement assistance aur commitment shamil hain
     REFUND_ATTENDANCE_NOTE:
-      value: The latest supplied text says 100% attendance; an older URL says 75%, so please confirm this condition with the
-        team
+      value: Please ask the team to confirm the exact refund program conditions
       fact: F10
       confidence: medium
-      value_hinglish: Naye diye gaye text mein 100% attendance hai; purane URL mein 75% hai, is shart ko team se confirm karein
+      value_hinglish: Refund program ki exact shartein team se confirm kar lein
     PAYMENT_DASHBOARD_WAIT:
       value: The dashboard can take up to 24 hours to update after payment
       fact: F11
@@ -317,12 +314,12 @@ verified_facts:
       confidence: medium
       value_hinglish: Placement assistance hai, outcome guarantee nahi
     ISTUDIO_PLUS_NOTE:
-      value: iStudio Plus Digital Marketing and Robotics questions have conflicting placement-guarantee wording in supplied
-        sources; a human should confirm the applicable terms
+      value: The placement wording for iStudio Plus Digital Marketing and Robotics differs; a human can confirm the applicable
+        terms
       fact: F12
       confidence: medium
-      value_hinglish: iStudio Plus Digital Marketing aur Robotics ke placement guarantee par sources mein alag wording hai;
-        applicable terms team se confirm karne honge
+      value_hinglish: iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; lagu terms team se confirm
+        kar lein
     NO_STIPEND_INFO:
       value: No stipend
       fact: F5
@@ -365,7 +362,7 @@ verified_facts:
       value_hinglish: Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges aur process
         nahi diye gaye
     EXTENSION_PROCESS_NOTE:
-      value: The process and charges are not stated in the supplied article
+      value: The article does not state the process or charges
       fact: F13
       confidence: low
-      value_hinglish: Diye gaye article mein process aur charges nahi bataye gaye hain
+      value_hinglish: Article mein process ya charges nahi bataye gaye hain

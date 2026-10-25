@@ -209,6 +209,18 @@ def test_every_entry_requires_a_hinglish_answer(tmp_path: Path) -> None:
     assert any("CAT-001: Hinglish answer is required" in error for error in result.errors)
 
 
+def test_customer_answers_hide_internal_sources_and_localize_fee_suffix() -> None:
+    result = prepare_kb(REPO_ROOT)
+    assert result.errors == []
+    internal_terms = ("sources", "knowledge base", "fact id", "internal")
+    for entry in result.entries:
+        for answer in (entry.answer_rendered, entry.answer_hinglish or ""):
+            assert not any(term in answer.casefold() for term in internal_terms), entry.id
+    fee = next(entry for entry in result.entries if entry.id == "CAT-041")
+    assert fee.answer_hinglish.rstrip(". ").endswith("fees badal sakti hain; payment se pehle official site par confirm kar lein")
+    assert "fees can change" not in fee.answer_hinglish.casefold()
+
+
 def test_medium_low_facts_get_confirmation_and_fees_end_with_required_note() -> None:
     result = prepare_kb(REPO_ROOT)
     assert result.errors == []

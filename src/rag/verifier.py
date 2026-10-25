@@ -169,7 +169,10 @@ def verified_extractive_reply(
 ) -> VerifierReport:
     source_answers = {str(entry.get(key, "")) for entry in selected_entries for key in ("answer_rendered", "answer_hinglish") if entry.get(key)}
     exact_source_with_handoff = False
-    fee_note = "fees can change, please confirm on the official site before paying"
+    fee_notes = (
+        "fees can change, please confirm on the official site before paying",
+        "fees badal sakti hain; payment se pehle official site par confirm kar lein",
+    )
     for entry in selected_entries:
         if not entry.get("handoff_offer"):
             continue
@@ -181,7 +184,8 @@ def verified_extractive_reply(
             if not source or phrase.casefold() in source.casefold():
                 continue
             expected = source.rstrip(". ") + ". " + phrase
-            fee_offset = source.casefold().rfind(fee_note)
+            fee_note = next((note for note in fee_notes if note in source.casefold()), None)
+            fee_offset = source.casefold().rfind(fee_note) if fee_note else -1
             if fee_offset >= 0:
                 expected = source[:fee_offset].rstrip(". ") + ". " + phrase + " " + source[fee_offset:]
             if reply == expected:

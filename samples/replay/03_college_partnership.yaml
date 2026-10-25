@@ -1,0 +1,8 @@
+title: Out-of-KB — college partnership and accepted human handoff
+sender: replay:college-partnership
+now: 2026-10-26T13:20:00+05:30
+turns:
+  - user: We want a partnership for our college.
+    message_id: partnership-1
+  - user: Yes, please connect me with a human.
+    message_id: partnership-2

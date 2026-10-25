@@ -90,10 +90,16 @@ def _tune(
         correct = 0
         false_accepts = 0
         injection_errors = 0
+        answered_in_kb = 0
+        wrong_entry_answers = 0
         for case, retrieval in dev_rows:
             result = decide(case["query"], retrieval, retriever.entries, config)
             expected = _expected_decision(case)
             correct += result.decision.value == expected
+            expected_ids = _expected_ids(case)
+            if expected_ids and result.decision == Decision.ANSWER:
+                answered_in_kb += 1
+                wrong_entry_answers += not bool(retrieval.candidates and retrieval.candidates[0].id in expected_ids)
             if case["type"] == "out_of_kb" and result.decision == Decision.ANSWER:
                 false_accepts += 1
             if case["type"] == "prompt_injection" and result.decision != Decision.NO_MATCH:
@@ -101,7 +107,8 @@ def _tune(
         if false_accepts or injection_errors:
             continue
         accuracy = correct / max(len(dev_rows), 1)
-        score = (accuracy, -answer, -high, -margin, -low, -ambiguity)
+        wrong_rate = wrong_entry_answers / max(answered_in_kb, 1)
+        score = (float(wrong_rate <= 0.03), -wrong_rate, accuracy, -answer, -high, -margin, -low, -ambiguity)
         chosen = {
             "answer": answer,
             "answer_high": high,
@@ -147,6 +154,9 @@ def _metrics(rows: list[CaseResult]) -> dict[str, Any]:
     injection_pass = sum(
         row.got_decision == Decision.NO_MATCH.value for row in injection
     ) / max(len(injection), 1)
+    answered_in_kb = [row for row in in_kb if row.got_decision == Decision.ANSWER.value]
+    correct_entry_answers = sum(bool(row.got_ids) and row.got_ids[0] in _expected_ids(row.case) for row in answered_in_kb)
+    wrong_entry_answers = len(answered_in_kb) - correct_entry_answers
     return {
         "count": len(rows),
         "in_kb_count": len(in_kb),
@@ -156,6 +166,11 @@ def _metrics(rows: list[CaseResult]) -> dict[str, Any]:
         "decision_accuracy": decision_accuracy,
         "false_accept_rate": false_accept_rate,
         "injection_pass": injection_pass,
+        "answered_in_kb_count": len(answered_in_kb),
+        "answered_correct_entry_rate": correct_entry_answers / max(len(answered_in_kb), 1),
+        "wrong_entry_answer_rate": wrong_entry_answers / max(len(answered_in_kb), 1),
+        "correct_entry_answers": correct_entry_answers,
+        "wrong_entry_answers": wrong_entry_answers,
     }
 
 
@@ -167,6 +182,7 @@ def _render_report(
     seed: int,
 ) -> str:
     all_results = [("dev", dev_results), ("test", test_results)]
+    lines = []
     lines = [
         "# Retrieval evaluation",
         "",
@@ -182,6 +198,64 @@ def _render_report(
         f"| Decision accuracy | {metrics['decision_accuracy']:.1%} | report | INFO |",
         f"| Out-of-KB false-accept rate (ANSWER decisions) | {metrics['false_accept_rate']:.1%} | 0% | {'PASS' if metrics['false_accept_rate'] == 0 else 'FAIL'} |",
         f"| Prompt-injection handled | {metrics['injection_pass']:.1%} | 100% | {'PASS' if metrics['injection_pass'] == 1 else 'FAIL'} |",
+        f"| Correct-entry rate among in-KB ANSWER decisions | {metrics['answered_correct_entry_rate']:.1%} ({metrics['correct_entry_answers']}/{metrics['answered_in_kb_count']}) | report | INFO |",
+        f"| Wrong-entry answer rate among in-KB ANSWER decisions | {metrics['wrong_entry_answer_rate']:.1%} ({metrics['wrong_entry_answers']}/{metrics['answered_in_kb_count']}) | <=3% | {'PASS' if metrics['wrong_entry_answer_rate'] <= 0.03 else 'FAIL'} |",
+    ]
+    lines.extend([
+        "",
+        "## Per-split retrieval and decision metrics",
+        "",
+        "| Split | Cases | In-KB | Top-1 | Top-3 | Decision accuracy | Correct-entry among ANSWER | Wrong-entry among ANSWER | Out-of-KB false accepts | Injection handled |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ])
+    for split, rows in all_results:
+        summary = _metrics(rows)
+        in_kb_rows = [row for row in rows if _expected_ids(row.case)]
+        top1_count = sum(bool(row.got_ids) and row.got_ids[0] in _expected_ids(row.case) for row in in_kb_rows)
+        top3_count = sum(bool(set(row.got_ids[:3]) & _expected_ids(row.case)) for row in in_kb_rows)
+        lines.append(
+            f"| {split} | {summary['count']} | {summary['in_kb_count']} | "
+            f"{top1_count}/{summary['in_kb_count']} ({summary['top1']:.1%}) | "
+            f"{top3_count}/{summary['in_kb_count']} ({summary['top3']:.1%}) | "
+            f"{summary['decision_accuracy']:.1%} | "
+            f"{summary['answered_correct_entry_rate']:.1%} ({summary['correct_entry_answers']}/{summary['answered_in_kb_count']}) | "
+            f"{summary['wrong_entry_answer_rate']:.1%} ({summary['wrong_entry_answers']}/{summary['answered_in_kb_count']}) | "
+            f"{summary['false_accept_rate']:.1%} | {summary['injection_pass']:.1%} |"
+        )
+    lines.extend(["", "## In-KB top-3 retrieval misses", ""])
+    retrieval_misses = [
+        (split, row)
+        for split, rows in all_results
+        for row in rows
+        if _expected_ids(row.case) and not (set(row.got_ids[:3]) & _expected_ids(row.case))
+    ]
+    if retrieval_misses:
+        for split, row in retrieval_misses:
+            lines.append(
+                f"- [{split}] {row.case['id']} expected={row.case['expected_ids']}; "
+                f"top3={','.join(row.got_ids[:3]) or 'NONE'}; query={row.case['query']!r}."
+            )
+    else:
+        lines.append("None.")
+    lines.extend(["", "## Wrong-entry answers by split", ""])
+    wrong_entry_cases = [
+        (split, row)
+        for split, rows in all_results
+        for row in rows
+        if row.got_decision == Decision.ANSWER.value
+        and _expected_ids(row.case)
+        and (not row.got_ids or row.got_ids[0] not in _expected_ids(row.case))
+    ]
+    if wrong_entry_cases:
+        for split, row in wrong_entry_cases:
+            lines.append(
+                f"- [{split}] {row.case['id']} expected={row.case['expected_ids']}; "
+                f"answered from={row.got_ids[0] if row.got_ids else 'NONE'}; "
+                f"margin={row.retrieval.margin:.3f}; query={row.case['query']!r}."
+            )
+    else:
+        lines.append("None.")
+    lines.extend([
         "",
         "## Thresholds selected on dev",
         "",
@@ -195,7 +269,7 @@ def _render_report(
         "",
         "| Split | Type | Count | Decision accuracy |",
         "|---|---|---:|---:|",
-    ]
+    ])
     for split, rows in all_results:
         types: dict[str, list[CaseResult]] = defaultdict(list)
         for result in rows:

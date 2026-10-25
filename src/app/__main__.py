@@ -1,10 +1,11 @@
 from __future__ import annotations
-import argparse, glob, json, os, sys, uuid
+import argparse, glob, json, os, sys, tempfile
 from datetime import datetime
 from pathlib import Path
 import yaml
 from src.rag.config import load_dotenv
-from src.rag.engine import RagEngine
+from src.rag.engine import RagEngine, mask_pii
+from src.rag.providers import NoneProvider
 from .bot import Bot
 from .store import Store
 
@@ -12,6 +13,8 @@ def _root() -> Path:
     return Path.cwd().resolve()
 
 def _stamp(value: str | None):
+    if isinstance(value, datetime):
+        return value
     return datetime.fromisoformat(value) if value else None
 
 def _ticket_print(ticket):
@@ -53,34 +56,35 @@ def run_tickets(args):
 
 def run_replay(patterns):
     root=_root(); load_dotenv(root)
-    if os.getenv("LLM_PROVIDER","none").casefold() in {"","none"}:
-        raise RuntimeError("Replay requires a configured live provider; no provider value was displayed.")
     files=[]
     for pattern in patterns:
         matches=glob.glob(pattern)
         files.extend(Path(name) for name in (matches or [pattern]) if Path(name).is_file())
     if not files: raise FileNotFoundError("No replay YAML scripts matched the given paths.")
-    engine=RagEngine(root)
-    replay_data = root / "data" / "replay_runtime" / uuid.uuid4().hex
-    bot=Bot(root,engine=engine,store=Store(replay_data))
     logs=["# Conversation replay logs","","> SAMPLE DATA. Customer values are masked before persistence.",""]
     traces=[]
+    temp_root = root / ".tmp"
+    temp_root.mkdir(parents=True, exist_ok=True)
+    class ReplayBot(Bot):
+        def _write_trace(self, reply, sender_hash, now):
+            return
+    replay_dir = Path(tempfile.mkdtemp(prefix="conversation-replay-", dir=temp_root))
+    engine=RagEngine(root, provider=NoneProvider())
+    bot=ReplayBot(root,engine=engine,store=Store(replay_dir, secret="isolated-replay-secret"))
     for path in sorted(set(files)):
         script=yaml.safe_load(path.read_text(encoding="utf-8"))
-        sender=script.get("sender","+919000000001")
+        sender=script.get("sender",f"replay:{path.stem}")
         logs.extend([f"## {script['title']}",""])
         for index, turn in enumerate(script.get("turns",[]),1):
             user=turn["user"]
-            logs.extend([f"**Customer:** {user}"])
+            logs.extend([f"**Customer:** {mask_pii(user)}"])
             reply=bot.handle_message(sender,user,turn.get("message_id",f"{path.stem}-{index}"),"replay",_stamp(script.get("now")))
-            for message in reply.messages: logs.append(f"**Bot:** {message}")
+            for message in reply.messages: logs.append(f"**Bot:** {mask_pii(message)}")
             logs.append(f"**Debug:** decision={reply.debug.get('decision')} reason={reply.debug.get('reason')} KB ids={reply.debug.get('kb_ids')} priority={reply.debug.get('priority')}")
             if reply.ticket: logs.append(f"Ticket: {reply.ticket['ticket_id']}")
             logs.append("")
-            traces.append({"script":path.name,"turn":index,"sender_masked":reply.ticket.get("customer_masked_id") if reply.ticket else bot.store.sender_hash(sender)[:12],"messages":reply.messages,"ticket":reply.ticket,"debug":reply.debug})
+            traces.append({"script":path.name,"turn":index,"sender_masked":reply.ticket.get("customer_masked_id") if reply.ticket else bot.store.sender_hash(sender)[:12],"messages":[mask_pii(m) for m in reply.messages],"ticket":reply.ticket,"debug":reply.debug})
     (root/"samples/conversation_logs.md").write_text("\n".join(logs),encoding="utf-8")
-    traces_dir=root/"data/traces"; traces_dir.mkdir(parents=True,exist_ok=True)
-    (traces_dir/"replay.json").write_text(json.dumps(traces,ensure_ascii=False,indent=2),encoding="utf-8")
     print(f"Replay complete: {len(files)} scripts, {len(traces)} turns.")
     print(f"Conversation log: {root / 'samples/conversation_logs.md'}")
     for ticket in bot.store.list_tickets(): _ticket_print(ticket)

@@ -1,9 +1,11 @@
 timezone: Asia/Kolkata
 business_hours:
   weekdays: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-  start: "10:00"
+  start: "11:00"
   end: "19:00"
-sla_hours: {P1: 1, P2: 8, P3: 24, P4: 72}
+  assumption: "Monday-Saturday is assumed because official support days were not supplied; confirm with the team."
+sla_hours: {P1: 4, P2: 8}
+sla_business_days: {P3: 1, P4: 2}
 rules:
   R1:
     patterns: ["\\b(talk to|speak to|connect me to|transfer me to) ((a|an) )?(human|agent|representative|real person)\\b", "\\b(call me|human please|agent please)\\b", "insaan se baat karni hai", "\\bbaat karni hai\\b", "किसी इंसान से बात", "मानव एजेंट"]
