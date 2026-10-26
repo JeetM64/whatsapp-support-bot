@@ -227,6 +227,34 @@ def _render_report(
             f"{summary['wrong_entry_answer_rate']:.1%} ({summary['wrong_entry_answers']}/{summary['answered_in_kb_count']}) | "
             f"{summary['false_accept_rate']:.1%} | {summary['injection_pass']:.1%} |"
         )
+    in_kb_test = [row for row in test_results if _expected_ids(row.case)]
+    decision_counts = {name: sum(row.got_decision == name for row in in_kb_test)
+                       for name in ("ANSWER", "CLARIFY", "NO_MATCH")}
+    lines.extend([
+        "", "## In-KB test decision audit", "",
+        f"Counts: ANSWER {decision_counts['ANSWER']}; CLARIFY {decision_counts['CLARIFY']}; "
+        f"NO_MATCH {decision_counts['NO_MATCH']}; total {len(in_kb_test)}.", "",
+        "| Case | Query | Expected | Actual |",
+        "|---|---|---|---|",
+    ])
+    for row in in_kb_test:
+        lines.append(f"| {row.case['id']} | {row.case['query']} | "
+                     f"{_expected_decision(row.case)} | {row.got_decision} |")
+    direct = [row for row in test_results if _expected_decision(row.case) == "ANSWER" and _expected_ids(row.case)]
+    direct_cautious = [row for row in direct if row.got_decision in {"CLARIFY", "NO_MATCH"}]
+    rate = len(direct_cautious) / max(len(direct), 1)
+    lines.extend(["", f"Direct-question CLARIFY/NO_MATCH rate: {len(direct_cautious)}/{len(direct)} ({rate:.1%})."])
+    if rate > 0.25:
+        lines.extend(["", "Queries for review (report only; no test cases changed):"])
+        for row in direct_cautious:
+            suggestion = ("Add distinctive question wording/lexicon if expected ID is absent from top 3."
+                          if row.case["expected_ids"] not in row.got_ids[:3]
+                          else "Review DEV-tuned answer/margin thresholds; expected ID is already in top 3.")
+            lines.append(f"- {row.case['query']!r}: expected {row.case['expected_ids']}; got "
+                         f"{row.got_decision}; top3={','.join(row.got_ids[:3])}; {suggestion}")
+    else:
+        lines.append("No report-only query list required (rate is at most 25%).")
+
     lines.extend(["", "## In-KB top-3 retrieval misses", ""])
     retrieval_misses = [
         (split, row)
@@ -343,6 +371,12 @@ def _render_report(
 
 def run_eval(root: Path, retriever: Retriever, config: RagConfig) -> tuple[str, dict[str, Any]]:
     cases = load_cases(root / "eval" / "retrieval_cases.csv")
+    additions_path = root / "eval" / "retrieval_cases_dev_additions.csv"
+    if additions_path.exists():
+        additions = load_cases_allow_small(additions_path)
+        if any(case["split"] != "dev" for case in additions):
+            raise ValueError("supplemental retrieval cases must be dev-only")
+        cases.extend(additions)
     dev_cases = [case for case in cases if case["split"] == "dev"]
     test_cases = [case for case in cases if case["split"] == "test"]
 
@@ -388,3 +422,9 @@ def run_eval(root: Path, retriever: Retriever, config: RagConfig) -> tuple[str, 
     )
     (root / "docs" / "rag_eval.md").write_text(report, encoding="utf-8", newline="\n")
     return report, metrics
+
+
+def load_cases_allow_small(path: Path) -> list[dict[str, str]]:
+    """Load the deliberately small, dev-only supplemental cases file."""
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        return list(csv.DictReader(handle))

@@ -80,3 +80,48 @@ def test_ticket_language_does_not_call_eta_a_promise():
         template=messages["escalation"][language]["customer"].casefold()
         assert "{eta}" in template and "aim to reply" in template if language=="english" else "{eta}" in template and "jawab dene ki koshish" in template
         assert "target, not a promise" not in template and "pakka vaada nahi" not in template
+
+
+def test_all_kb_answer_facts_have_english_hinglish_parity():
+    import re
+    from pathlib import Path
+    from src.kb.loader import prepare_kb
+    root=Path(__file__).resolve().parents[1]
+    result=prepare_kb(root)
+    assert result.errors == []
+    token=re.compile(r"https?://[^\s;,)]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|\+?\d[\d ()-]{4,}\d|\d+(?:[.,]\d+)*")
+    for entry in result.entries:
+        english=entry.answer_rendered
+        hinglish=entry.answer_hinglish
+        left=set(token.findall(english)); right=set(token.findall(hinglish))
+        assert left <= right, f"{entry.id}: English-only facts {sorted(left-right)}"
+        assert right <= left, f"{entry.id}: Hinglish-only facts {sorted(right-left)}"
+
+
+def test_human_offer_is_only_added_for_flagged_entries():
+    from pathlib import Path
+    from src.kb.loader import prepare_kb
+    root=Path(__file__).resolve().parents[1]
+    entries={entry.id:entry for entry in prepare_kb(root).entries}
+    for entry_id in ("CAT-011","CAT-002","CAT-017","CAT-037","CAT-041","CAT-055"):
+        entry=entries[entry_id]
+        assert entry.handoff_offer is (entry_id == "CAT-011")
+        rendered={"id":entry.id,"answer_rendered":entry.answer_rendered,"answer_hinglish":entry.answer_hinglish,
+                  "handoff_offer":entry.handoff_offer,"is_mock":entry.is_mock}
+        for language in ("English","Hinglish"):
+            reply=_fallback_text(rendered,_config(),language)
+            assert "connect you with a team member" not in reply.casefold()
+            assert "connect kar doon" not in reply.casefold()
+
+
+def test_certificate_yes_answer_contains_all_three_conditions_in_both_languages():
+    from pathlib import Path
+    from src.kb.loader import prepare_kb
+    root=Path(__file__).resolve().parents[1]
+    entry=next(entry for entry in prepare_kb(root).entries if entry.id=="CAT-017")
+    assert entry.answer_rendered.startswith("Yes.")
+    assert entry.answer_hinglish.startswith("Haan.")
+    for term in ("iCAT Participation","Training","Internship","mentor","project"):
+        assert term.casefold() in entry.answer_rendered.casefold()
+    for term in ("iCAT Participation","Training","Internship","mentor","project"):
+        assert term.casefold() in entry.answer_hinglish.casefold()

@@ -108,7 +108,7 @@ class RagEngine:
             retrieval_query = message
             if force_extractive:
                 payment_loss = re.search(r"\b(debited|deducted|payment cut|paisa kat|paise kat|amount cut)\b|पैसे कट|रकम कट", message, re.IGNORECASE)
-                missing_access = re.search(r"\b(no access|cannot access|can't access|didn't get access|did not get access|access nahi|login nahi)\b|एक्सेस नहीं", message, re.IGNORECASE)
+                missing_access = re.search(r"\b(no access|cannot access|can't access|do not have access|don't have access|still do not have access|didn't get access|did not get access|access nahi|login nahi)\b|एक्सेस नहीं", message, re.IGNORECASE)
                 if payment_loss and missing_access:
                     retrieval_query = "My payment failed but money was debited. What should I do?"
             retrieval = self.retriever.retrieve(retrieval_query)

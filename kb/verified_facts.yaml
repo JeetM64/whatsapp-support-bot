@@ -302,7 +302,7 @@ verified_facts:
       confidence: high
       value_hinglish: Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain
     PAYMENT_FOLLOWUP:
-      value: After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com
+      value: email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com
         or call 7507869003; also check spam for the confirmation email
       fact: F11
       confidence: high
@@ -348,7 +348,7 @@ verified_facts:
       - F1
       - F2
       confidence: medium
-      value_hinglish: internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003
+      value_hinglish: https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003
     SAFE_PAYMENT_NOTE:
       value: Outside-site payment? Confirm with support. Never share OTP or card details here.
       fact: P1

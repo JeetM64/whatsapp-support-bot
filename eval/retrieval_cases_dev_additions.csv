@@ -1,0 +1,3 @@
+﻿id,split,type,query,expected_ids,expected_decision
+RAG-NEW-041,dev,in_kb,Will I get a certificate?,CAT-017,ANSWER
+RAG-NEW-042,dev,in_kb,Btech web dev internship ka certificate milega kya,CAT-017,ANSWER
