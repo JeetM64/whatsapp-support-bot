@@ -146,6 +146,8 @@ def test_verifier_rejects_foreign_entry_id_and_wrong_language(tmp_path: Path) ->
 
 def test_bad_fake_reply_is_rejected_then_safe_fallback_used(tmp_path: Path) -> None:
     _, config, entry = _project(tmp_path)
+    entry["risk_level"] = "medium"
+    entry["handoff_offer"] = False
     provider = FakeProvider(
         [
             {
@@ -162,19 +164,24 @@ def test_bad_fake_reply_is_rejected_then_safe_fallback_used(tmp_path: Path) -> N
     assert result.mode == "fallback"
     assert result.verifier.fallback_used is True
     assert "Rs [MOCK 999]" in result.reply
-    assert result.reply.endswith("Would you like me to connect you with a team member?")
-    assert result.reply.endswith("Would you like me to connect you with a team member?")
+    assert not result.reply.endswith("Would you like me to connect you with a team member?")
+    assert not result.reply.endswith("Would you like me to connect you with a team member?")
     assert result.provider_errors
 
 
 def test_none_provider_is_extractive_only(tmp_path: Path) -> None:
     _, config, entry = _project(tmp_path)
+    entry["risk_level"] = "medium"
+    entry["handoff_offer"] = False
+    entry["answer_rendered"] = entry["answer_rendered"].replace(
+        " I can connect a team member if needed.", ""
+    ).rstrip(" .")
     result = compose(
         "What is the fee?", "English", [entry], NoneProvider(), config, SameVectorEmbedder()
     )
     assert result.mode == "extractive"
     assert "Rs [MOCK 999]" in result.reply
-    assert result.reply.endswith("Would you like me to connect you with a team member?")
+    assert not result.reply.endswith("Would you like me to connect you with a team member?")
     assert result.verifier.passed
 
 

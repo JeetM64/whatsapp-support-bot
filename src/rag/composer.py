@@ -24,10 +24,6 @@ SYSTEM_CONTRACT = (
     "Preserve any SAMPLE DATA label. Do not add facts, promises, or Markdown."
 )
 
-# These entries provide general reference information. A legacy handoff flag on
-# a fee listing must not turn a basic answer into an unsolicited escalation.
-INFORMATIONAL_NO_OFFER_IDS = {"CAT-002", "CAT-011", "CAT-017", "CAT-037", "CAT-041", "CAT-055"}
-
 
 @dataclass
 class Composition:
@@ -95,7 +91,7 @@ def _fallback_text(entry: dict[str, Any], config: RagConfig, language: str = "En
             facts = reply[:pos].strip().rstrip(" .;:")
             reply = (facts + ". " if facts else "") + fee_note[0].upper() + fee_note[1:].rstrip(".") + "."
             break
-    if entry.get("handoff_offer") and entry.get("id") not in INFORMATIONAL_NO_OFFER_IDS:
+    if entry.get("handoff_offer"):
         offer_question = (
             "Kya main aapko support team se connect kar doon?"
             if language == "Hinglish"

@@ -1,5 +1,5 @@
 {
-  "content_hash": "582b6dd4fd7963b12e1e2e8c64728abe121a7f260e5802f7c12d0d75ed3bdf92",
+  "content_hash": "2226e0c11410479884437a9f72c1c6e1162268521b85671e58192e7555a3a29c",
   "entries": [
     {
       "answer_hinglish": "iStudio program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai aur pehle training, uske baad internship ka mauka shamil hain.",
@@ -90,7 +90,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "program kitne time ka hai",
         "hafte me kitna time dena hoga",
@@ -123,7 +123,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "beginner apply kar sakta hai kya",
         "pehle se coding aani chahiye",
@@ -201,7 +201,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "training online hai kya",
         "classes kaise hoti hain",
@@ -238,7 +238,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "enroll kaise karu",
         "admission kaise lena hai",
@@ -276,7 +276,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "kaunse documents chahiye",
         "enrollment ke liye details kya du",
@@ -313,7 +313,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "next batch kab start hoga",
         "batch date kya hai",
@@ -348,7 +348,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "join karne ke baad domain change kar sakte hain",
         "domain switch kaise hoga",
@@ -388,7 +388,7 @@
         "FEE_ICAT",
         "FEE_REGULAR"
       ],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "fee kitni hai",
         "iCAT qualify hua to kitna pay karna hai",
@@ -413,7 +413,7 @@
       "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
       "question": "What are the listed program fees?",
-      "risk_level": "high"
+      "risk_level": "medium"
     },
     {
       "answer_hinglish": "SAMPLE DATA — Kaunse payment methods accept hote hain, iski verified jaankari abhi nahi hai. Is detail ki abhi verified jaankari nahi hai. Main aapko support team se connect kar sakta hoon.",
@@ -453,9 +453,9 @@
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Uske baad bhi update na ho, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "I understand this is worrying. The dashboard can take up to 24 hours to update after payment. If it is still missing, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
-      "answer_template": "I understand this is worrying. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing, {{PAYMENT_FOLLOWUP}}.",
+      "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Agar 24 ghante baad bhi access nahi aaya, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
+      "answer_rendered": "I understand this is worrying. The dashboard can take up to 24 hours to update after payment. If access is still missing after 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_template": "I understand this is worrying. {{PAYMENT_DASHBOARD_WAIT}}. If access is still missing after 24 hours, {{PAYMENT_FOLLOWUP}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [],
@@ -498,7 +498,7 @@
     },
     {
       "answer_hinglish": "Confirmation email aur spam folder check karein. 24 ghante baad bhi dashboard par payment na dikhe, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "Check your confirmation email and spam folder. If the dashboard still doesn't show payment after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_rendered": "Check your confirmation email and spam folder. If the dashboard still doesn't show payment after 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
       "answer_template": "Check your confirmation email and spam folder. If the dashboard still doesn't show payment after 24 hours, {{PAYMENT_FOLLOWUP}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
@@ -574,7 +574,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "installment mil sakta hai",
         "extra charges hain kya",
@@ -600,9 +600,9 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "Certificate ke teen types hain: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai.",
-      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project.",
-      "answer_template": "{{CERTIFICATE_TYPES}}.",
+      "answer_hinglish": "Haan. iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai.",
+      "answer_rendered": "Yes. iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project.",
+      "answer_template": "Yes. {{CERTIFICATE_TYPES}}.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -614,6 +614,8 @@
       ],
       "handoff_offer": false,
       "hinglish_variants": [
+        "Will I get a certificate?",
+        "Btech web dev internship ka certificate milega kya",
         "kitne certificate types available hain",
         "certificate types ke naam kya hain",
         "list the available certificate types",
@@ -647,11 +649,10 @@
       "facts_verified": [],
       "handoff_offer": false,
       "hinglish_variants": [
-        "Internship certificate ke liye kya complete karna hota hai",
+        "What do I need for the Internship certificate?",
         "project submission and mentor approval for the Internship certificate",
         "Internship certificate ki project completion requirements",
-        "what project and mentor review are required for certificate completion",
-        "internship certificate kaise milega"
+        "what project and mentor review are required for certificate completion"
       ],
       "id": "CAT-018",
       "is_mock": false,
@@ -814,7 +815,7 @@
     },
     {
       "answer_hinglish": "Samajh sakta hoon, ye pareshaan karne wala hai. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Confirmation email ka spam folder bhi dekhein. 24 ghante baad bhi access na aaye, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "I understand this is concerning. The dashboard can take up to 24 hours to update after payment. Check spam for the confirmation email. If access is still missing after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_rendered": "I understand this is concerning. The dashboard can take up to 24 hours to update after payment. Check spam for the confirmation email. If access is still missing after 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
       "answer_template": "I understand this is concerning. {{PAYMENT_DASHBOARD_WAIT}}. Check spam for the confirmation email. If access is still missing after 24 hours, {{PAYMENT_FOLLOWUP}}.",
       "category": "technical_access",
       "escalate_if_unmatched": false,
@@ -860,7 +861,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "project submit kahan karna hai",
         "internship project kaise bheju",
@@ -914,7 +915,7 @@
       "risk_level": "medium"
     },
     {
-      "answer_hinglish": "internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein.",
+      "answer_hinglish": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship free hai; fee training ke liye hai. Stipend nahi milta. Placement assistance hai, outcome guarantee nahi. Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein.",
       "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Internship is free; the fee covers training. No stipend. Placement assistance only; no outcome guaranteed. Cancellations are non-refundable except duplicate-payment requests within 7 days. Outside-site payment? Confirm with support. Never share OTP or card details here. Please confirm other details with the team; Fees can change, so please confirm on the official site before paying",
       "answer_template": "{{CONTACT_CHANNELS}}. {{INTERNSHIP_FEE_NOTE}}. {{NO_STIPEND_INFO}}. {{PLACEMENT_POSITION}}. {{REFUND_STANDARD}}. {{SAFE_PAYMENT_NOTE}} {{FEE_CONFIRMATION}}",
       "category": "trust_verification",
@@ -959,7 +960,7 @@
       "risk_level": "high"
     },
     {
-      "answer_hinglish": "Official contact details: internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Support hours: samay 11 AM se 7 PM tak; working days nahi diye gaye hain. Kaunse din support milta hai, team se confirm karein.",
+      "answer_hinglish": "Official contact details: https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Support hours: samay 11 AM se 7 PM tak; working days nahi diye gaye hain. Kaunse din support milta hai, team se confirm karein.",
       "answer_rendered": "https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. 11 AM-7 PM; the operating days are not stated. Please confirm the operating days with the team. Please confirm this on the official site or with the team.",
       "answer_template": "{{CONTACT_CHANNELS}}. {{SUPPORT_HOURS}}. Please confirm the operating days with the team.",
       "category": "trust_verification",
@@ -1028,7 +1029,7 @@
       "risk_level": "low"
     },
     {
-      "answer_hinglish": "Main doosri companies ke baare mein nahi keh sakta. internshipstudio.com; internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Kisi message ko verify karna ho toh main team se connect kar sakta hoon.",
+      "answer_hinglish": "Main doosri companies ke baare mein nahi keh sakta. https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. Kisi message ko verify karna ho toh main team se connect kar sakta hoon.",
       "answer_rendered": "I can't speak for other companies. https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003. I can connect you with the team if you need help checking a specific message. Please confirm this on the official site or with the team.",
       "answer_template": "I can't speak for other companies. {{CONTACT_CHANNELS}}. I can connect you with the team if you need help checking a specific message.",
       "category": "trust_verification",
@@ -1040,7 +1041,7 @@
       "facts_verified": [
         "CONTACT_CHANNELS"
       ],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
         "iStudio Technologies same company hai kya",
         "doosri company se relation hai kya",
@@ -1075,7 +1076,7 @@
         "ISTUDIO_PLUS_NOTE",
         "PLACEMENT_POSITION"
       ],
-      "handoff_offer": false,
+      "handoff_offer": true,
       "hinglish_variants": [
         "career support mein kya help milti hai",
         "career guidance aur job support kya cover karta hai",
@@ -1169,7 +1170,7 @@
     },
     {
       "answer_hinglish": "Samajh sakta hoon, jawab na milna pareshaan kar sakta hai. Confirmation email aur spam folder dekhein. 24 ghante baad bhi dashboard par payment na dikhe, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "I understand this is worrying. Check spam for the confirmation email. If the dashboard still doesn't show payment after 24 hours, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_rendered": "I understand this is worrying. Check spam for the confirmation email. If the dashboard still doesn't show payment after 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
       "answer_template": "I understand this is worrying. Check spam for the confirmation email. If the dashboard still doesn't show payment after 24 hours, {{PAYMENT_FOLLOWUP}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": false,
@@ -1317,7 +1318,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "icat pass marks kitne hain",
         "iCAT syllabus kya hai",
@@ -1461,7 +1462,7 @@
         "FEE_REGULAR",
         "INTERNSHIP_FEE_NOTE"
       ],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "internship free hai phir fee kyu",
         "internship ke paise lagte hain kya",
@@ -1484,7 +1485,7 @@
       "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
       "question": "Is the internship free, and why is there a fee?",
-      "risk_level": "high"
+      "risk_level": "medium"
     },
     {
       "answer_hinglish": "Stipend nahi milta. Training aur internship ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain.",
@@ -1795,7 +1796,7 @@
     },
     {
       "answer_hinglish": "Paisa debit ho gaya hai, samajh sakta hoon. Payment ke baad dashboard update hone mein 24 ghante tak lag sakte hain. Uske baad bhi update na ho, toh payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein.",
-      "answer_rendered": "I understand the delay is concerning. The dashboard can take up to 24 hours to update after payment. If it is still missing after that, After 24 hours, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
+      "answer_rendered": "I understand the delay is concerning. The dashboard can take up to 24 hours to update after payment. If it is still missing after that, email the payment receipt or screenshot, registered email, and contact details to contact@internshipstudio.com or call 7507869003; also check spam for the confirmation email.",
       "answer_template": "I understand the delay is concerning. {{PAYMENT_DASHBOARD_WAIT}}. If it is still missing after that, {{PAYMENT_FOLLOWUP}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
@@ -1977,7 +1978,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "batch kaise select karu",
         "batch change kar sakte hain kya",
@@ -2043,7 +2044,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "assignments kahan milenge",
         "tasks portal me kahan hain",
@@ -2076,7 +2077,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "second internship enroll kaise karu",
         "dusri internship ke paise kaise du",
@@ -2142,7 +2143,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "campus ambassador kaise banu",
         "referral program join kaise karu",
@@ -2175,7 +2176,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "referral par kya reward milega",
         "friend refer karne ka benefit kya hai",
@@ -2208,7 +2209,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "friend ko refer kaise karu",
         "referral link kahan milega",
@@ -2274,7 +2275,7 @@
         "PENDING_INFO"
       ],
       "facts_verified": [],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "attendance kaise mark hoti hai",
         "ek din miss hua to kya hoga",
