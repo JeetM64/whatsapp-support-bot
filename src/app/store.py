@@ -8,7 +8,8 @@ from src.guard import mask_pii
 class Store:
     def __init__(self, root: Path, secret: str | None = None):
         self.root = root
-        self.path = root / "data/app.db"
+        database_relpath = Path("data/demo/app.db") if os.getenv("ENV", "").casefold() == "demo" else Path("data/app.db")
+        self.path = root / database_relpath
         self.path.parent.mkdir(parents=True, exist_ok=True)
         configured = secret or os.getenv("APP_SECRET", "").strip()
         if not configured:
@@ -25,13 +26,16 @@ class Store:
             db.executescript("""
             PRAGMA journal_mode=WAL;
             CREATE TABLE IF NOT EXISTS sessions(sender_hash TEXT PRIMARY KEY, updated_at TEXT NOT NULL, state TEXT NOT NULL DEFAULT '{}');
-            CREATE TABLE IF NOT EXISTS messages(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, message_id TEXT, role TEXT NOT NULL, text TEXT NOT NULL, created_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS messages(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, message_id TEXT, role TEXT NOT NULL, text TEXT NOT NULL, created_at TEXT NOT NULL, demo INTEGER NOT NULL DEFAULT 0);
             CREATE TABLE IF NOT EXISTS tickets(ticket_id TEXT PRIMARY KEY, sender_hash TEXT NOT NULL, payload TEXT NOT NULL, status TEXT NOT NULL, created_at TEXT NOT NULL);
             CREATE UNIQUE INDEX IF NOT EXISTS one_open_ticket ON tickets(sender_hash) WHERE status='open';
             CREATE TABLE IF NOT EXISTS kb_gaps(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, query TEXT NOT NULL, created_at TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS processed_messages(message_id TEXT PRIMARY KEY, sender_hash TEXT NOT NULL, reply_json TEXT NOT NULL, created_at TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS outbox(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, ticket_id TEXT NOT NULL, text TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', created_at TEXT NOT NULL);
             """)
+            message_columns = {row[1] for row in db.execute("PRAGMA table_info(messages)")}
+            if "demo" not in message_columns:
+                db.execute("ALTER TABLE messages ADD COLUMN demo INTEGER NOT NULL DEFAULT 0")
     def connect(self):
         db = sqlite3.connect(self.path, timeout=10)
         db.row_factory = sqlite3.Row
@@ -49,9 +53,78 @@ class Store:
         state["turns"] = state.get("turns", [])[-10:]
         with self.connect() as db:
             db.execute("INSERT INTO sessions VALUES(?,?,?) ON CONFLICT(sender_hash) DO UPDATE SET updated_at=excluded.updated_at,state=excluded.state", (sender_hash, now.isoformat(), json.dumps(state, ensure_ascii=False)))
-    def append_message(self, sender_hash: str, message_id: str | None, role: str, text: str, now: datetime):
+    def append_message(self, sender_hash: str, message_id: str | None, role: str, text: str, now: datetime, *, demo: bool = False):
         with self.connect() as db:
-            db.execute("INSERT INTO messages(sender_hash,message_id,role,text,created_at) VALUES(?,?,?,?,?)", (sender_hash, message_id, role, mask_pii(text), now.isoformat()))
+            db.execute("INSERT INTO messages(sender_hash,message_id,role,text,created_at,demo) VALUES(?,?,?,?,?,?)", (sender_hash, message_id, role, mask_pii(text), now.isoformat(), int(demo)))
+
+    def seed_demo_conversations(self, conversations: list[dict[str, Any]]) -> int:
+        """Insert the named demo conversations once into the demo-selected DB."""
+        now = datetime.now(timezone.utc)
+        created = 0
+        with self.connect() as db:
+            present = set()
+            for row in db.execute("SELECT payload FROM tickets"):
+                try:
+                    payload = json.loads(row[0])
+                    if payload.get("demo") is True and payload.get("demo_seed_key"):
+                        present.add(payload["demo_seed_key"])
+                except (json.JSONDecodeError, TypeError):
+                    continue
+            for index, item in enumerate(conversations, start=1):
+                seed_key = str(item["seed_key"])
+                if seed_key in present:
+                    continue
+                ticket_id = f"IS-D{index:03d}"
+                sender_hash = self.sender_hash("demo:" + seed_key)
+                ticket_time = now - timedelta(days=index % 8, hours=index % 5)
+                turns = [{"role": turn["role"], "text": mask_pii(str(turn["text"]))} for turn in item["turns"]]
+                last_five = turns[-5:]
+                priority = str(item["priority"])
+                sla_hours = {"P1": 4, "P2": 8, "P3": 24, "P4": 48}.get(priority, 24)
+                deadline = ticket_time + timedelta(hours=sla_hours)
+                payload = {
+                    "ticket_id": ticket_id,
+                    "reason_code": str(item["reason_code"]),
+                    "priority": priority,
+                    "status": str(item.get("status", "open")),
+                    "customer_masked_id": f"demo-customer-{index:02d}",
+                    "language": str(item["language"]),
+                    "sentiment": str(item.get("sentiment", "neutral")),
+                    "intent": str(item["intent"]),
+                    "summary_3_lines": [str(line) for line in item["summary_3_lines"]],
+                    "last_5_turns": last_five,
+                    "kb_ids_tried": list(item.get("kb_ids_tried", [])),
+                    "confidence": float(item.get("confidence", 0.0)),
+                    "suggested_reply": str(item["suggested_reply"]),
+                    "sla_deadline": deadline.strftime("%a %d %b, %I:%M %p IST"),
+                    "created_at": ticket_time.isoformat(),
+                    "demo": True,
+                    "demo_seed_key": seed_key,
+                }
+                db.execute(
+                    "INSERT OR IGNORE INTO tickets(ticket_id,sender_hash,payload,status,created_at) VALUES(?,?,?,?,?)",
+                    (ticket_id, sender_hash, json.dumps(payload, ensure_ascii=False), payload["status"], ticket_time.isoformat()),
+                )
+                session_state = {
+                    "turns": last_five, "track": None, "verified_learner_id": None,
+                    "last_kb_ids": payload["kb_ids_tried"], "last_intent": payload["intent"],
+                    "pending_options": [], "handed_off": True, "open_ticket_id": ticket_id,
+                    "clarify_no_match_streak": 0, "last_query_hash": None,
+                    "notice_sent": True, "batch_type": item.get("batch_type"),
+                    "pending_refund_batch": False, "demo": True,
+                }
+                db.execute(
+                    "INSERT OR IGNORE INTO sessions(sender_hash,updated_at,state) VALUES(?,?,?)",
+                    (sender_hash, ticket_time.isoformat(), json.dumps(session_state, ensure_ascii=False)),
+                )
+                for turn_index, turn in enumerate(turns):
+                    db.execute(
+                        "INSERT INTO messages(sender_hash,message_id,role,text,created_at,demo) VALUES(?,?,?,?,?,1)",
+                        (sender_hash, f"{ticket_id}-{turn_index + 1}", turn["role"], turn["text"], ticket_time.isoformat()),
+                    )
+                present.add(seed_key)
+                created += 1
+        return created
     def open_ticket(self, sender_hash: str, payload: dict[str, Any]) -> dict[str, Any]:
         with self.connect() as db:
             old = db.execute("SELECT payload FROM tickets WHERE sender_hash=? AND status='open'", (sender_hash,)).fetchone()

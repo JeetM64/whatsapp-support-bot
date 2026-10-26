@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Internship Studio sample customer support chat">
+  <title>iStudio Support Chat</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Internship Studio</p>
+        <h1>Support chat</h1>
+      </div>
+      <button id="new-chat" class="button secondary" type="button">New chat</button>
+    </header>
+
+    <p class="sample-banner" role="note">Sample data, messages logged (masked)</p>
+
+    <main>
+      <section id="messages" class="messages" aria-label="Conversation" aria-live="polite" aria-relevant="additions text">
+        <article class="bubble assistant"><p>Hi! Ask about fees, certificates, course access, or refunds.</p></article>
+      </section>
+
+      <p id="typing" class="typing" role="status" hidden>Support is typing…</p>
+
+      <section id="handoff" class="handoff" aria-live="polite" hidden>
+        <strong>Handed to a human</strong>
+        <p id="handoff-copy"></p>
+      </section>
+
+      <section class="suggestions" aria-labelledby="try-title">
+        <h2 id="try-title">Try these</h2>
+        <div id="try-chips" class="chips"></div>
+      </section>
+
+      <section id="quick-replies" class="quick-replies" aria-label="Quick reply options" hidden>
+        <h2>Choose an option</h2>
+        <div id="option-chips" class="chips"></div>
+      </section>
+
+      <form id="chat-form" class="composer">
+        <label for="message-input">Your message</label>
+        <textarea id="message-input" name="message" rows="2" maxlength="600" required></textarea>
+        <button class="button primary" type="submit">Send message</button>
+      </form>
+
+      <section class="debug-section">
+        <button id="debug-toggle" class="text-button" type="button" aria-expanded="false" aria-controls="debug-panel">Why this answer?</button>
+        <div id="debug-panel" class="debug-panel" hidden>
+          <dl id="debug-fields"></dl>
+        </div>
+      </section>
+    </main>
+    <footer><p>Use the support team for account-specific checks.</p></footer>
+  </div>
+</body>
+</html>

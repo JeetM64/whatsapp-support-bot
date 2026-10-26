@@ -9,6 +9,7 @@ from urllib.parse import parse_qsl
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from src.api.channels import FakeChannel, MetaChannel
@@ -56,6 +57,11 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
             return JSONResponse(status_code=413, content={"error":"request_too_large", "request_id":request.state.request_id})
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; "
+            "img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+        )
         return response
 
     @api.on_event("startup")
@@ -103,8 +109,30 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
         ip = request.client.host if request.client else "unknown"
         sender = "web:" + payload.sender
         if limited("ip:"+ip) or limited("sender:"+sender, 12): raise HTTPException(429,"rate_limited")
-        result = services().handle_message(sender, payload.text, payload.message_id or request.headers.get("x-message-id"), "web")
-        return {"messages":result.messages, "ticket":result.ticket, "request_id":request.state.request_id}
+        bot = services()
+        result = bot.handle_message(sender, payload.text, payload.message_id or request.headers.get("x-message-id"), "web")
+        debug = dict(getattr(result, "debug", {}) or {})
+        decision = str(debug.get("rag_decision") or debug.get("decision") or "UNKNOWN").upper()
+        reason_code = debug.get("reason_code") or debug.get("reason") or "unknown"
+        options = list(debug.get("options") or []) if decision == "CLARIFY" else []
+        if decision == "CLARIFY" and not options:
+            if reason_code == "refund_batch_type":
+                options = ["Regular batch", "Refund program batch"]
+            else:
+                try:
+                    entries = bot.engine.retriever.entries
+                    options = [entries[key].get("question", key) for key in debug.get("kb_ids", []) if key in entries][:3]
+                except Exception:
+                    options = []
+        debug.update({
+            "decision": decision,
+            "reason_code": reason_code,
+            "kb_ids": debug.get("kb_ids", []),
+            "confidence": debug.get("confidence", 0),
+            "mode": debug.get("mode", "fallback"),
+        })
+        return {"messages":result.messages, "ticket":result.ticket, "request_id":request.state.request_id,
+                "options":options, "debug":debug}
 
     @api.get("/webhook/meta")
     async def meta_verify(request: Request):
@@ -254,6 +282,10 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
                 "top_intents":dict(intents.most_common(10)),"kb_gaps":gaps,"sla_breaches":breaches,
                 "language_split":dict(languages),"batch_type_split":dict(batch_types)}
 
+    frontend = ROOT / "frontend"
+    if frontend.is_dir():
+        # Registered last: concrete API, health, and webhook routes keep precedence.
+        api.mount("/", StaticFiles(directory=frontend, html=True), name="frontend")
     return api
 
 

@@ -395,8 +395,12 @@ class Bot:
             self.store.save_session(sender_hash, state, when)
             result = BotReply(out, ticket if guess.action in {"support","escalate","kb_first_aid_ticket"} else None,
                               {"decision":guess.action.upper(),"reason":guess.reason_code or (rag.reason_code if rag else "internal_error"),
+                               "rag_decision":rag.decision.value if rag else guess.action.upper(),
+                               "reason_code":guess.reason_code or (rag.reason_code if rag else "internal_error"),
                                "kb_ids":[e.id for e in rag.entries] if rag else [],"priority":guess.priority,
-                               "confidence":rag.confidence if rag else 0})
+                               "confidence":rag.confidence if rag else 0,
+                               "mode":getattr(rag, "mode", "fallback") if rag else "fallback",
+                               "options":state.get("pending_options",[]) if rag and rag.decision.value == "CLARIFY" else []})
             self.store.processed(message_id, sender_hash, result.__dict__, when)
             self._write_trace(result, sender_hash, when)
             return result

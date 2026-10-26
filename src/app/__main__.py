@@ -54,6 +54,15 @@ def run_tickets(args):
         print(f"{args.ticket_id} resolved."); return 0
     return 2
 
+def run_seed_demo():
+    root=_root(); load_dotenv(root)
+    os.environ["ENV"]="demo"
+    from .demo_seed import DEMO_CONVERSATIONS
+    store=Store(root)
+    created=store.seed_demo_conversations(DEMO_CONVERSATIONS)
+    print(f"Demo seed complete: {created} new conversations; {len(DEMO_CONVERSATIONS)} total fixtures; database={store.path.relative_to(root)}")
+    return 0
+
 def run_replay(patterns):
     root=_root(); load_dotenv(root)
     files=[]
@@ -100,10 +109,12 @@ def main():
     reply=ts.add_parser("reply"); reply.add_argument("ticket_id"); reply.add_argument("text")
     resolve=ts.add_parser("resolve"); resolve.add_argument("ticket_id")
     replay=sub.add_parser("replay"); replay.add_argument("scripts",nargs="+")
+    sub.add_parser("seed-demo")
     args=parser.parse_args()
     try:
         if args.command=="chat": return run_chat(args)
         if args.command=="tickets": return run_tickets(args)
+        if args.command=="seed-demo": return run_seed_demo()
         return run_replay(args.scripts)
     except Exception as exc:
         import traceback
