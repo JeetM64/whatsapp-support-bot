@@ -205,8 +205,9 @@ class Bot:
                     )
                     notice_language = detect_language(clean).casefold()
                     notice_language = notice_language if notice_language in {"english", "hinglish"} else "english"
-                    out = queued_messages + ([self.messages["demo_notice"][notice_language]] if self.demo_mode and not state.get("notice_sent") else []) + [clarification]
-                    state["notice_sent"] = state.get("notice_sent", False) or self.demo_mode
+                    show_demo_notice = self.demo_mode and channel != "web" and not state.get("notice_sent")
+                    out = queued_messages + ([self.messages["demo_notice"][notice_language]] if show_demo_notice else []) + [clarification]
+                    state["notice_sent"] = state.get("notice_sent", False) or show_demo_notice
                     state["turns"].append({"role":"assistant", "text":mask_pii(clarification)})
                     state["turns"] = state["turns"][-10:]
                     self.store.append_message(sender_hash, None, "assistant", clarification, when)
@@ -411,7 +412,7 @@ class Bot:
                 out = [rag.reply if rag else "Sorry, I could not help with that just now. Please try again."]
                 if rag and rag.decision.value == "NO_MATCH":
                     state["pending_human_offer"] = True
-            if self.demo_mode and not state.get("notice_sent"):
+            if self.demo_mode and channel != "web" and not state.get("notice_sent"):
                 notice_language = (rag.language if rag else detect_language(clean)).casefold()
                 notice_language = notice_language if notice_language in {"english", "hinglish"} else "english"
                 out.insert(0, self.messages["demo_notice"][notice_language]); state["notice_sent"] = True

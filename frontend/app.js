@@ -1,13 +1,15 @@
 "use strict";
 
 const SUGGESTIONS = [
-  "fee kitni hai",
+  "How do I enroll?",
+  "iCAT syllabus kya hai",
   "Will I get a certificate?",
   "payment cut gaya par access nahi aaya",
   "refund milega?",
-  "Are certificates AICTE approved?",
-  "Which domains are available?"
+  "Are certificates AICTE approved?"
 ];
+const GREETING_EN = "Hi, I'm the iStudio support assistant. I can help with iCAT, fees, certificates, refunds and your training or internship dashboard. What do you need?";
+const GREETING_HI = "Namaste, main iStudio support assistant hoon. Main iCAT, fees, certificates, refunds aur aapke training ya internship dashboard mein madad kar sakta hoon. Aapko kya chahiye?";
 
 const messages = document.querySelector("#messages");
 const form = document.querySelector("#chat-form");
@@ -37,14 +39,56 @@ function senderId() {
   return value;
 }
 
-function addBubble(text, who) {
+function safeHelpUrl(value) {
+  try {
+    const url = new URL(String(value));
+    if (url.protocol !== "https:") return null;
+    if (!["internshipstudio.com", "internshipstudio.tawk.help"].includes(url.hostname.toLowerCase())) return null;
+    return url.href;
+  } catch (_) {
+    return null;
+  }
+}
+
+function addBubble(text, who, metadata = {}) {
   const article = document.createElement("article");
   article.classList.add("bubble", who);
   const paragraph = document.createElement("p");
   paragraph.textContent = String(text);
   article.append(paragraph);
+  if (who === "assistant" && metadata.source_status) {
+    const badge = document.createElement("small");
+    badge.className = "source-badge";
+    badge.textContent = metadata.source_status === "verified" ? "From iStudio help center" : "Some details pending confirmation";
+    article.append(badge);
+    const helpUrl = safeHelpUrl(metadata.help_link);
+    if (helpUrl) {
+      const link = document.createElement("a");
+      link.className = "help-link";
+      link.href = helpUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Help center";
+      article.append(link);
+    }
+  }
   messages.append(article);
   messages.scrollTop = messages.scrollHeight;
+}
+
+function hinglishMessage(value) {
+  return /[\u0900-\u097f]|\b(kya|hai|ka|ki|ke|mujhe|mera|meri|kitni|kitna|milega|chahiye|paise|paisa|ho gaya|nahi|nahin|batao|karu|karun|kaise)\b/i.test(value);
+}
+
+function setGreeting(language = "en") {
+  clearChildren(messages);
+  const article = document.createElement("article");
+  article.className = "bubble assistant";
+  article.dataset.greeting = "true";
+  const paragraph = document.createElement("p");
+  paragraph.textContent = language === "hi" ? GREETING_HI : GREETING_EN;
+  article.append(paragraph);
+  messages.append(article);
 }
 
 function clearChildren(node) {
@@ -72,7 +116,9 @@ function showDebug(debug) {
     ["Reason code", debug.reason_code],
     ["KB ids", Array.isArray(debug.kb_ids) ? debug.kb_ids.join(", ") : ""],
     ["Confidence", typeof debug.confidence === "number" ? debug.confidence.toFixed(3) : debug.confidence],
-    ["Mode", debug.mode]
+    ["Mode", debug.mode],
+    ["Source status", debug.source_status],
+    ["Help link", debug.help_link]
   ];
   for (const [label, value] of fields) {
     const term = document.createElement("dt");
@@ -96,6 +142,7 @@ function showHandoff(ticket) {
 async function sendMessage(value) {
   const text = String(value || "").trim();
   if (!text) return;
+  if (messages.querySelector("[data-greeting='true']")) setGreeting(hinglishMessage(text) ? "hi" : "en");
   addBubble(text, "user");
   input.value = "";
   typing.hidden = false;
@@ -108,7 +155,8 @@ async function sendMessage(value) {
     });
     const payload = await response.json();
     if (!response.ok) throw new Error("The message could not be sent. Please try again.");
-    for (const message of Array.isArray(payload.messages) ? payload.messages : []) addBubble(message, "assistant");
+    const metadata = { source_status: payload.source_status, help_link: payload.help_link };
+    for (const message of Array.isArray(payload.messages) ? payload.messages : []) addBubble(message, "assistant", metadata);
     showOptions(payload.options);
     showHandoff(payload.ticket);
     showDebug(payload.debug || {});
@@ -142,8 +190,7 @@ debugToggle.addEventListener("click", () => {
 
 document.querySelector("#new-chat").addEventListener("click", () => {
   sessionStorage.setItem("istudio-web-sender", newSenderId());
-  clearChildren(messages);
-  addBubble("Hi! Ask about fees, certificates, course access, or refunds.", "assistant");
+  setGreeting("en");
   showOptions([]);
   showHandoff(null);
   clearChildren(debugFields);

@@ -80,6 +80,7 @@ def prepare_kb(
         rows,
         verified_path or kb_dir / "verified_facts.yaml",
         mock_path or kb_dir / "mock_defaults.yaml",
+        help_map_path=kb_dir / "help_center_map.yaml",
         today=today,
     )
     return PrepareResult(entries, validation_errors, warnings)

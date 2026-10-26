@@ -1,0 +1,34 @@
+default: internship-related
+categories:
+  program_info: internship-related
+  icat_test: internship-common-aptitude-test
+  enrolment: internship-related
+  fees_payments: payment-related
+  refunds: refund-program
+  certificates_offer_letter: certificates
+  placement_hiring: placement-assistance
+  projects_assignments: project
+  extension: extension
+  referral_campus: referral
+  payments_refunds: payment-related
+  certificates: certificates
+  technical_access: internship-related
+  trust_verification: internship-related
+  placement_support: placement-assistance
+entries:
+  CAT-019: certificates
+  CAT-020: offer-letter
+  CAT-037: curriculum
+  CAT-038: internship-common-aptitude-test
+  CAT-039: internship-common-aptitude-test
+  CAT-040: internship-common-aptitude-test
+  CAT-042: placement-assistance
+  CAT-043: placement-assistance
+  CAT-044: placement-assistance
+  CAT-045: placement-assistance
+  CAT-048: refund-program
+  CAT-061: referral
+  CAT-062: referral
+  CAT-063: referral
+  CAT-064: referral
+  CAT-065: curriculum

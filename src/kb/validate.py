@@ -129,6 +129,7 @@ def validate_and_render(
     verified_path: Path,
     mock_path: Path,
     *,
+    help_map_path: Path | None = None,
     today: date | None = None,
 ) -> tuple[list[BuiltEntry], list[str], list[str]]:
     today = today or date.today()
@@ -143,13 +144,60 @@ def validate_and_render(
     except (OSError, ValueError, yaml.YAMLError) as exc:
         return [], [f"mock_defaults.yaml: {exc}"], warnings
 
+    help_map: dict = {}
+    if help_map_path and help_map_path.exists():
+        try:
+            help_map = yaml.safe_load(help_map_path.read_text(encoding="utf-8-sig")) or {}
+            if not isinstance(help_map, dict):
+                raise ValueError("help_center_map.yaml must contain a mapping")
+        except (OSError, ValueError, yaml.YAMLError) as exc:
+            return [], [f"help_center_map.yaml: {exc}"], warnings
+
+    help_fact_by_slug = {
+        "internship-related": "HELP_INTERNSHIP_URL", "certificates": "HELP_CERTIFICATES_URL",
+        "payment-related": "HELP_PAYMENT_URL", "skill": "HELP_SKILL_URL",
+        "extension": "HELP_EXTENSION_URL", "placement-assistance": "HELP_PLACEMENT_URL",
+        "offer-letter": "HELP_OFFER_LETTER_URL", "project": "HELP_PROJECT_URL",
+        "internship-common-aptitude-test": "HELP_ICAT_URL", "curriculum": "HELP_CURRICULUM_URL",
+        "internship-simulation": "HELP_SIMULATION_URL", "refund-program": "HELP_REFUND_URL",
+        "referral": "HELP_REFERRAL_URL",
+    }
+
     seen_ids: set[str] = set()
     seen_questions: list[tuple[str, str]] = []
     categories = Counter(row.category.value for row in rows)
+    category_slugs = help_map.get("categories", {})
+    entry_slugs = help_map.get("entries", {})
+    if not isinstance(category_slugs, dict) or not isinstance(entry_slugs, dict):
+        errors.append("help_center_map.yaml categories and entries must be mappings")
+        category_slugs = {}
+        entry_slugs = {}
+    missing_categories = sorted({row.category.value for row in rows} - set(category_slugs))
+    if missing_categories:
+        errors.append("help_center_map.yaml missing category mapping(s): " + ", ".join(missing_categories))
+    known_slugs = set(help_fact_by_slug)
+    for category_name, mapped_slug in category_slugs.items():
+        if mapped_slug not in known_slugs:
+            errors.append(f"help_center_map.yaml: category {category_name!r} has unknown slug {mapped_slug!r}")
+    for entry_id, mapped_slug in entry_slugs.items():
+        if entry_id not in {row.id for row in rows}:
+            errors.append(f"help_center_map.yaml: entry {entry_id!r} is not a KB entry")
+        if mapped_slug not in known_slugs:
+            errors.append(f"help_center_map.yaml: entry {entry_id!r} has unknown slug {mapped_slug!r}")
+    default_slug = help_map.get("default")
+    if default_slug is not None and default_slug not in known_slugs:
+        errors.append(f"help_center_map.yaml: default has unknown slug {default_slug!r}")
     entries: list[BuiltEntry] = []
 
     for row in rows:
         prefix = row.id
+        slug = entry_slugs.get(row.id, category_slugs.get(row.category.value, help_map.get("default")))
+        help_fact_key = help_fact_by_slug.get(str(slug))
+        row_verified = dict(verified)
+        if help_fact_key and help_fact_key in verified:
+            row_verified["HELP_LINK"] = verified[help_fact_key]
+        elif "HELP_LINK" in PLACEHOLDER_RE.findall(row.answer):
+            errors.append(f"{prefix}: no verified help-center URL mapped for section {slug!r}")
         if row.id in seen_ids:
             errors.append(f"{prefix}: duplicate id")
         seen_ids.add(row.id)
@@ -199,7 +247,7 @@ def validate_and_render(
         confidence_keys: dict[str, str] = {}
         missing_keys: list[str] = []
         for key in keys:
-            resolved = verified.get(key)
+            resolved = row_verified.get(key)
             if resolved is not None:
                 value, is_mock, confidence, _value_hinglish = resolved
                 if is_mock:
@@ -231,7 +279,7 @@ def validate_and_render(
         )
         if low_confidence and "FEE_CONFIRMATION" in keys:
             if other_uncertain:
-                fee_confirmation = verified.get("FEE_CONFIRMATION", ("", False, "medium", ""))[0]
+                fee_confirmation = row_verified.get("FEE_CONFIRMATION", ("", False, "medium", ""))[0]
                 rendered = rendered.replace(
                     fee_confirmation,
                     "Please confirm other details with the team; " + fee_confirmation,
@@ -266,7 +314,7 @@ def validate_and_render(
                 errors.append(f"{prefix}: Hinglish answer must use the same placeholders as the English answer")
             rendered_hinglish = row.answer_hinglish
             for key in hinglish_keys:
-                value = (verified.get(key) or mock.get(key))
+                value = (row_verified.get(key) or mock.get(key))
                 if value is not None:
                     rendered_hinglish = re.sub(
                         r"\{\{\s*" + re.escape(key) + r"\s*\}\}", value[3], rendered_hinglish
@@ -281,6 +329,15 @@ def validate_and_render(
                 rendered_hinglish = rendered_hinglish.rstrip() + " Team se confirm karein."
             if len(rendered_hinglish) > 500:
                 errors.append(f"{prefix}: rendered Hinglish answer is {len(rendered_hinglish)} characters (maximum 500)")
+        for key, fallback in mock.items():
+            for language, default_value, reply in (
+                ("English", fallback[0], rendered),
+                ("Hinglish", fallback[3], rendered_hinglish or ""),
+            ):
+                if default_value and default_value in reply:
+                    errors.append(
+                        f"{prefix}: mock default {key} appears in rendered {language} answer"
+                    )
         entries.append(
             BuiltEntry(
                 id=row.id,
@@ -300,6 +357,16 @@ def validate_and_render(
                 facts_verified=sorted(verified_keys),
                 facts_mock=sorted(mock_keys),
                 is_mock=is_mock,
+                source_status=(
+                    "pending" if is_mock else
+                    "partly_verified" if (
+                        low_confidence
+                        or re.search(r"\b(?:don't have|cannot confirm|can't confirm|not confirmed|isn't confirmed|aren't confirmed|not stated)\b", rendered, re.IGNORECASE)
+                        or re.search(r"(?:confirm nahi|confirm nahin|mere paas .* nahi|yahan .* nahi)", rendered_hinglish or "", re.IGNORECASE)
+                    ) else
+                    "verified"
+                ),
+                help_link=row_verified.get("HELP_LINK", ("", False, "", ""))[0],
             )
         )
 

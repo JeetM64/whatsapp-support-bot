@@ -11,6 +11,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+import yaml
 
 from src.api.channels import FakeChannel, MetaChannel
 from src.app.bot import Bot
@@ -48,6 +49,11 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
     default_channel = FakeChannel() if (os.getenv("ENV") or "dev").casefold() == "dev" else MetaChannel()
     state = {"bot": bot, "channel": channel or default_channel, "seen": set(), "limits": defaultdict(deque), "warmup": warmup}
     api.state.services = state
+    try:
+        facts_doc = yaml.safe_load((ROOT / "kb" / "verified_facts.yaml").read_text(encoding="utf-8-sig")) or {}
+        home_link = facts_doc.get("verified_facts", {}).get("placeholders", {}).get("HELP_HOME_URL", {}).get("value", "")
+    except (OSError, yaml.YAMLError, AttributeError):
+        home_link = ""
     origins = [x.strip() for x in os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",") if x.strip()]
 
     from fastapi.middleware.cors import CORSMiddleware
@@ -126,6 +132,20 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
         decision = str(debug.get("rag_decision") or debug.get("decision") or "UNKNOWN").upper()
         reason_code = debug.get("reason_code") or debug.get("reason") or "unknown"
         options = list(debug.get("options") or []) if decision == "CLARIFY" else []
+        selected_entry = {}
+        try:
+            entries = bot.engine.retriever.entries
+            if decision in {"ANSWER", "CLARIFY"}:
+                selected_entry = next(
+                    (entries[key] for key in debug.get("kb_ids", []) if key in entries),
+                    {},
+                )
+        except (AttributeError, KeyError, TypeError):
+            selected_entry = {}
+        source_status = selected_entry.get("source_status")
+        if source_status not in {"verified", "partly_verified", "pending"}:
+            source_status = "pending" if selected_entry.get("is_mock", False) or decision == "NO_MATCH" else "verified"
+        help_link = selected_entry.get("help_link") or home_link
         if decision == "CLARIFY" and not options:
             if reason_code == "refund_batch_type":
                 options = ["Regular batch", "Refund program batch"]
@@ -141,9 +161,11 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
             "kb_ids": debug.get("kb_ids", []),
             "confidence": debug.get("confidence", 0),
             "mode": debug.get("mode", "fallback"),
+            "source_status": source_status,
+            "help_link": help_link,
         })
         return {"messages":result.messages, "ticket":result.ticket, "request_id":request.state.request_id,
-                "options":options, "debug":debug}
+                "options":options, "source_status":source_status, "help_link":help_link, "debug":debug}
 
     @api.get("/webhook/meta")
     async def meta_verify(request: Request):

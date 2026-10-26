@@ -78,3 +78,5 @@ class BuiltEntry(BaseModel):
     facts_verified: list[str]
     facts_mock: list[str]
     is_mock: bool
+    source_status: str = "verified"
+    help_link: str = ""

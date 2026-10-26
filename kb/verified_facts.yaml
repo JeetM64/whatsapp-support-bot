@@ -1,13 +1,15 @@
 verified_facts:
   facts:
   - id: F1
-    text: Brand iStudio means Internship Studio; official site, help center, Instagram, and LinkedIn channels are listed below.
-    source: internshipstudio.com; internshipstudio.tawk.help; Instagram @istudio.official; LinkedIn company/internship-studio
-      (user-supplied source references)
+    text: Brand iStudio means Internship Studio; official site, help-center home, and verified section URLs (internship-related,
+      certificates, payment-related, skill, extension, placement assistance, offer letter, project, iCAT, curriculum,
+      internship simulation, refund program, and referral) are supplied below.
+    source: internshipstudio.com and user-provided verified Internship Studio help-center URLs in Stage 9A instructions
     retrieved: 2026-10-25
     confidence: high
   - id: F2
-    text: Support email contact@internshipstudio.com, phone 7507869003, hours 11 AM-7 PM; operating days are not stated.
+    text: Support email contact@internshipstudio.com, phone 7507869003, hours 11 AM-7 PM; operating days are not
+      stated.
     source: Internship Studio help-center support information (user-supplied)
     retrieved: 2026-10-25
     confidence: medium
@@ -17,22 +19,22 @@ verified_facts:
     retrieved: 2026-10-25
     confidence: medium
   - id: F4
-    text: Location references conflict between Pune and a registered office in Ahmednagar; the bot must not state an office
-      address.
+    text: Location references conflict between Pune and a registered office in Ahmednagar; the bot must not state
+      an office address.
     source: Internshala listing and Internship Studio About page (user-supplied)
     retrieved: 2026-10-25
     confidence: low
   - id: F5
-    text: Learners take iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. Qualifiers get
-      training and an internship opportunity; not attempting iCAT means not eligible. The internship itself has no charge;
-      the fee is for accompanying training. There is no stipend. After completing training and internship, learners get hiring-portal
-      access to apply for stipend-based internships and jobs.
+    text: Learners take iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. Qualifiers
+      get training and an internship opportunity; not attempting iCAT means not eligible. The internship itself
+      has no charge; the fee is for accompanying training. There is no stipend. After completing training and internship,
+      learners get hiring-portal access to apply for stipend-based internships and jobs.
     source: Internship Studio official site and site footer (user-supplied)
     retrieved: 2026-10-25
     confidence: high
   - id: F6
-    text: The August 2026 iCAT page snapshot lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular student.
-      Fees can change. An older third-party review claimed Rs 980 and is not used as the current fee.
+    text: The August 2026 iCAT page snapshot lists Rs 880 for an iCAT-qualified student and Rs 8,500 for a regular
+      student. Fees can change. An older third-party review claimed Rs 980 and is not used as the current fee.
     source: Internship Studio iCAT page snapshot, August 2026; older third-party review noted by user (user-supplied)
     retrieved: 2026-10-25
     confidence: medium
@@ -42,40 +44,40 @@ verified_facts:
     retrieved: 2026-10-25
     confidence: medium
   - id: F8
-    text: 'Three certificates are described: iCAT Participation for everyone who takes iCAT, Training after training, and
-      Internship after mentor review and project approval. iStudio describes these as ISO-verified. Supplied sources make
-      no AICTE, UGC, or NSDC claim; do not infer accreditation.'
+    text: 'Three certificates are described: iCAT Participation for everyone who takes iCAT, Training after training,
+      and Internship after mentor review and project approval. iStudio describes these as ISO-verified. Supplied
+      sources make no AICTE, UGC, or NSDC claim; do not infer accreditation.'
     source: Internship Studio certificate information and user-supplied review of accreditation claims
     retrieved: 2026-10-25
     confidence: high
   - id: F9
-    text: 'Standard policy says course/service cancellation payments are non-refundable. Exception: duplicate payment requests
-      within 7 days by email to support with subject Duplicate payment return, registered email, and receipt; 100% returned
-      to same source, credited 5-7 working days after processing (card issuers may take up to 30 days), never cash. Internship
-      duration may be extended up to 6 months if the learner has difficulty.'
+    text: 'Standard policy says course/service cancellation payments are non-refundable. Exception: duplicate payment
+      requests within 7 days by email to support with subject Duplicate payment return, registered email, and receipt;
+      100% returned to same source, credited 5-7 working days after processing (card issuers may take up to 30 days),
+      never cash. Internship duration may be extended up to 6 months if the learner has difficulty.'
     source: Internship Studio refund-policy help article (user-supplied)
     retrieved: 2026-10-25
     confidence: high
   - id: F10
-    text: A separate Refund Guarantee Program promises the paid amount back after completing the program if attendance is
-      100% across the 90-day or selected duration, all assignments are on time, and the project is submitted in the last week.
-      Its enrollment fee covers structured training, support, placement assistance, and commitment. Enrollment cap is 100
-      students per test registration, first come while registration is open; expansion is expected, not promised. Older URL
-      says 75% attendance while latest text says 100%; confirm this discrepancy.
+    text: A separate Refund Guarantee Program promises the paid amount back after completing the program if attendance
+      is 100% across the 90-day or selected duration, all assignments are on time, and the project is submitted
+      in the last week. Its enrollment fee covers structured training, support, placement assistance, and commitment.
+      Enrollment cap is 100 students per test registration, first come while registration is open; expansion is
+      expected, not promised. Older URL says 75% attendance while latest text says 100%; confirm this discrepancy.
     source: Latest Internship Studio Refund Guarantee Program text and older program URL (user-supplied)
     retrieved: 2026-10-25
     confidence: medium
   - id: F11
-    text: After payment, the dashboard may take up to 24 hours to update. If still missing, send the receipt/screenshot, registered
-      email, and contact details to support or call; check spam for confirmation email. Double payments use the duplicate-payment
-      rule.
+    text: After payment, the dashboard may take up to 24 hours to update. If still missing, send the receipt/screenshot,
+      registered email, and contact details to support or call; check spam for confirmation email. Double payments
+      use the duplicate-payment rule.
     source: Internship Studio payment help article (user-supplied)
     retrieved: 2026-10-25
     confidence: high
   - id: F12
-    text: Help center describes placement assistance, not a general guarantee. About page markets a placement guarantee for
-      iStudio Plus Digital Marketing and Robotics; route those program-specific questions to a human. Site success stories
-      list highest stipend Rs 35,000 and average Rs 10,797; these figures are not promises.
+    text: Help center describes placement assistance, not a general guarantee. About page markets a placement guarantee
+      for iStudio Plus Digital Marketing and Robotics; route those program-specific questions to a human. Site success
+      stories list highest stipend Rs 35,000 and average Rs 10,797; these figures are not promises.
     source: Internship Studio help center and About page (user-supplied)
     retrieved: 2026-10-25
     confidence: medium
@@ -85,40 +87,48 @@ verified_facts:
     retrieved: 2026-10-25
     confidence: low
   - id: F14
-    text: 'Help-center taxonomy: Internship related 17, Certificates 8, Payment related 8, Skill 4, Extension 4, Placement
-      Assistance 5, Offer Letter 3, Project 5, iCAT 15, Curriculum 1, Internship Simulation 4, Refund Program 12, Referral
-      4. Supplied article titles include enrollment, second internship and payment, batch/domain changes, portal access, benefits,
-      offer letters, certificates, extensions, iCAT eligibility and exam support, attendance, project submission, installments,
-      extra fees, hiring portal, assignments, and four referral topics. Titles without retrieved answers remain pending and
-      must not be answered as verified facts.'
+    text: 'Help-center taxonomy: Internship related 17, Certificates 8, Payment related 8, Skill 4, Extension 4,
+      Placement Assistance 5, Offer Letter 3, Project 5, iCAT 15, Curriculum 1, Internship Simulation 4, Refund
+      Program 12, Referral 4. Supplied article titles include enrollment, second internship and payment, batch/domain
+      changes, portal access, benefits, offer letters, certificates, extensions, iCAT eligibility and exam support,
+      attendance, project submission, installments, extra fees, hiring portal, assignments, and four referral topics.
+      Titles without retrieved answers remain pending and must not be answered as verified facts.'
     source: Internship Studio help-center taxonomy and article titles (user-supplied)
     retrieved: 2026-10-25
     confidence: high
   - id: F15
-    text: 'Help-center article ratings supplied: refund policy 23/186 likes; internship charges 603/856; placement guarantee
-      103/163.'
+    text: 'Help-center article ratings supplied: refund policy 23/186 likes; internship charges 603/856; placement
+      guarantee 103/163.'
     source: Internship Studio help-center rating counts (user-supplied)
     retrieved: 2026-10-25
     confidence: high
   - id: F16
-    text: 'Public sentiment is mixed: one Glassdoor intern review alleges a Rs 980 access fee and vague guidance; other reviews/Quora
-      praise the training-to-hiring-portal flow; a third-party blog warns of name confusion with a different Chennai company.
-      These are unverified third-party statements, not company facts; do not assert them or disparage other businesses.'
-    source: Glassdoor, Quora, and a third-party blog as described by the user; not independently verified and not used for
-      answers
+    text: 'Public sentiment is mixed: one Glassdoor intern review alleges a Rs 980 access fee and vague guidance;
+      other reviews/Quora praise the training-to-hiring-portal flow; a third-party blog warns of name confusion
+      with a different Chennai company. These are unverified third-party statements, not company facts; do not assert
+      them or disparage other businesses.'
+    source: Glassdoor, Quora, and a third-party blog as described by the user; not independently verified and not
+      used for answers
     retrieved: 2026-10-25
     confidence: low
   - id: F17
-    text: Customers include engineering, commerce/management, pharmaceutical and psychology learners, freshers, and campus
-      ambassadors; many are Tier-2/3 and first-to-third year. Employers use hire.internshipstudio.com and can contact hr@internshipstudio.com.
-      Employer enquiries are out of scope for the bot and routed to a human.
+    text: Customers include engineering, commerce/management, pharmaceutical and psychology learners, freshers,
+      and campus ambassadors; many are Tier-2/3 and first-to-third year. Employers use hire.internshipstudio.com
+      and can contact hr@internshipstudio.com. Employer enquiries are out of scope for the bot and routed to a human.
     source: Internship Studio site and help center (user-supplied)
     retrieved: 2026-10-25
     confidence: high
+  - id: F18
+    text: The help-center index lists its home page and category links for internships, certificates, payments, skills,
+      extensions, placement assistance, offer letters, projects, iCAT, curriculum, internship simulation, refunds,
+      and referrals.
+    source: help center index
+    retrieved: 2026-10-26
+    confidence: high
   policies:
   - id: P1
-    text: For safety, advise users to verify requests to pay outside the official site with support first and never share
-      OTP or card details in chat. Ask which batch they are in before answering a refund question.
+    text: For safety, advise users to verify requests to pay outside the official site with support first and never
+      share OTP or card details in chat. Ask which batch they are in before answering a refund question.
     source: User-provided customer-safety and conversation policy for this assignment
     retrieved: 2026-10-25
     confidence: high
@@ -135,7 +145,7 @@ verified_facts:
       value_hinglish: 'Official website: https://internshipstudio.com'
     HELP_CENTER_URL:
       value: https://internshipstudio.tawk.help
-      fact: F1
+      fact: F18
       confidence: high
       value_hinglish: 'Help center: https://internshipstudio.tawk.help'
     INSTAGRAM_CHANNEL:
@@ -159,10 +169,10 @@ verified_facts:
       confidence: medium
       value_hinglish: phone 7507869003
     SUPPORT_HOURS:
-      value: 11 AM-7 PM; the operating days are not stated
+      value: 11:00-19:00 IST; operating days are not stated
       fact: F2
       confidence: medium
-      value_hinglish: samay 11 AM se 7 PM tak; working days nahi diye gaye hain
+      value_hinglish: 11:00 se 19:00 IST; support ke din confirm nahi hain
     PASSWORD_RESET_URL:
       value: https://cit2.internshipstudio.com/login/forgot_password.php
       fact: F3
@@ -187,14 +197,15 @@ verified_facts:
       value: iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer
       fact: F5
       confidence: high
-      value_hinglish: iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke
-        saath chalaya jata hai
+      value_hinglish: iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe
+        ke saath chalaya jata hai
     ICAT_ELIGIBILITY:
-      value: iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible
+      value: iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means
+        not eligible
       fact: F5
       confidence: high
-      value_hinglish: iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility
-        nahi hoti
+      value_hinglish: iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par
+        eligibility nahi hoti
     INTERNSHIP_FEE_NOTE:
       value: Internship is free; the fee covers training
       fact: F5
@@ -216,28 +227,28 @@ verified_facts:
       confidence: medium
       value_hinglish: Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein
     PROGRAM_TRACKS:
-      value: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java, Digital Marketing,
-        Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning, RCC Structure Design, Software
-        Testing, UI/UX Design, Website Design and Development, Human Resource, Finance, Video Editing, Graphic Design, Pharmaceutical,
-        Psychology, International Business, and DevOps
+      value: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java,
+        Digital Marketing, Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning,
+        RCC Structure Design, Software Testing, UI/UX Design, Website Design and Development, Human Resource, Finance,
+        Video Editing, Graphic Design, Pharmaceutical, Psychology, International Business, and DevOps
       fact: F7
       confidence: medium
-      value_hinglish: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science, Java,
-        Digital Marketing, Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine Learning, RCC Structure
-        Design, Software Testing, UI/UX Design, Website Design and Development, Human Resource, Finance, Video Editing, Graphic
-        Design, Pharmaceutical, Psychology, International Business, DevOps
+      value_hinglish: Artificial Intelligence, AutoCAD, AWS, CPP and Data Structures, Data Analytics, Data Science,
+        Java, Digital Marketing, Energy Conservation and Management, Ethical Hacking, Excel Automation, Machine
+        Learning, RCC Structure Design, Software Testing, UI/UX Design, Website Design and Development, Human Resource,
+        Finance, Video Editing, Graphic Design, Pharmaceutical, Psychology, International Business, DevOps
     DOMAIN_LIST_NOTE:
       value: The list can change
       fact: F7
       confidence: medium
       value_hinglish: List badal sakti hai
     CERTIFICATE_TYPES:
-      value: iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors
-        review and approve the project
+      value: iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after
+        mentors review and approve the project
       fact: F8
       confidence: high
-      value_hinglish: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review
-        aur project approval ke baad Internship certificate milta hai
+      value_hinglish: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur
+        mentor review aur project approval ke baad Internship certificate milta hai
     CERTIFICATE_STATUS:
       value: iStudio describes its certificates as ISO-verified
       fact: F8
@@ -254,43 +265,52 @@ verified_facts:
       confidence: high
       value_hinglish: Cancellation par refund nahi; duplicate payment ke liye 7 din mein email karein
     DUPLICATE_PAYMENT_RULE:
-      value: For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate payment
-        return, your registered email ID, and payment receipt. A 100% refund goes back to the original payment method; processing
-        takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not offered
+      value: For a duplicate payment, email contact@internshipstudio.com within 7 days of payment with subject Duplicate
+        payment return, your registered email ID, and payment receipt. A 100% refund goes back to the original payment
+        method; processing takes 5-7 working days, and card issuers may take up to 30 days. Cash refunds are not
+        offered
       fact: F9
       confidence: high
-      value_hinglish: 'Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email karein.
-        Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund usi payment method
-        par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak lag sakte hain. Cash refund
-        nahi hota'
+      value_hinglish: 'Duplicate payment ke liye payment ke 7 din ke andar contact@internshipstudio.com par email
+        karein. Subject: Duplicate payment return; registered email ID aur payment receipt bhejein. 100% refund
+        usi payment method par aata hai; processing ke baad 5-7 working days lagte hain, card issuer ko 30 din tak
+        lag sakte hain. Cash refund nahi hota'
     EXTENSION_DURATION:
       value: up to 6 months
       fact: F9
       confidence: high
       value_hinglish: 6 mahine tak
     REFUND_PROGRAM_CONDITIONS:
-      value: After completing the program, refund-program eligibility requires 100% attendance across the 90-day or selected
-        duration, all assignments submitted on time, and the internship project submitted in the last week
+      value: After completing the program, refund-program eligibility requires 100% attendance across the 90-day
+        or selected duration, all assignments submitted on time, and the internship project submitted in the last
+        week
       fact: F10
       confidence: medium
-      value_hinglish: 'Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein 100% attendance,
-        saare assignments time par, aur internship project aakhri hafte mein submit karna'
+      value_hinglish: 'Program poora karne ke baad refund program ki shartein: 90 din ya chuni hui duration mein
+        100% attendance, saare assignments time par, aur internship project aakhri hafte mein submit karna'
     REFUND_PROGRAM_CAP:
-      value: Enrollment is capped at 100 students per test registration, first come while the registration window is open
+      value: Enrollment is capped at 100 students per test registration, first come while the registration window
+        is open
       fact: F10
       confidence: medium
-      value_hinglish: Har test registration mein zyada se zyada 100 students; registration window khuli ho toh pehle aao,
-        pehle pao
+      value_hinglish: Har test registration mein zyada se zyada 100 students; registration window khuli ho toh pehle
+        aao, pehle pao
     REFUND_PROGRAM_EXPANSION:
       value: Expansion is expected but not promised
       fact: F10
       confidence: medium
       value_hinglish: Expansion ki ummeed hai, par vaada nahi hai
+    REFUND_PROGRAM_NAME:
+      value: Refund Guarantee Program
+      fact: F10
+      confidence: high
+      value_hinglish: Refund Guarantee Program
     REFUND_PROGRAM_FEE_COVERS:
       value: The enrollment fee covers structured training, support, placement assistance, and commitment
       fact: F10
       confidence: medium
-      value_hinglish: Enrollment fee mein structured training, support, placement assistance aur commitment shamil hain
+      value_hinglish: Enrollment fee mein structured training, support, placement assistance aur commitment shamil
+        hain
     REFUND_ATTENDANCE_NOTE:
       value: Please ask the team to confirm the exact refund program conditions
       fact: F10
@@ -306,20 +326,20 @@ verified_facts:
         or call 7507869003; also check spam for the confirmation email
       fact: F11
       confidence: high
-      value_hinglish: payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com par
-        bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein
+      value_hinglish: payment receipt ya screenshot, registered email aur contact details contact@internshipstudio.com
+        par bhejein ya 7507869003 par call karein; confirmation email ka spam folder bhi dekhein
     PLACEMENT_POSITION:
       value: Placement assistance only; no outcome guaranteed
       fact: F12
       confidence: medium
       value_hinglish: Placement assistance hai, outcome guarantee nahi
     ISTUDIO_PLUS_NOTE:
-      value: The placement wording for iStudio Plus Digital Marketing and Robotics differs; a human can confirm the applicable
-        terms
+      value: The placement wording for iStudio Plus Digital Marketing and Robotics differs; a human can confirm
+        the applicable terms
       fact: F12
       confidence: medium
-      value_hinglish: iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; lagu terms team se confirm
-        kar lein
+      value_hinglish: iStudio Plus Digital Marketing aur Robotics ke placement terms alag hain; lagu terms team
+        se confirm kar lein
     NO_STIPEND_INFO:
       value: No stipend
       fact: F5
@@ -348,21 +368,97 @@ verified_facts:
       - F1
       - F2
       confidence: medium
-      value_hinglish: https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com; 7507869003
+      value_hinglish: https://internshipstudio.com; https://internshipstudio.tawk.help; contact@internshipstudio.com;
+        7507869003
     SAFE_PAYMENT_NOTE:
       value: Outside-site payment? Confirm with support. Never share OTP or card details here.
       fact: P1
       confidence: high
       value_hinglish: Official site ke bahar payment? Support se verify karein. OTP/card details share na karein
     REFUND_EXTENSION_OPTION:
-      value: If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges and process
-        are not stated
+      value: If you are facing difficulty, the internship duration may be extended up to 6 months; extension charges
+        and process are not stated
       fact: F9
       confidence: low
-      value_hinglish: Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges aur process
-        nahi diye gaye
+      value_hinglish: Mushkil aa rahi ho toh internship duration 6 mahine tak badh sakti hai; extension ke charges
+        aur process nahi diye gaye
     EXTENSION_PROCESS_NOTE:
       value: The article does not state the process or charges
       fact: F13
       confidence: low
       value_hinglish: Article mein process ya charges nahi bataye gaye hain
+    HELP_HOME_URL:
+      value: https://internshipstudio.tawk.help/
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/
+    HELP_INTERNSHIP_URL:
+      value: https://internshipstudio.tawk.help/category/internship-related
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/internship-related
+    HELP_CERTIFICATES_URL:
+      value: https://internshipstudio.tawk.help/category/certificates
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/certificates
+    HELP_PAYMENT_URL:
+      value: https://internshipstudio.tawk.help/category/payment-related
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/payment-related
+    HELP_SKILL_URL:
+      value: https://internshipstudio.tawk.help/category/skill
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/skill
+    HELP_EXTENSION_URL:
+      value: https://internshipstudio.tawk.help/category/extension
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/extension
+    HELP_PLACEMENT_URL:
+      value: https://internshipstudio.tawk.help/category/placement-assistance
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/placement-assistance
+    HELP_OFFER_LETTER_URL:
+      value: https://internshipstudio.tawk.help/category/offer-letter
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/offer-letter
+    HELP_PROJECT_URL:
+      value: https://internshipstudio.tawk.help/category/project
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/project
+    HELP_ICAT_URL:
+      value: https://internshipstudio.tawk.help/category/internship-common-aptitude-test
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/internship-common-aptitude-test
+    HELP_CURRICULUM_URL:
+      value: https://internshipstudio.tawk.help/category/curriculum
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/curriculum
+    HELP_SIMULATION_URL:
+      value: https://internshipstudio.tawk.help/category/internship-simulation
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/internship-simulation
+    HELP_REFUND_URL:
+      value: https://internshipstudio.tawk.help/category/refund-program
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/refund-program
+    HELP_REFERRAL_URL:
+      value: https://internshipstudio.tawk.help/category/referral
+      fact: F18
+      confidence: high
+      value_hinglish: https://internshipstudio.tawk.help/category/referral
+    ICAT_PARTICIPATION_FACT:
+      value: Everyone who takes iCAT receives an iCAT Participation certificate
+      fact: F8
+      confidence: high
+      value_hinglish: iCAT dene wale sabhi learners ko iCAT Participation certificate milta hai

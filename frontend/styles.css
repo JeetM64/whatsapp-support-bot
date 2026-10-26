@@ -20,6 +20,8 @@ h2 { margin: 0 0 .55rem; font-size: 1rem; }
 .messages { display: flex; flex-direction: column; gap: .65rem; min-height: 13rem; max-height: 48vh; overflow-y: auto; padding: .75rem 0; }
 .bubble { max-width: 88%; padding: .7rem .85rem; border-radius: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
 .bubble p { margin: 0; white-space: pre-wrap; }
+.source-badge { display: block; margin-top: .45rem; color: #526773; font-size: .76rem; }
+.help-link { display: inline-block; margin-top: .35rem; color: #174f70; font-size: .82rem; font-weight: 650; }
 .bubble.assistant { align-self: flex-start; background: #eef3f6; border-bottom-left-radius: .25rem; }
 .bubble.user { align-self: flex-end; color: #fff; background: #174f70; border-bottom-right-radius: .25rem; }
 .typing { margin: 0 0 .7rem; color: #4c6574; font-style: italic; }

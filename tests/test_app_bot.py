@@ -11,6 +11,14 @@ class EngineSpy:
         self.calls.append((text, kwargs))
         return None
 
+def test_web_channel_uses_top_demo_banner_without_notice_bubble(tmp_path):
+    root=Path(__file__).parents[1]
+    bot=Bot(root, engine=EngineSpy(), store=Store(tmp_path, "test-secret"))
+    bot.demo_mode=True
+    result=bot.handle_message("web:test", "hello", "web-demo-notice", "web",
+                              datetime(2026,10,26,12,tzinfo=ZoneInfo("Asia/Kolkata")))
+    assert all("Founder Office assignment" not in message for message in result.messages)
+
 def test_explicit_handoff_skips_engine_and_dedupes(tmp_path):
     root=Path(__file__).parents[1]
     engine=EngineSpy()
@@ -243,8 +251,8 @@ def test_accreditation_reply_is_language_matched_and_ordered(query, expected):
     entries = {entry.id: entry for entry in prepare_kb(Path(__file__).parents[1]).entries}
     english = entries["CAT-019"].answer_rendered
     hinglish = entries["CAT-019"].answer_hinglish
-    assert english.index("I don't have confirmed information") < english.index("iStudio describes its certificates as ISO-verified") < english.index("I can connect you with a human")
-    assert hinglish.index("AICTE, UGC ya NSDC approval") < hinglish.index("ISO se verified") < hinglish.index("team se confirm karne ke liye connect")
+    assert english.index("I don't have confirmed information") < english.index("iStudio describes its certificates as ISO-verified") < english.index("Would you like me to connect you with the support team?")
+    assert hinglish.index("AICTE, UGC ya NSDC approval") < hinglish.index("ISO se verified") < hinglish.index("Kya main aapko support team se connect karun?")
     assert "sources" not in english.casefold() and "sources" not in hinglish.casefold()
     assert expected in (english if query.startswith("AICTE") else hinglish)
 

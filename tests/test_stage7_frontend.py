@@ -13,7 +13,7 @@ from src.app.store import Store
 class _Bot:
     def __init__(self):
         self.engine = type("Engine", (), {
-            "retriever": type("Retriever", (), {"kb_hash": "test", "entries": {"CAT-X": {"question": "Refund program"}}})(),
+            "retriever": type("Retriever", (), {"kb_hash": "test", "entries": {"CAT-X": {"question": "Refund program", "source_status": "partly_verified", "help_link": "https://internshipstudio.tawk.help/category/refund-program"}}})(),
             "config": type("Config", (), {"embedding_model": "test"})(),
             "provider": type("Provider", (), {"name": "none"})(),
         })()
@@ -37,7 +37,8 @@ def test_chat_page_headers_clarify_options_and_routes():
     app = create_app(bot=_Bot(), warmup=False)
     page = _request(app, "GET", "/")
     assert page.status_code == 200
-    assert "Sample data, messages logged (masked)" in page.text
+    assert "SAMPLE DATA — Demo built from iStudio's public help-center information." in page.text
+    assert "Hi, I'm the iStudio support assistant." in page.text
     assert page.headers["x-content-type-options"] == "nosniff"
     assert "content-security-policy" in page.headers
     assert _request(app, "GET", "/health").json()["status"] == "ok"
@@ -46,6 +47,9 @@ def test_chat_page_headers_clarify_options_and_routes():
     response = _request(app, "POST", "/chat", json={"sender": "stage7-test", "text": "refund"})
     assert response.status_code == 200
     assert response.json()["options"] == ["Regular batch", "Refund program batch"]
+    assert response.json()["source_status"] == "partly_verified"
+    assert response.json()["help_link"].endswith("/refund-program")
+    assert response.json()["debug"]["source_status"] == "partly_verified"
 
 
 def test_chat_text_is_not_reflected_and_frontend_uses_text_sinks():
@@ -56,6 +60,8 @@ def test_chat_text_is_not_reflected_and_frontend_uses_text_sinks():
     script = _request(app, "GET", "/app.js").text
     assert "innerHTML" not in script
     assert "textContent" in script
+    assert '"internshipstudio.tawk.help"' in script
+    assert 'link.rel = "noopener noreferrer"' in script
 
 
 def test_demo_seed_is_separate_flagged_and_idempotent(tmp_path, monkeypatch):
