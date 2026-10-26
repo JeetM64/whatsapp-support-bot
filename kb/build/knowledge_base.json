@@ -1,5 +1,5 @@
 {
-  "content_hash": "2226e0c11410479884437a9f72c1c6e1162268521b85671e58192e7555a3a29c",
+  "content_hash": "415a71a3163f7f7ffcf9e35b9cec730f5be9719976ab4b167668f489b7a913cc",
   "entries": [
     {
       "answer_hinglish": "iStudio program mein iCAT qualify karne walon ko training ke saath internship ka mauka milta hai aur pehle training, uske baad internship ka mauka shamil hain.",
@@ -509,7 +509,7 @@
       "facts_verified": [
         "PAYMENT_FOLLOWUP"
       ],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "payment receipt kaise milegi",
         "receipt email par nahi aayi",
@@ -529,7 +529,7 @@
       "last_reviewed": "2026-10-25",
       "owner": "Payments Support",
       "question": "How do I get a payment receipt?",
-      "risk_level": "high"
+      "risk_level": "medium"
     },
     {
       "answer_hinglish": "Jawab dene se pehle batayein: aap Regular batch mein hain ya Refund program batch mein?",
@@ -1076,7 +1076,7 @@
         "ISTUDIO_PLUS_NOTE",
         "PLACEMENT_POSITION"
       ],
-      "handoff_offer": true,
+      "handoff_offer": false,
       "hinglish_variants": [
         "career support mein kya help milti hai",
         "career guidance aur job support kya cover karta hai",
@@ -1096,7 +1096,7 @@
       "last_reviewed": "2026-10-25",
       "owner": "Learner Support",
       "question": "What does iStudio Plus career support cover: career guidance, job search, and placement assistance?",
-      "risk_level": "low"
+      "risk_level": "medium"
     },
     {
       "answer_hinglish": "Team se email contact@internshipstudio.com ya phone 7507869003 par sampark karein. samay 11 AM se 7 PM tak; working days nahi diye gaye hain. Support ke din diye nahi gaye, team se confirm karein.",

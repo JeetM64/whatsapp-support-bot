@@ -125,13 +125,16 @@ def test_duplicate_ids_are_rejected(tmp_path: Path) -> None:
 def test_high_risk_entry_requires_handoff_offer(tmp_path: Path) -> None:
     root = copy_fixture(tmp_path)
     path = root / "kb" / "knowledge_base.csv"
+    baseline = prepare_kb(root)
+    high_risk = next(entry for entry in baseline.entries if entry.risk_level.value == "high")
     fields, rows = read_csv_rows(path)
-    rows[10]["handoff_offer"] = "false"
+    target = next(row for row in rows if row["id"] == high_risk.id)
+    target["handoff_offer"] = "false"
     write_csv_rows(path, fields, rows)
 
     result = prepare_kb(root)
 
-    assert any("CAT-011: high risk requires handoff_offer=true" in error for error in result.errors)
+    assert any(f"{high_risk.id}: high risk requires handoff_offer=true" in error for error in result.errors)
 
 
 def test_build_is_deterministic(tmp_path: Path) -> None:

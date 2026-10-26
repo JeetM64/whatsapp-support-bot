@@ -103,7 +103,7 @@ def test_human_offer_is_only_added_for_flagged_entries():
     from src.kb.loader import prepare_kb
     root=Path(__file__).resolve().parents[1]
     entries={entry.id:entry for entry in prepare_kb(root).entries}
-    for entry_id in ("CAT-011","CAT-002","CAT-017","CAT-037","CAT-041","CAT-055"):
+    for entry_id in ("CAT-011","CAT-002","CAT-014","CAT-017","CAT-030","CAT-037","CAT-041","CAT-055"):
         entry=entries[entry_id]
         assert entry.handoff_offer is False
         rendered={"id":entry.id,"answer_rendered":entry.answer_rendered,"answer_hinglish":entry.answer_hinglish,

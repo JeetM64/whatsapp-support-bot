@@ -244,16 +244,19 @@ def _render_report(
     direct_cautious = [row for row in direct if row.got_decision in {"CLARIFY", "NO_MATCH"}]
     rate = len(direct_cautious) / max(len(direct), 1)
     lines.extend(["", f"Direct-question CLARIFY/NO_MATCH rate: {len(direct_cautious)}/{len(direct)} ({rate:.1%})."])
-    if rate > 0.25:
-        lines.extend(["", "Queries for review (report only; no test cases changed):"])
+    lines.extend(["", "Direct questions needing review (proposed fixes only; do not apply to test):"])
+    if direct_cautious:
         for row in direct_cautious:
-            suggestion = ("Add distinctive question wording/lexicon if expected ID is absent from top 3."
-                          if row.case["expected_ids"] not in row.got_ids[:3]
-                          else "Review DEV-tuned answer/margin thresholds; expected ID is already in top 3.")
+            expected_in_top3 = bool(_expected_ids(row.case) & set(row.got_ids[:3]))
+            suggestion = (
+                "Expected entry is already in top 3: distinguish its question/variants from the neighboring candidate, then assess the ambiguity margin on DEV only."
+                if expected_in_top3 else
+                "Expected entry is absent from top 3: propose a natural wording/typo variant and matching lexicon terms for that entry; measure on DEV only."
+            )
             lines.append(f"- {row.case['query']!r}: expected {row.case['expected_ids']}; got "
                          f"{row.got_decision}; top3={','.join(row.got_ids[:3])}; {suggestion}")
     else:
-        lines.append("No report-only query list required (rate is at most 25%).")
+        lines.append("None.")
 
     lines.extend(["", "## In-KB top-3 retrieval misses", ""])
     retrieval_misses = [
