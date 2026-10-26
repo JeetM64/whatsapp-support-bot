@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Protected support ticket inbox">
+  <title>Agent inbox · iStudio Support</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/operations.css">
+  <script src="/agent.js" defer></script>
+</head>
+<body>
+  <div class="shell operations-shell">
+    <header class="topbar"><div><p class="eyebrow">Internship Studio</p><h1>Agent inbox</h1></div><nav aria-label="Main navigation"><a href="/">Chat</a><a href="/founder">Founder dashboard</a></nav></header>
+    <p class="sample-banner">Ticket data may include SAMPLE DATA.</p>
+    <main>
+      <section id="key-gate" class="panel" aria-labelledby="key-title">
+        <h2 id="key-title">Agent sign in</h2>
+        <p>Enter the agent key to load tickets. The key stays in this page's memory and is sent only in the Authorization header.</p>
+        <form id="key-form" class="key-form">
+          <label for="agent-key">Agent key</label>
+          <input id="agent-key" type="password" autocomplete="off" required>
+          <button class="button primary" type="submit">Continue</button>
+        </form>
+        <p id="key-error" class="error" role="alert" hidden></p>
+      </section>
+      <section id="inbox" hidden>
+        <div class="toolbar panel">
+          <label>Status <select id="filter-status"><option value="all">All</option><option value="open">Open</option><option value="resolved">Resolved</option></select></label>
+          <label>Priority <select id="filter-priority"><option value="all">All</option><option>P1</option><option>P2</option><option>P3</option><option>P4</option></select></label>
+          <button id="refresh" class="button secondary" type="button">Refresh</button>
+          <button id="sign-out" class="text-button" type="button">Clear key</button>
+        </div>
+        <p id="inbox-error" class="error" role="alert" hidden></p>
+        <div class="inbox-grid">
+          <section class="panel ticket-list-panel" aria-labelledby="tickets-heading">
+            <h2 id="tickets-heading">Tickets</h2>
+            <ul id="ticket-list" class="ticket-list" aria-live="polite"></ul>
+            <p id="empty-tickets" hidden>No tickets match these filters.</p>
+          </section>
+          <section id="ticket-detail" class="panel detail-panel" aria-labelledby="detail-heading">
+            <h2 id="detail-heading">Ticket details</h2>
+            <p>Select a ticket to review its masked transcript and context.</p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <footer><p>Ticket access is protected by the agent key.</p></footer>
+  </div>
+</body>
+</html>

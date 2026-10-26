@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json, re
+import json, re, time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -136,6 +136,22 @@ class Bot:
 
     def handle_message(self, sender: str, text: str, message_id: str | None, channel: str,
                        now: datetime | None = None) -> BotReply:
+        started = time.perf_counter()
+        reply = self._handle_message(sender, text, message_id, channel, now)
+        if hasattr(self.store, "log_response_metric") and channel != "system":
+            try:
+                is_answer = str(reply.debug.get("rag_decision", "")).upper() == "ANSWER"
+                self.store.log_response_metric(
+                    (time.perf_counter() - started) * 1000,
+                    is_answer and reply.ticket is None,
+                    _local_now(now),
+                )
+            except (AttributeError, TypeError, ValueError):
+                pass
+        return reply
+
+    def _handle_message(self, sender: str, text: str, message_id: str | None, channel: str,
+                        now: datetime | None = None) -> BotReply:
         when = _local_now(now)
         raw_text = str(text or "")[:600]
         clean = mask_pii(raw_text)
@@ -298,6 +314,23 @@ class Bot:
                 if guess.action == "continue" and high_risk_kb and rag.reason_code != "prompt_injection_blocked":
                     guess = self.guard.classify(clean, unmatched_high_risk=True, status_authorized=self._identity_ok(sender))
                 self.store.gap(sender_hash, clean, when)
+            if rag and hasattr(self.store, "log_token_usage"):
+                usage = getattr(rag, "usage", None)
+                cost = getattr(rag, "estimated_cost_usd", None)
+                try:
+                    cost_value = float(cost) if cost not in (None, "unknown") else None
+                except (TypeError, ValueError):
+                    cost_value = None
+                try:
+                    self.store.log_token_usage(
+                        str(getattr(rag, "mode", "fallback")),
+                        getattr(usage, "input_tokens", None),
+                        getattr(usage, "output_tokens", None),
+                        cost_value,
+                        when,
+                    )
+                except (AttributeError, TypeError, ValueError):
+                    pass
             if rag and rag.decision.value == "CLARIFY" and self.engine:
                 option_limit = 2 if rag.reason_code == "low_margin_entry_conflict" else 3
                 state["pending_options"] = [self.engine.retriever.entries[e.id].get("question", e.id) for e in rag.entries if e.id in self.engine.retriever.entries][:option_limit]

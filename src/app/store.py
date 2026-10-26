@@ -32,6 +32,8 @@ class Store:
             CREATE TABLE IF NOT EXISTS kb_gaps(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, query TEXT NOT NULL, created_at TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS processed_messages(message_id TEXT PRIMARY KEY, sender_hash TEXT NOT NULL, reply_json TEXT NOT NULL, created_at TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS outbox(id INTEGER PRIMARY KEY, sender_hash TEXT NOT NULL, ticket_id TEXT NOT NULL, text TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', created_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS token_usage(id INTEGER PRIMARY KEY, mode TEXT NOT NULL, input_tokens INTEGER, output_tokens INTEGER, cost_usd REAL, created_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS response_metrics(id INTEGER PRIMARY KEY, latency_ms REAL NOT NULL, auto_resolved INTEGER NOT NULL, created_at TEXT NOT NULL);
             """)
             message_columns = {row[1] for row in db.execute("PRAGMA table_info(messages)")}
             if "demo" not in message_columns:
@@ -55,7 +57,24 @@ class Store:
             db.execute("INSERT INTO sessions VALUES(?,?,?) ON CONFLICT(sender_hash) DO UPDATE SET updated_at=excluded.updated_at,state=excluded.state", (sender_hash, now.isoformat(), json.dumps(state, ensure_ascii=False)))
     def append_message(self, sender_hash: str, message_id: str | None, role: str, text: str, now: datetime, *, demo: bool = False):
         with self.connect() as db:
-            db.execute("INSERT INTO messages(sender_hash,message_id,role,text,created_at,demo) VALUES(?,?,?,?,?,?)", (sender_hash, message_id, role, mask_pii(text), now.isoformat(), int(demo)))
+            is_demo = demo or os.getenv("ENV", "").casefold() == "demo"
+            db.execute("INSERT INTO messages(sender_hash,message_id,role,text,created_at,demo) VALUES(?,?,?,?,?,?)", (sender_hash, message_id, role, mask_pii(text), now.isoformat(), int(is_demo)))
+
+    def log_token_usage(self, mode: str, input_tokens: int | None, output_tokens: int | None, cost_usd: float | None, now: datetime):
+        """Persist aggregateable model usage without prompts, replies, or customer identifiers."""
+        with self.connect() as db:
+            db.execute(
+                "INSERT INTO token_usage(mode,input_tokens,output_tokens,cost_usd,created_at) VALUES(?,?,?,?,?)",
+                (mode, input_tokens, output_tokens, cost_usd, now.isoformat()),
+            )
+
+    def log_response_metric(self, latency_ms: float, auto_resolved: bool, now: datetime):
+        """Persist response-level measurements without retaining conversation data."""
+        with self.connect() as db:
+            db.execute(
+                "INSERT INTO response_metrics(latency_ms,auto_resolved,created_at) VALUES(?,?,?)",
+                (max(0.0, float(latency_ms)), int(auto_resolved), now.isoformat()),
+            )
 
     def seed_demo_conversations(self, conversations: list[dict[str, Any]]) -> int:
         """Insert the named demo conversations once into the demo-selected DB."""
@@ -126,6 +145,8 @@ class Store:
                 created += 1
         return created
     def open_ticket(self, sender_hash: str, payload: dict[str, Any]) -> dict[str, Any]:
+        if os.getenv("ENV", "").casefold() == "demo":
+            payload["demo"] = True
         with self.connect() as db:
             old = db.execute("SELECT payload FROM tickets WHERE sender_hash=? AND status='open'", (sender_hash,)).fetchone()
             if old:
@@ -173,7 +194,8 @@ class Store:
             payload = json.loads(row["payload"])
             payload["last_5_turns"] = (payload.get("last_5_turns", []) + [{"role":"customer","text":mask_pii(text)}])[-5:]
             db.execute("UPDATE tickets SET payload=? WHERE ticket_id=?", (json.dumps(payload, ensure_ascii=False), ticket_id))
-            db.execute("INSERT INTO messages(sender_hash,role,text,created_at) VALUES(?,?,?,?)", (row["sender_hash"], "customer", mask_pii(text), datetime.now().astimezone().isoformat()))
+            demo = int(os.getenv("ENV", "").casefold() == "demo")
+            db.execute("INSERT INTO messages(sender_hash,role,text,created_at,demo) VALUES(?,?,?,?,?)", (row["sender_hash"], "customer", mask_pii(text), datetime.now().astimezone().isoformat(), demo))
     def queue_reply(self, ticket_id: str, text: str):
         with self.connect() as db:
             row = db.execute("SELECT sender_hash FROM tickets WHERE ticket_id=?", (ticket_id,)).fetchone()

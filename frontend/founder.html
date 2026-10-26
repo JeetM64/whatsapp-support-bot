@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aggregate support operations metrics">
+  <title>Founder dashboard · iStudio Support</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/operations.css">
+  <script src="/founder.js" defer></script>
+</head>
+<body>
+  <div class="shell operations-shell">
+    <header class="topbar"><div><p class="eyebrow">Internship Studio</p><h1>Support dashboard</h1></div><nav aria-label="Main navigation"><a href="/">Chat</a><a href="/agent">Agent inbox</a></nav></header>
+    <p id="demo-label" class="sample-banner" hidden>Demo data</p>
+    <main>
+      <p id="load-error" class="error" role="alert" hidden></p>
+      <p id="empty-state" class="panel" role="status" hidden>No aggregate support data is available yet. Metrics will appear after messages or tickets are logged.</p>
+      <section id="metrics" hidden>
+        <div class="metric-grid">
+          <article class="metric-card"><h2>Messages handled</h2><p id="messages-count" class="metric-value">—</p></article>
+          <article class="metric-card"><h2>Auto-resolved</h2><p id="auto-rate" class="metric-value">—</p></article>
+          <article class="metric-card"><h2>Average bot latency</h2><p id="latency" class="metric-value">—</p></article>
+          <article class="metric-card"><h2>SLA breaches</h2><p id="sla-breaches" class="metric-value">—</p></article>
+          <article class="metric-card"><h2>Token cost per 1,000 messages</h2><p id="token-cost" class="metric-value">—</p><p id="token-cost-note" class="muted"></p></article>
+        </div>
+        <section class="panel hours-panel">
+          <h2>Estimated hours saved</h2>
+          <p>Assumption: each auto-resolved message saves the number of minutes entered below.</p>
+          <label for="minutes-per-message">Minutes saved per auto-resolved message</label>
+          <input id="minutes-per-message" type="number" min="0" max="240" step="1" value="5">
+          <p id="hours-saved" class="metric-value" aria-live="polite">—</p>
+        </section>
+        <div class="chart-grid">
+          <section class="panel"><h2>Escalations by reason</h2><div id="reasons-chart" class="bar-chart"></div></section>
+          <section class="panel"><h2>Escalations by priority</h2><div id="priority-chart" class="bar-chart"></div></section>
+          <section class="panel"><h2>Top intents</h2><div id="intents-chart" class="bar-chart"></div></section>
+          <section class="panel"><h2>Knowledge gaps</h2><div id="gaps-chart" class="bar-chart"></div></section>
+          <section class="panel"><h2>Language split</h2><div id="language-chart" class="bar-chart"></div></section>
+          <section class="panel"><h2>Batch type split</h2><div id="batch-chart" class="bar-chart"></div></section>
+        </div>
+      </section>
+    </main>
+    <footer><p>Metrics are aggregate only; no messages, ticket ids, or phone numbers are returned by the public metrics endpoint.</p></footer>
+  </div>
+</body>
+</html>

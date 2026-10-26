@@ -8,7 +8,7 @@ from urllib.parse import parse_qsl
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request, Response
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -30,6 +30,10 @@ class ChatIn(BaseModel):
     text: str = Field(min_length=1, max_length=600)
     sender: str = Field(min_length=1, max_length=100)
     message_id: str | None = Field(default=None, max_length=200)
+
+
+class AgentAuthIn(BaseModel):
+    key: str = Field(min_length=1, max_length=512)
 
 
 def check_twilio(url: str, params: dict[str,str], signature: str, token: str) -> bool:
@@ -68,6 +72,13 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
     async def startup():
         if state["bot"] is None:
             state["bot"] = Bot(ROOT, engine=RagEngine(ROOT, provider=NoneProvider()))
+        if (os.getenv("ENV") or "dev").casefold() == "demo":
+            store = state["bot"].store
+            with store.connect() as db:
+                ticket_count = db.execute("SELECT COUNT(*) FROM tickets").fetchone()[0]
+            if ticket_count == 0:
+                from src.app.demo_seed import DEMO_CONVERSATIONS
+                store.seed_demo_conversations(DEMO_CONVERSATIONS)
         if state["warmup"]:
             try: state["bot"].engine.retriever
             except Exception: pass
@@ -205,8 +216,25 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
 
     def authorize(authorization: str | None):
         key = os.getenv("AGENT_API_KEY", "")
-        if not key or not authorization or not hmac.compare_digest(authorization.removeprefix("Bearer "), key):
+        if not key or not authorization or not authorization.startswith("Bearer ") or not hmac.compare_digest(authorization[7:], key):
             raise HTTPException(401,"unauthorized")
+
+    @api.post("/api/agent/auth")
+    async def agent_auth(payload: AgentAuthIn, request: Request):
+        ip = request.client.host if request.client else "unknown"
+        queue = state["limits"]["agent-auth-fail:" + ip]
+        now = time.monotonic()
+        while queue and now - queue[0] > 300:
+            queue.popleft()
+        if len(queue) >= 10:
+            raise HTTPException(429, "too_many_attempts")
+        configured = os.getenv("AGENT_API_KEY", "")
+        valid = bool(configured) and hmac.compare_digest(payload.key, configured)
+        if not valid:
+            queue.append(now)
+            raise HTTPException(401, "unauthorized")
+        queue.clear()
+        return {"authenticated": True}
 
     @api.get("/api/tickets")
     async def tickets(authorization: str | None = Header(default=None)):
@@ -282,8 +310,101 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
                 "top_intents":dict(intents.most_common(10)),"kb_gaps":gaps,"sla_breaches":breaches,
                 "language_split":dict(languages),"batch_type_split":dict(batch_types)}
 
+    @api.get("/api/metrics/public")
+    async def public_metrics():
+        store = services().store
+        db = store.connect()
+        try:
+            tickets = [json.loads(row[0]) for row in db.execute("SELECT payload FROM tickets")]
+            messages = [tuple(row) for row in db.execute("SELECT sender_hash,role,created_at,text FROM messages ORDER BY created_at")]
+            sessions = [json.loads(row[0]) for row in db.execute("SELECT state FROM sessions")]
+            gap_queries = [str(row[0]) for row in db.execute("SELECT query FROM kb_gaps")]
+            usage_rows = [tuple(row) for row in db.execute("SELECT mode,input_tokens,output_tokens,cost_usd FROM token_usage")]
+            response_rows = [tuple(row) for row in db.execute("SELECT latency_ms,auto_resolved FROM response_metrics")]
+        finally:
+            db.close()
+
+        from collections import Counter
+        from datetime import datetime, timezone
+        from zoneinfo import ZoneInfo
+        reasons = Counter(str(ticket.get("reason_code", "unknown")) for ticket in tickets)
+        priorities = Counter(str(ticket.get("priority", "unknown")) for ticket in tickets)
+        intents = Counter(str(ticket.get("intent", "unknown")) for ticket in tickets)
+        message_count = sum(role == "customer" for _, role, _, _ in messages)
+        language_counts = Counter()
+        from src.rag.normalize import detect_language
+        for _, role, _, text in messages:
+            if role == "customer":
+                language_counts[detect_language(text)] += 1
+        batch_counts = Counter(str(session.get("batch_type") or "unknown") for session in sessions)
+
+        # Map stored gap queries to a small, fixed topic vocabulary; never expose a query.
+        gap_topics = Counter()
+        for query in gap_queries:
+            folded = query.casefold()
+            if any(term in folded for term in ("college", "campus", "partnership", "tpo")):
+                topic = "college partnerships"
+            elif any(term in folded for term in ("refund", "cancel", "money back")):
+                topic = "refund terms"
+            elif any(term in folded for term in ("fee", "price", "payment", "receipt")):
+                topic = "fees and payments"
+            elif any(term in folded for term in ("certificate", "approval", "aicte", "ugc", "nsdc")):
+                topic = "certificates and approvals"
+            else:
+                topic = "other information"
+            gap_topics[topic] += 1
+
+        now = datetime.now(timezone.utc)
+        local_year = now.astimezone(ZoneInfo("Asia/Kolkata")).year
+        breaches = 0
+        for ticket in tickets:
+            if ticket.get("status") != "open" or not ticket.get("sla_deadline"):
+                continue
+            try:
+                deadline = datetime.strptime(ticket["sla_deadline"], "%a %d %b, %I:%M %p IST").replace(
+                    year=local_year, tzinfo=ZoneInfo("Asia/Kolkata")
+                )
+                if deadline - now.astimezone(ZoneInfo("Asia/Kolkata")) > __import__("datetime").timedelta(days=300):
+                    deadline = deadline.replace(year=local_year - 1)
+                breaches += int(deadline < now.astimezone(ZoneInfo("Asia/Kolkata")))
+            except (ValueError, TypeError):
+                continue
+
+        provider_name = str(getattr(getattr(services().engine, "provider", None), "name", "none")).casefold()
+        numeric_costs = [float(cost) for _, _, _, cost in usage_rows if cost is not None]
+        if provider_name in {"none", "null", "no_llm"}:
+            cost_per_thousand, cost_status = 0.0, "no_llm_mode"
+        elif numeric_costs and message_count:
+            cost_per_thousand, cost_status = round(sum(numeric_costs) * 1000 / message_count, 6), "token_logs"
+        else:
+            cost_per_thousand, cost_status = None, "token_logs_unavailable"
+
+        denominator = len(tickets) or 1
+        return {
+            "demo_data": (os.getenv("ENV") or "dev").casefold() == "demo",
+            "messages_handled": message_count,
+            "auto_resolved_percent": None if not response_rows else round(100 * sum(int(row[1]) for row in response_rows) / len(response_rows), 1),
+            "escalations_by_reason": [{"label": key, "count": value, "rate_percent": round(value * 100 / denominator, 1)} for key, value in reasons.most_common()],
+            "escalations_by_priority": [{"label": key, "count": value, "rate_percent": round(value * 100 / denominator, 1)} for key, value in priorities.most_common()],
+            "average_bot_latency_ms": None if not response_rows else round(sum(float(row[0]) for row in response_rows) / len(response_rows), 1),
+            "top_intents": [{"label": key, "count": value} for key, value in intents.most_common(10)],
+            "kb_gaps": [{"topic": key, "count": value} for key, value in gap_topics.most_common()],
+            "language_split": dict(language_counts),
+            "batch_type_split": dict(batch_counts),
+            "sla_breaches": breaches,
+            "token_cost_per_1000_messages_usd": cost_per_thousand,
+            "token_cost_status": cost_status,
+        }
+
     frontend = ROOT / "frontend"
     if frontend.is_dir():
+        @api.get("/agent", include_in_schema=False)
+        async def agent_page():
+            return FileResponse(frontend / "agent.html")
+
+        @api.get("/founder", include_in_schema=False)
+        async def founder_page():
+            return FileResponse(frontend / "founder.html")
         # Registered last: concrete API, health, and webhook routes keep precedence.
         api.mount("/", StaticFiles(directory=frontend, html=True), name="frontend")
     return api
