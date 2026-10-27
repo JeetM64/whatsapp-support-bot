@@ -159,6 +159,7 @@ def decide(
 
     if len(retrieval.candidates) >= 2:
         second = retrieval.candidates[1]
+        related_ids: list[str] = []
         ambiguity_limit = float(config.decision.get("ambiguity_margin", 0.10))
         topics = _distinct_topics(message)
         explicit_multi_topic = len(topics) >= 2 and bool(
@@ -187,21 +188,36 @@ def decide(
         overlap = len(first_terms & second_terms) / max(len(first_terms | second_terms), 1)
         distinct_meaning = overlap < 0.30
         if retrieval.margin < ambiguity_limit and distinct_meaning and not refund_flow:
-            return QueryDecision(
-                decision=Decision.CLARIFY,
-                reason_code="low_margin_entry_conflict",
-                confidence=retrieval.confidence,
-                candidate_ids=[first.id, second.id],
+            second_entry = entries.get(second.id, {})
+            same_category_safe = (
+                first.category == second.category
+                and top_entry.get("risk_level") != "high"
+                and second_entry.get("risk_level") != "high"
             )
+            if same_category_safe:
+                related_ids = [
+                    candidate.id for candidate in retrieval.candidates[1:]
+                    if candidate.category == first.category
+                    and entries.get(candidate.id, {}).get("risk_level") != "high"
+                ][:2]
+            else:
+                return QueryDecision(
+                    decision=Decision.CLARIFY,
+                    reason_code="low_margin_entry_conflict",
+                    confidence=retrieval.confidence,
+                    candidate_ids=[first.id, second.id],
+                )
     else:
         refund_flow = False
+        related_ids = []
 
-    if retrieval.confidence >= t_answer and (retrieval.margin >= t_margin or refund_flow):
+    if retrieval.confidence >= t_answer and (retrieval.margin >= t_margin or refund_flow or related_ids):
         return QueryDecision(
             decision=Decision.ANSWER,
             reason_code="high_risk_answer_threshold_met" if high_risk else "answer_threshold_met",
             confidence=retrieval.confidence,
-            candidate_ids=[candidate.id for candidate in retrieval.candidates[:2]],
+            candidate_ids=[first.id],
+            related_ids=related_ids,
         )
 
     return QueryDecision(
@@ -214,13 +230,16 @@ def decide(
 
 def compose_clarification(
     language: str,
+    message: str,
     candidate_ids: list[str],
     entries: dict[str, dict],
 ) -> str:
     questions: list[str] = []
-    for entry_id in candidate_ids:
+    query_key = " ".join(re.findall(r"[a-z0-9]+", message.casefold()))
+    for entry_id in dict.fromkeys(candidate_ids):
         question = str(entries.get(entry_id, {}).get("question", "")).strip()
-        if question and question not in questions:
+        question_key = " ".join(re.findall(r"[a-z0-9]+", question.casefold()))
+        if question_key and question_key != query_key and question not in questions:
             questions.append(question.rstrip("?"))
         if len(questions) == 3:
             break

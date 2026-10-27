@@ -15,12 +15,12 @@ thresholds:
   answer: 0.42
   answer_high: 0.5
   low: 0.08
-  margin: 0.02
+  margin: 0.0
   ground: 0.45
-  ambiguity_margin: 0.06
+  ambiguity_margin: 0.03
 decision:
   clarify_token_limit: 1
-  ambiguity_margin: 0.06
+  ambiguity_margin: 0.03
   show_sample_label: true
   max_reply_chars: 600
 provider:

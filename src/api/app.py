@@ -132,6 +132,7 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
         decision = str(debug.get("rag_decision") or debug.get("decision") or "UNKNOWN").upper()
         reason_code = debug.get("reason_code") or debug.get("reason") or "unknown"
         options = list(debug.get("options") or []) if decision == "CLARIFY" else []
+        related = list(debug.get("related") or [])
         selected_entry = {}
         try:
             entries = bot.engine.retriever.entries
@@ -169,7 +170,7 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
             "help_link": help_link,
         })
         return {"messages":result.messages, "ticket":result.ticket, "request_id":request.state.request_id,
-                "options":options, "source_status":source_status, "help_link":help_link, "debug":debug}
+                "options":options, "related":related, "source_status":source_status, "help_link":help_link, "debug":debug}
 
     @api.get("/webhook/meta")
     async def meta_verify(request: Request):

@@ -19,6 +19,8 @@ const handoff = document.querySelector("#handoff");
 const handoffCopy = document.querySelector("#handoff-copy");
 const optionSection = document.querySelector("#quick-replies");
 const optionChips = document.querySelector("#option-chips");
+const relatedSection = document.querySelector("#related-questions");
+const relatedChips = document.querySelector("#related-chips");
 const debugPanel = document.querySelector("#debug-panel");
 const debugFields = document.querySelector("#debug-fields");
 const debugToggle = document.querySelector("#debug-toggle");
@@ -109,6 +111,20 @@ function showOptions(options) {
   }
 }
 
+function showRelated(related) {
+  clearChildren(relatedChips);
+  const choices = Array.isArray(related) ? related.filter(value => typeof value === "string" && value.trim()) : [];
+  relatedSection.hidden = choices.length === 0;
+  for (const choice of choices.slice(0, 2)) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chip related-chip";
+    button.textContent = choice;
+    button.addEventListener("click", () => sendMessage(choice));
+    relatedChips.append(button);
+  }
+}
+
 function showDebug(debug) {
   clearChildren(debugFields);
   const fields = [
@@ -147,6 +163,7 @@ async function sendMessage(value) {
   input.value = "";
   typing.hidden = false;
   showOptions([]);
+  showRelated([]);
   try {
     const response = await fetch("/chat", {
       method: "POST",
@@ -158,6 +175,7 @@ async function sendMessage(value) {
     const metadata = { source_status: payload.source_status, help_link: payload.help_link };
     for (const message of Array.isArray(payload.messages) ? payload.messages : []) addBubble(message, "assistant", metadata);
     showOptions(payload.options);
+    showRelated(payload.related);
     showHandoff(payload.ticket);
     showDebug(payload.debug || {});
   } catch (error) {
@@ -192,6 +210,7 @@ document.querySelector("#new-chat").addEventListener("click", () => {
   sessionStorage.setItem("istudio-web-sender", newSenderId());
   setGreeting("en");
   showOptions([]);
+  showRelated([]);
   showHandoff(null);
   clearChildren(debugFields);
   debugPanel.hidden = true;

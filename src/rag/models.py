@@ -48,6 +48,7 @@ class RagResult(BaseModel):
     reason_code: str
     confidence: float = Field(ge=0.0, le=1.0)
     entries: list[EntryRef] = Field(default_factory=list)
+    related: list[str] = Field(default_factory=list)
     reply: str
     mode: Literal["extractive", "llm", "fallback"]
     degraded: bool = False
@@ -72,3 +73,4 @@ class QueryDecision(BaseModel):
     reason_code: str
     confidence: float = Field(ge=0.0, le=1.0)
     candidate_ids: list[str] = Field(default_factory=list)
+    related_ids: list[str] = Field(default_factory=list)

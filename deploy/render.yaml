@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: istudio-support-demo
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 7860
+      - key: ENV
+        value: demo
+      - key: HF_HUB_OFFLINE
+        value: "1"
+      - key: AGENT_API_KEY
+        sync: false

@@ -38,3 +38,7 @@ Open `http://127.0.0.1:8000/`. The seeded database is `data/demo/app.db`; runnin
 13. Open a ticket, review the masked transcript and summary, use the suggested reply, send it, and check the needs-template message.
 14. Resolve an open demo ticket and confirm its status changes; sign out and confirm the key field is empty.
 15. Open `/founder`; check the Demo data badge, aggregate charts, and hours-saved assumption input. Change minutes per message and verify the estimate updates.
+
+## One-command launcher
+
+Run pwsh -NoProfile -File .\run_demo.ps1 to build the KB, seed demo data, check port 8000, and start the local API. It prints the local demo agent key only when no key is configured.

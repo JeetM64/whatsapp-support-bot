@@ -1,0 +1,31 @@
+﻿pair_id,split,expected_id,english,hinglish
+PAIR-001,dev,CAT-001,What would I get from joining iStudio?,iStudio join karne par mujhe kya milega?
+PAIR-002,dev,CAT-002,Which fields can I pick for the internship?,Internship ke liye kaun se domains choose kar sakte hain?
+PAIR-003,dev,CAT-003,How many weeks should I set aside for this program?,Is program ke liye kitne hafte dene honge?
+PAIR-004,dev,CAT-004,Can a beginner start without experience?,Kya beginner bina experience ke shuru kar sakta hai?
+PAIR-005,dev,CAT-005,Who can apply for this opportunity?,Is opportunity ke liye kaun apply kar sakta hai?
+PAIR-006,dev,CAT-006,Do I attend classes remotely?,Kya classes ghar se online attend hoti hain?
+PAIR-007,dev,CAT-007,What is the first step to join?,Join karne ka pehla step kya hai?
+PAIR-008,dev,CAT-008,What should I keep ready for registration?,Registration ke liye kya ready rakhna chahiye?
+PAIR-009,dev,CAT-009,Do you know when another cohort opens?,Agla batch kab shuru hoga?
+PAIR-010,dev,CAT-010,Can I switch my chosen field later?,Kya baad mein apna domain badal sakta hoon?
+PAIR-011,dev,CAT-011,What amount should I budget for the course?,Course ke liye kitna budget rakhun?
+PAIR-012,dev,CAT-012,How can I pay the program charge?,Program ki payment kaise kar sakte hain?
+PAIR-013,dev,CAT-013,Money left my account but payment failed; what now?,"Paise kat gaye par payment fail dikh raha hai, ab kya karun?"
+PAIR-014,dev,CAT-014,Where do I download proof of payment?,Payment ki receipt kahan se download karun?
+PAIR-015,dev,CAT-015,How do I ask for my money back after cancelling?,Cancel karne ke baad refund kaise maangu?
+PAIR-016,test,CAT-017,Which certificates will I receive?,Mujhe kaun kaun se certificates milenge?
+PAIR-017,test,CAT-019,Are these certificates officially approved?,Kya ye certificates kisi authority se approved hain?
+PAIR-018,test,CAT-021,"My certificate has not come yet, who can check?","Mera certificate abhi tak nahi aaya, kaun check karega?"
+PAIR-019,test,CAT-022,I cannot remember my login password; how to reset?,"Login password yaad nahi, reset kaise karun?"
+PAIR-020,test,CAT-023,I paid but my learner page is still locked.,Payment ho gayi par dashboard access nahi mila.
+PAIR-021,test,CAT-024,How should I upload my project work?,Apna project work upload kaise karun?
+PAIR-022,test,CAT-025,The lesson video keeps buffering; any steps?,"Training video load nahi ho raha, kya try karun?"
+PAIR-023,test,CAT-026,How can I check if this organisation is genuine?,Ye organisation genuine hai ya nahi kaise check karun?
+PAIR-024,test,CAT-031,When can I call support and speak to someone?,Support ko kab call karke kisi se baat kar sakta hoon?
+PAIR-025,test,CAT-034,What entrance assessment comes before training?,Training se pehle kaunsa entrance test hota hai?
+PAIR-026,test,CAT-037,How much do I need to score in the aptitude test?,Aptitude test mein kitne marks laane honge?
+PAIR-027,test,CAT-041,Is there a fee just for doing the internship?,Sirf internship karne ke liye bhi fee lagti hai?
+PAIR-028,test,CAT-042,Will the internship pay me a stipend?,Internship mein stipend milega kya?
+PAIR-029,test,CAT-061,How do I sign up as a campus ambassador?,Campus ambassador banne ke liye kaise join karun?
+PAIR-030,test,CAT-063,What is the process to invite a friend?,Dost ko refer karne ka process kya hai?

@@ -435,7 +435,8 @@ class Bot:
                                "kb_ids":[e.id for e in rag.entries] if rag else [],"priority":guess.priority,
                                "confidence":rag.confidence if rag else 0,
                                "mode":getattr(rag, "mode", "fallback") if rag else "fallback",
-                               "options":state.get("pending_options",[]) if rag and rag.decision.value == "CLARIFY" else []})
+                               "options":state.get("pending_options",[]) if rag and rag.decision.value == "CLARIFY" else [],
+                               "related":list(getattr(rag, "related", []) or []) if rag else []})
             self.store.processed(message_id, sender_hash, result.__dict__, when)
             self._write_trace(result, sender_hash, when)
             return result

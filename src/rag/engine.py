@@ -145,7 +145,7 @@ class RagEngine:
                 usage = TokenUsage()
             elif decision.decision == Decision.CLARIFY:
                 reply = compose_clarification(
-                    language, decision.candidate_ids, self.retriever.entries
+                    language, message, decision.candidate_ids, self.retriever.entries
                 )
                 mode = "extractive"
                 verifier = VerifierReport(
@@ -197,6 +197,11 @@ class RagEngine:
                 reason_code=decision.reason_code,
                 confidence=decision.confidence,
                 entries=refs,
+                related=[
+                    str(self.retriever.entries[entry_id].get("question", entry_id))
+                    for entry_id in decision.related_ids
+                    if entry_id in self.retriever.entries
+                ],
                 reply=reply,
                 mode=mode,
                 degraded=retrieval.degraded,

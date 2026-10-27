@@ -63,6 +63,12 @@ def run_seed_demo():
     print(f"Demo seed complete: {created} new conversations; {len(DEMO_CONVERSATIONS)} total fixtures; database={store.path.relative_to(root)}")
     return 0
 
+def run_docs():
+    from .report_facts import generate
+    target = generate(_root())
+    print(f"Generated {target.relative_to(_root())}")
+    return 0
+
 def run_replay(patterns):
     root=_root(); load_dotenv(root)
     files=[]
@@ -110,11 +116,13 @@ def main():
     resolve=ts.add_parser("resolve"); resolve.add_argument("ticket_id")
     replay=sub.add_parser("replay"); replay.add_argument("scripts",nargs="+")
     sub.add_parser("seed-demo")
+    sub.add_parser("docs")
     args=parser.parse_args()
     try:
         if args.command=="chat": return run_chat(args)
         if args.command=="tickets": return run_tickets(args)
         if args.command=="seed-demo": return run_seed_demo()
+        if args.command=="docs": return run_docs()
         return run_replay(args.scripts)
     except Exception as exc:
         import traceback
