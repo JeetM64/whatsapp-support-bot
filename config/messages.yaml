@@ -26,8 +26,8 @@ escalation:
     suggested_reply: Masked conversation aur verified knowledge base check karke reply dein. Refund ya outcome ka promise
       na karein.
 out_of_scope:
-  english: I don't have details on {topic}. Would you like me to connect you with a human?
-  hinglish: Mere paas {topic} ki details nahi hain. Kya main aapko human agent se connect kar doon?
+  english: 'I don''t have details on {topic}. I can help with iCAT, fees, certificates, refunds, and the training or internship dashboard. Help center: {help_link}. Would you like me to connect you with a human?'
+  hinglish: 'Mere paas {topic} ki details confirm nahi hain. Main iCAT, fees, certificates, refunds aur training ya internship dashboard mein madad kar sakta hoon. iStudio help center: {help_link}. Kya main aapko human agent se connect kar doon?'
 injection_refund:
     english: 'I can''t promise a refund or outcome. The policy depends on your batch: Regular or Refund program? Would you like me to connect you with a human?'
     hinglish: 'Main refund ya kisi outcome ka vaada nahi kar sakta. Refund policy batch par nirbhar hai: Regular batch ya Refund program? Kya main aapko human agent se connect kar doon?'

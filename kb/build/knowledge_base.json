@@ -1,21 +1,19 @@
 {
-  "content_hash": "f4aacd30ba5607fae80f37adad27ccc73969ab59898617e1d6bcdc8516833b67",
+  "content_hash": "76e95f6188616b2180256242e0964cd0813dd22a7db49d20df2faf9131013282",
   "entries": [
     {
-      "answer_hinglish": "iCAT qualify karne walon ko training ke saath internship ka mauka milta hai. pehle training, uske baad internship ka mauka. Exact module list mere paas confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. training followed by an internship opportunity. I don't have the exact module list confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_template": "{{PROGRAM_OVERVIEW}}. {{PROGRAM_DELIVERABLES}}. I don't have the exact module list confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iCAT qualify karne walon ko training ke saath internship ka mauka milta hai. Exact training modules mere paas confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. I don't have the exact training modules confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "{{PROGRAM_OVERVIEW}}. I don't have the exact training modules confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
         "HELP_LINK",
-        "PROGRAM_DELIVERABLES",
         "PROGRAM_OVERVIEW"
       ],
       "facts_verified": [
         "HELP_LINK",
-        "PROGRAM_DELIVERABLES",
         "PROGRAM_OVERVIEW"
       ],
       "handoff_offer": false,
@@ -43,9 +41,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iStudio help center mein kai training domains listed hain. Aapke batch ke liye kaunse options khule hain, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "The iStudio help center lists several training domains. I can't confirm which options are open for your batch. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_template": "The iStudio help center lists several training domains. I can't confirm which options are open for your batch. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio ke listed domains mein Artificial Intelligence, Data Science, Java, Digital Marketing, UI/UX Design aur DevOps shamil hain. Aapke batch mein kaunse available hain, yeh confirm nahi hai; support team se poochhein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "Some listed iStudio domains are Artificial Intelligence, Data Science, Java, Digital Marketing, UI/UX Design, and DevOps. I don't have current batch availability confirmed; please check with the iStudio support team. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "Some listed iStudio domains are Artificial Intelligence, Data Science, Java, Digital Marketing, UI/UX Design, and DevOps. I don't have current batch availability confirmed; please check with the iStudio support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -119,19 +117,17 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. iStudio training ke liye pehle se kya aana chahiye, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have confirmed prerequisite details for iStudio training. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_template": "{{ICAT_NAME}}. I don't have confirmed prerequisite details for iStudio training. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio training ke liye pehle se kya aana chahiye, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "I don't have the prior-knowledge requirement for iStudio training confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "I don't have the prior-knowledge requirement for iStudio training confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "HELP_LINK",
-        "ICAT_NAME"
+        "HELP_LINK"
       ],
       "facts_verified": [
-        "HELP_LINK",
-        "ICAT_NAME"
+        "HELP_LINK"
       ],
       "handoff_offer": false,
       "help_link": "https://internshipstudio.tawk.help/category/internship-related",
@@ -246,8 +242,8 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. Qualify karne par pehle training, uske baad internship ka mauka. Registration ke current steps ya agle batch ki date confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. Qualifiers get training followed by an internship opportunity. I don't have the current registration steps or next batch date confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_hinglish": "Internship Common Aptitude Test. Qualify karne par pehle training, uske baad internship ka mauka. Registration ke current steps ya agle batch ki date confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). Qualifiers get training followed by an internship opportunity. I don't have the current registration steps or next batch date confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
       "answer_template": "{{ICAT_NAME}}. Qualifiers get {{PROGRAM_DELIVERABLES}}. I don't have the current registration steps or next batch date confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "enrolment",
       "escalate_if_unmatched": false,
@@ -290,8 +286,8 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. Enrollment ke liye kaunse documents ya details chahiye, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the required documents or enrollment details confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_hinglish": "Internship Common Aptitude Test. Enrollment ke liye kaunse documents ya details chahiye, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). I don't have the required documents or enrollment details confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
       "answer_template": "{{ICAT_NAME}}. I don't have the required documents or enrollment details confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "enrolment",
       "escalate_if_unmatched": false,
@@ -331,8 +327,8 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. iStudio ke agle batch ki start date mere paas confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the next iStudio batch start date confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_hinglish": "Internship Common Aptitude Test. iStudio ke agle batch ki start date mere paas confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). I don't have the next iStudio batch start date confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
       "answer_template": "{{ICAT_NAME}}. I don't have the next iStudio batch start date confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "enrolment",
       "escalate_if_unmatched": false,
@@ -458,17 +454,19 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Internship free hai; fee training ke liye hai. Kaunse payment methods accept hote hain, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/payment-related.",
-      "answer_rendered": "Internship is free; the fee covers training. I don't have the accepted payment methods confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/payment-related.",
-      "answer_template": "{{INTERNSHIP_FEE_NOTE}}. I don't have the accepted payment methods confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Internship free hai; fee training ke liye hai. iStudio kaunse payment methods accept karta hai, yeh confirm nahi hai. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/payment-related.",
+      "answer_rendered": "Internship is free; the fee covers training. I don't have iStudio's accepted payment methods confirmed. Fees can change, so please confirm on the official site before paying. See the iStudio help center: https://internshipstudio.tawk.help/category/payment-related.",
+      "answer_template": "{{INTERNSHIP_FEE_NOTE}}. I don't have iStudio's accepted payment methods confirmed. {{FEE_CONFIRMATION}}. See the iStudio help center: {{HELP_LINK}}.",
       "category": "fees_payments",
       "escalate_if_unmatched": true,
       "facts_mock": [],
       "facts_required": [
+        "FEE_CONFIRMATION",
         "HELP_LINK",
         "INTERNSHIP_FEE_NOTE"
       ],
       "facts_verified": [
+        "FEE_CONFIRMATION",
         "HELP_LINK",
         "INTERNSHIP_FEE_NOTE"
       ],
@@ -667,8 +665,8 @@
     },
     {
       "answer_hinglish": "Haan. iStudio teen certificate types batata hai: iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai. Issue date confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/certificates.",
-      "answer_rendered": "Yes. iStudio describes three certificate types: iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. I don't have the exact issue date confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/certificates.",
-      "answer_template": "Yes. iStudio describes three certificate types: {{CERTIFICATE_TYPES}}. I don't have the exact issue date confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Yes. iStudio describes three certificate types: iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. I don't have the exact issue date confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/certificates.",
+      "answer_template": "Yes. iStudio describes three certificate types: {{CERTIFICATE_TYPES}}. I don't have the exact issue date confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -687,6 +685,7 @@
         "Btech web dev internship ka certificate milega kya",
         "kitne certificate types available hain",
         "certificate types ke naam kya hain",
+        "certificate milega kya",
         "list the available certificate types",
         "names of the offered certificates",
         "which certificates are included after program completion",
@@ -709,18 +708,16 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai. Mentor review ke baad project approve hone par Internship certificate milta hai. Completion ki deadline confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/certificates.",
-      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. The Internship certificate follows project approval after mentor review. I don't have a completion deadline confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/certificates.",
-      "answer_template": "{{CERTIFICATE_TYPES}}. The Internship certificate follows project approval after mentor review. I don't have a completion deadline confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Mentor review aur project approval ke baad Internship certificate milta hai. Project ka required format ya completion deadline confirm nahi hai; support team se confirm karein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/certificates.",
+      "answer_rendered": "The Internship certificate is issued after mentor review and project approval. I don't have the required project format or completion deadline confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/certificates.",
+      "answer_template": "The Internship certificate is issued after mentor review and project approval. I don't have the required project format or completion deadline confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "facts_verified": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "handoff_offer": false,
@@ -790,18 +787,16 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iStudio iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai batata hai. Offer letter download ki date ya duration badalne ke rules confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/offer-letter.",
-      "answer_rendered": "iStudio describes iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. I don't have the offer-letter download date or duration-change rules confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/offer-letter.",
-      "answer_template": "iStudio describes {{CERTIFICATE_TYPES}}. I don't have the offer-letter download date or duration-change rules confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio help center mein offer letter ka section hai. Download ki date ya duration badalne ke rules confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/offer-letter.",
+      "answer_rendered": "The iStudio help center has an offer-letter section. I don't have the download date or duration-change rules confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/offer-letter.",
+      "answer_template": "The iStudio help center has an offer-letter section. I don't have the download date or duration-change rules confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "facts_verified": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "handoff_offer": true,
@@ -830,20 +825,18 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai. Correction ya delay ka process confirm nahi hai. 11:00 se 19:00 IST; support ke din confirm nahi hain mein email contact@internshipstudio.com par email karein ya phone 7507869003 par call karein; kya main aapko support team se connect karun?",
-      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. I don't have the correction or delay process confirmed. Contact contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST; operating days are not stated; would you like me to connect you with the support team?",
-      "answer_template": "{{CERTIFICATE_TYPES}}. I don't have the correction or delay process confirmed. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}; would you like me to connect you with the support team?",
+      "answer_hinglish": "Certificate correction ya delay ka process confirm nahi hai. Support timing: 11:00 se 19:00 IST (support ke din confirm nahi hain). contact@internshipstudio.com par email karein ya 7507869003 par call karein; kya main aapko support team se connect karun?",
+      "answer_rendered": "I don't have the certificate correction or delay process confirmed. Support hours: 11:00-19:00 IST (operating days not stated). Contact contact@internshipstudio.com or 7507869003; would you like me to connect you with the support team?",
+      "answer_template": "I don't have the certificate correction or delay process confirmed. Support hours: {{SUPPORT_HOURS}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}; would you like me to connect you with the support team?",
       "category": "certificates_offer_letter",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_TYPES",
         "SUPPORT_EMAIL",
         "SUPPORT_HOURS",
         "SUPPORT_PHONE"
       ],
       "facts_verified": [
-        "CERTIFICATE_TYPES",
         "SUPPORT_EMAIL",
         "SUPPORT_HOURS",
         "SUPPORT_PHONE"
@@ -871,9 +864,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iStudio training portal ka password reset karne ke liye diya gaya password reset page: https://cit2.internshipstudio.com/login/forgot_password.php kholein. Alag account-recovery step confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "For the iStudio training portal, use https://cit2.internshipstudio.com/login/forgot_password.php to reset your password. I don't have a separate account-recovery step confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
-      "answer_template": "For the iStudio training portal, use {{PASSWORD_RESET_URL}} to reset your password. I don't have a separate account-recovery step confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio training portal ka password reset karne ke liye yeh link kholein: (https://cit2.internshipstudio.com/login/forgot_password.php). Iske alawa account-recovery step confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "For the iStudio training portal, reset your password here: (https://cit2.internshipstudio.com/login/forgot_password.php). I don't have another account-recovery step confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "For the iStudio training portal, reset your password here: ({{PASSWORD_RESET_URL}}). I don't have another account-recovery step confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "technical_access",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -986,9 +979,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Samajh sakta hoon, isse training ruk sakti hai. Video load na hone ka confirmed fix mere paas nahi hai. 11:00 se 19:00 IST; support ke din confirm nahi hain mein email contact@internshipstudio.com par likhein ya phone 7507869003 par call karein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "I understand this can interrupt your training. I don't have a confirmed fix for videos that won't load. Contact contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST; operating days are not stated. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
-      "answer_template": "I understand this can interrupt your training. I don't have a confirmed fix for videos that won't load. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Samajh sakta hoon, isse training ruk sakti hai. Video load na hone ka confirmed fix mere paas nahi hai. Support timing: 11:00 se 19:00 IST (support ke din confirm nahi hain). contact@internshipstudio.com par email karein ya 7507869003 par call karein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "I understand this can interrupt your training. I don't have a confirmed fix for videos that won't load. Support hours: 11:00-19:00 IST (operating days not stated). Contact contact@internshipstudio.com or 7507869003. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
+      "answer_template": "I understand this can interrupt your training. I don't have a confirmed fix for videos that won't load. Support hours: {{SUPPORT_HOURS}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}. See the iStudio help center: {{HELP_LINK}}.",
       "category": "technical_access",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1064,9 +1057,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Official website: https://internshipstudio.com; support email email contact@internshipstudio.com, phone phone 7507869003, hours 11:00 se 19:00 IST; support ke din confirm nahi hain. Doosra official channel confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "https://internshipstudio.com; support email contact@internshipstudio.com, phone 7507869003, hours 11:00-19:00 IST; operating days are not stated. I don't have any other official channel confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
-      "answer_template": "{{OFFICIAL_SITE_URL}}; support email {{SUPPORT_EMAIL}}, phone {{SUPPORT_PHONE}}, hours {{SUPPORT_HOURS}}. I don't have any other official channel confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Official website: Official website: https://internshipstudio.com. contact@internshipstudio.com par email karein ya 7507869003 par call karein. Support timing: 11:00 se 19:00 IST (support ke din confirm nahi hain). Doosra official channel confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "https://internshipstudio.com. Contact contact@internshipstudio.com or 7507869003. Support hours: 11:00-19:00 IST (operating days not stated). I don't have another official channel confirmed; check with the iStudio support team. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "{{OFFICIAL_SITE_URL}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}. Support hours: {{SUPPORT_HOURS}}. I don't have another official channel confirmed; check with the iStudio support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1108,9 +1101,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Support confirm na kare tab tak Official website: https://internshipstudio.com ke bahar payment na karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein. Kya main aapko support team se connect karun?",
-      "answer_rendered": "Please don't pay outside https://internshipstudio.com until support confirms the request. Outside-site payment? Confirm with support. Never share OTP or card details here.. Would you like me to connect you with the support team?",
-      "answer_template": "Please don't pay outside {{OFFICIAL_SITE_URL}} until support confirms the request. {{SAFE_PAYMENT_NOTE}}. Would you like me to connect you with the support team?",
+      "answer_hinglish": "iStudio support team confirm na kare tab tak Official website: https://internshipstudio.com ke bahar payment na karein. Official site ke bahar payment? Support se verify karein. OTP/card details share na karein Kya main aapko support team se connect karun?",
+      "answer_rendered": "Please don't pay outside https://internshipstudio.com until the iStudio support team confirms the request. Outside-site payment? Confirm with support. Never share OTP or card details here. Would you like me to connect you with the support team?",
+      "answer_template": "Please don't pay outside {{OFFICIAL_SITE_URL}} until the iStudio support team confirms the request. {{SAFE_PAYMENT_NOTE}} Would you like me to connect you with the support team?",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1181,8 +1174,8 @@
     },
     {
       "answer_hinglish": "Placement assistance hai, outcome guarantee nahi. Career support ke exact steps ya kisi ek learner ka outcome confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/placement-assistance.",
-      "answer_rendered": "Placement assistance only; no outcome guaranteed. I don't have the exact career-support steps or individual outcomes confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance. Please confirm this on the official site or with the team.",
-      "answer_template": "{{PLACEMENT_POSITION}}. I don't have the exact career-support steps or individual outcomes confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Placement assistance only; no outcome guaranteed. I don't have the exact career-support steps or individual outcomes confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance.",
+      "answer_template": "{{PLACEMENT_POSITION}}. I don't have the exact career-support steps or individual outcomes confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "placement_hiring",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1219,9 +1212,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iStudio support team ke hours 11:00 se 19:00 IST; support ke din confirm nahi hain hain. email contact@internshipstudio.com par email karein ya phone 7507869003 par call karein. Support ke din confirm nahi hain. Kya main aapko kisi person se connect karun?",
-      "answer_rendered": "The iStudio support team's hours are 11:00-19:00 IST; operating days are not stated. Contact contact@internshipstudio.com or 7507869003. Operating days aren't confirmed. Would you like me to connect you with a person?",
-      "answer_template": "The iStudio support team's hours are {{SUPPORT_HOURS}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}. Operating days aren't confirmed. Would you like me to connect you with a person?",
+      "answer_hinglish": "iStudio support 11:00 se 19:00 IST (support ke din confirm nahi hain) available hai. contact@internshipstudio.com par email karein ya 7507869003 par call karein. Kya main aapko kisi person se connect karun?",
+      "answer_rendered": "iStudio support is available 11:00-19:00 IST (operating days not stated). Contact contact@internshipstudio.com or 7507869003. Would you like me to connect you with a person? Please confirm this on the official site or with the team.",
+      "answer_template": "iStudio support is available {{SUPPORT_HOURS}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}. Would you like me to connect you with a person?",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1258,9 +1251,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Samajh sakta hoon, jawab ka wait pareshaan karta hai. Aapke case ka status confirm nahi hai. iStudio support team se 11:00 se 19:00 IST; support ke din confirm nahi hain mein email contact@internshipstudio.com ya phone 7507869003 par contact karein; kya main ticket banaun?",
-      "answer_rendered": "I understand waiting for a reply is frustrating. I don't have your case status confirmed. Contact the support team at contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST; operating days are not stated; would you like me to raise a ticket?",
-      "answer_template": "I understand waiting for a reply is frustrating. I don't have your case status confirmed. Contact the support team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}; would you like me to raise a ticket?",
+      "answer_hinglish": "Samajh sakta hoon, jawab ka wait pareshaan karta hai. Aapke case ka status confirm nahi hai. Support timing: 11:00 se 19:00 IST (support ke din confirm nahi hain). iStudio support team se contact@internshipstudio.com ya 7507869003 par contact karein; kya main ticket banaun?",
+      "answer_rendered": "I understand waiting for a reply is frustrating. I don't have your case status confirmed. Support hours: 11:00-19:00 IST (operating days not stated). Contact the iStudio support team at contact@internshipstudio.com or 7507869003; would you like me to raise a ticket?",
+      "answer_template": "I understand waiting for a reply is frustrating. I don't have your case status confirmed. Support hours: {{SUPPORT_HOURS}}. Contact the iStudio support team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}; would you like me to raise a ticket?",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1336,9 +1329,9 @@
       "source_status": "verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility nahi hoti. iCAT dene wale sabhi learners ko iCAT Participation certificate milta hai. Latest syllabus ya passing marks confirm nahi hain. iCAT help center dekhein: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible. Everyone who takes iCAT receives an iCAT Participation certificate. I don't have the latest syllabus or passing marks confirmed. See the iCAT help center: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
-      "answer_template": "{{ICAT_NAME}}. {{ICAT_ELIGIBILITY}}. {{ICAT_PARTICIPATION_FACT}}. I don't have the latest syllabus or passing marks confirmed. See the iCAT help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Internship Common Aptitude Test. iCAT qualify karne wale training aur internship ke liye eligible hain; iCAT nahi dene par eligibility nahi hoti. iCAT dene wale sabhi learners ko iCAT Participation certificate milta hai. Latest syllabus ya passing marks confirm nahi hain. iCAT help center dekhein: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means not eligible. Everyone who takes iCAT receives an iCAT Participation certificate. I don't have the latest syllabus or passing marks confirmed; please check with the support team. See the iCAT help center: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
+      "answer_template": "{{ICAT_NAME}}. {{ICAT_ELIGIBILITY}}. {{ICAT_PARTICIPATION_FACT}}. I don't have the latest syllabus or passing marks confirmed; please check with the support team. See the iCAT help center: {{HELP_LINK}}.",
       "category": "icat_test",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1417,19 +1410,17 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Learners iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai dete hain. iCAT ID, password ya exam link paane ke steps confirm nahi hain. iCAT help center dekhein: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
-      "answer_rendered": "Learners take iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the iCAT ID, password, or exam-link steps confirmed. See the iCAT help center: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
-      "answer_template": "Learners take {{ICAT_NAME}}. I don't have the iCAT ID, password, or exam-link steps confirmed. See the iCAT help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iCAT ID, password ya exam link paane ke steps confirm nahi hain; support team se poochhein. iCAT help center dekhein: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
+      "answer_rendered": "I don't have the steps to get an iCAT ID, password, or exam link confirmed; please check with the support team. See the iCAT help center: https://internshipstudio.tawk.help/category/internship-common-aptitude-test.",
+      "answer_template": "I don't have the steps to get an iCAT ID, password, or exam link confirmed; please check with the support team. See the iCAT help center: {{HELP_LINK}}.",
       "category": "icat_test",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "HELP_LINK",
-        "ICAT_NAME"
+        "HELP_LINK"
       ],
       "facts_verified": [
-        "HELP_LINK",
-        "ICAT_NAME"
+        "HELP_LINK"
       ],
       "handoff_offer": true,
       "help_link": "https://internshipstudio.tawk.help/category/internship-common-aptitude-test",
@@ -1454,8 +1445,8 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. Latest iCAT syllabus ya passing marks confirm nahi hain. Kya main aapko support team se connect karun?",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the latest iCAT syllabus or passing marks confirmed. Would you like me to connect you with the support team?",
+      "answer_hinglish": "Internship Common Aptitude Test. Latest iCAT syllabus ya passing marks confirm nahi hain. Kya main aapko support team se connect karun?",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). I don't have the latest iCAT syllabus or passing marks confirmed. Would you like me to connect you with the support team?",
       "answer_template": "{{ICAT_NAME}}. I don't have the latest iCAT syllabus or passing marks confirmed. Would you like me to connect you with the support team?",
       "category": "icat_test",
       "escalate_if_unmatched": false,
@@ -1489,18 +1480,14 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Learners iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai dete hain. Current test window ya exam link confirm nahi hai. Kya main aapko support team se connect karun?",
-      "answer_rendered": "Learners take iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the current test window or exam link confirmed. Would you like me to connect you with the support team?",
-      "answer_template": "Learners take {{ICAT_NAME}}. I don't have the current test window or exam link confirmed. Would you like me to connect you with the support team?",
+      "answer_hinglish": "iCAT ka current test window ya exam link confirm nahi hai. Kya main aapko support team se connect karun?",
+      "answer_rendered": "I don't have the current iCAT test window or exam link confirmed. Would you like me to connect you with the support team?",
+      "answer_template": "I don't have the current iCAT test window or exam link confirmed. Would you like me to connect you with the support team?",
       "category": "icat_test",
       "escalate_if_unmatched": false,
       "facts_mock": [],
-      "facts_required": [
-        "ICAT_NAME"
-      ],
-      "facts_verified": [
-        "ICAT_NAME"
-      ],
+      "facts_required": [],
+      "facts_verified": [],
       "handoff_offer": true,
       "help_link": "https://internshipstudio.tawk.help/category/internship-common-aptitude-test",
       "hinglish_variants": [
@@ -1559,18 +1546,14 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Samajh sakta hoon, iCAT mein technical issue tension deta hai. Learners iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai dete hain. Confirmed troubleshooting step nahi hai; kya main aapko support team se connect karun?",
-      "answer_rendered": "I understand an iCAT technical issue is stressful. Learners take iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have a confirmed troubleshooting step; would you like me to connect you with the support team?",
-      "answer_template": "I understand an iCAT technical issue is stressful. Learners take {{ICAT_NAME}}. I don't have a confirmed troubleshooting step; would you like me to connect you with the support team?",
+      "answer_hinglish": "Samajh sakta hoon, iCAT mein technical issue tension deta hai. Confirmed troubleshooting step nahi hai; kya main aapko support team se connect karun?",
+      "answer_rendered": "I understand an iCAT technical issue is stressful. I don't have a confirmed troubleshooting step; would you like me to connect you with the support team?",
+      "answer_template": "I understand an iCAT technical issue is stressful. I don't have a confirmed troubleshooting step; would you like me to connect you with the support team?",
       "category": "icat_test",
       "escalate_if_unmatched": false,
       "facts_mock": [],
-      "facts_required": [
-        "ICAT_NAME"
-      ],
-      "facts_verified": [
-        "ICAT_NAME"
-      ],
+      "facts_required": [],
+      "facts_verified": [],
       "handoff_offer": true,
       "help_link": "https://internshipstudio.tawk.help/category/internship-common-aptitude-test",
       "hinglish_variants": [
@@ -1644,9 +1627,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Training aur internship ke dauraan Stipend nahi milta. Poora hone ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Kisi khaas role ki terms confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/placement-assistance.",
-      "answer_rendered": "No stipend during training and the internship. After completion, After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. I don't have the terms of a specific role confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance.",
-      "answer_template": "{{NO_STIPEND_INFO}} during training and the internship. After completion, {{HIRING_PORTAL_INFO}}. I don't have the terms of a specific role confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Training aur internship ke dauraan Stipend nahi milta. Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Kisi khaas role ki terms confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/placement-assistance.",
+      "answer_rendered": "No stipend during training and the internship. After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. I don't have the terms of a specific role confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance.",
+      "answer_template": "{{NO_STIPEND_INFO}} during training and the internship. {{HIRING_PORTAL_INFO}}. I don't have the terms of a specific role confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "placement_hiring",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -1683,9 +1666,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Training aur internship poori hone ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Hiring portal login ya apply karne ke current steps confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/placement-assistance.",
-      "answer_rendered": "After completing training and the internship, After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. I don't have the current hiring-portal login or application steps confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance.",
-      "answer_template": "After completing training and the internship, {{HIRING_PORTAL_INFO}}. I don't have the current hiring-portal login or application steps confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Hiring portal login ya apply karne ke current steps confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/placement-assistance.",
+      "answer_rendered": "After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. I don't have the current hiring-portal login or application steps confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/placement-assistance.",
+      "answer_template": "{{HIRING_PORTAL_INFO}}. I don't have the current hiring-portal login or application steps confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "placement_hiring",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2028,20 +2011,18 @@
       "source_status": "verified"
     },
     {
-      "answer_hinglish": "Training portal access kab milega, yeh confirm nahi hai. iStudio program ke liye iCAT qualify karne walon ko training ke saath internship ka mauka milta hai. 11:00 se 19:00 IST; support ke din confirm nahi hain mein email contact@internshipstudio.com ya phone 7507869003 par contact karein.",
-      "answer_rendered": "I don't have the training-portal access time confirmed. For iStudio program information, Training is paired with an internship opportunity for iCAT qualifiers. Contact contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST; operating days are not stated. Please confirm this on the official site or with the team.",
-      "answer_template": "I don't have the training-portal access time confirmed. For iStudio program information, {{PROGRAM_OVERVIEW}}. Contact {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}.",
+      "answer_hinglish": "Training portal access kab milega, yeh confirm nahi hai. 11:00 se 19:00 IST (support ke din confirm nahi hain) mein contact@internshipstudio.com ya 7507869003 par iStudio support team se contact karein.",
+      "answer_rendered": "I don't have the training-portal access time confirmed. Contact the iStudio support team at contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST (operating days not stated).",
+      "answer_template": "I don't have the training-portal access time confirmed. Contact the iStudio support team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}.",
       "category": "technical_access",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "PROGRAM_OVERVIEW",
         "SUPPORT_EMAIL",
         "SUPPORT_HOURS",
         "SUPPORT_PHONE"
       ],
       "facts_verified": [
-        "PROGRAM_OVERVIEW",
         "SUPPORT_EMAIL",
         "SUPPORT_HOURS",
         "SUPPORT_PHONE"
@@ -2252,18 +2233,16 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT dene wale sabhi learners ko iCAT Participation; training phase ke baad Training; aur mentor review aur project approval ke baad Internship certificate milta hai. Assignments training portal mein kahan milenge, yeh confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/project.",
-      "answer_rendered": "iCAT Participation for everyone who takes iCAT; Training after the training phase; and Internship after mentors review and approve the project. I don't have the training-portal location for assignments confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/project.",
-      "answer_template": "{{CERTIFICATE_TYPES}}. I don't have the training-portal location for assignments confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio assignments training portal mein kahan milenge, yeh confirm nahi hai; support team se poochhein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/project.",
+      "answer_rendered": "I don't have the training-portal location for iStudio assignments confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/project.",
+      "answer_template": "I don't have the training-portal location for iStudio assignments confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "projects_assignments",
       "escalate_if_unmatched": false,
       "facts_mock": [],
       "facts_required": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "facts_verified": [
-        "CERTIFICATE_TYPES",
         "HELP_LINK"
       ],
       "handoff_offer": false,
@@ -2289,8 +2268,8 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe ke saath chalaya jata hai. Doosri internship ke enrollment steps ya fee confirm nahi hain. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer. I don't have the steps or fee for enrolling in a second internship confirmed. Fees can change, so please confirm on the official site before paying. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_hinglish": "Internship Common Aptitude Test. Doosri internship ke enrollment steps ya fee confirm nahi hain. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "iCAT (Internship Common Aptitude Test). I don't have the steps or fee for enrolling in a second internship confirmed. Fees can change, so please confirm on the official site before paying. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
       "answer_template": "{{ICAT_NAME}}. I don't have the steps or fee for enrolling in a second internship confirmed. {{FEE_CONFIRMATION}}. See the iStudio help center: {{HELP_LINK}}.",
       "category": "enrolment",
       "escalate_if_unmatched": false,
@@ -2366,8 +2345,8 @@
     },
     {
       "answer_hinglish": "Engineering, commerce/management, pharma aur psychology learners, saath hi campus ambassadors. Campus ambassador banne ke current application steps confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/referral.",
-      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have the current campus-ambassador application steps confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
-      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have the current campus-ambassador application steps confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have the current campus-ambassador application steps confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
+      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have the current campus-ambassador application steps confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "referral_campus",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2403,8 +2382,8 @@
     },
     {
       "answer_hinglish": "Engineering, commerce/management, pharma aur psychology learners, saath hi campus ambassadors. Referral ka reward ya benefit confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/referral.",
-      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have a confirmed referral reward or benefit to share. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
-      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have a confirmed referral reward or benefit to share. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have a confirmed referral reward or benefit to share; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
+      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have a confirmed referral reward or benefit to share; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "referral_campus",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2440,8 +2419,8 @@
     },
     {
       "answer_hinglish": "Engineering, commerce/management, pharma aur psychology learners, saath hi campus ambassadors. Dost ko refer karne ke current steps ya link confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/referral.",
-      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have the current friend-referral steps or link confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
-      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have the current friend-referral steps or link confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have the current friend-referral steps or link confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/referral.",
+      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have the current friend-referral steps or link confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "referral_campus",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2476,9 +2455,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "Samajh sakta hoon, referral credit na dikhna pareshaan karta hai. Aapka referral record confirm nahi hai. iStudio support team se 11:00 se 19:00 IST; support ke din confirm nahi hain mein email contact@internshipstudio.com ya phone 7507869003 par contact karein; kya main ticket banaun?",
-      "answer_rendered": "I understand a missing referral credit is frustrating. I don't have your referral record confirmed. Contact the iStudio support team at contact@internshipstudio.com or 7507869003 during 11:00-19:00 IST; operating days are not stated; would you like me to raise a ticket?",
-      "answer_template": "I understand a missing referral credit is frustrating. I don't have your referral record confirmed. Contact the iStudio support team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}} during {{SUPPORT_HOURS}}; would you like me to raise a ticket?",
+      "answer_hinglish": "Samajh sakta hoon, referral credit na dikhna pareshaan karta hai. Aapka referral record confirm nahi hai. Support timing: 11:00 se 19:00 IST (support ke din confirm nahi hain). iStudio support team ko contact@internshipstudio.com par email karein ya 7507869003 par call karein; kya main ticket banaun?",
+      "answer_rendered": "I understand a missing referral credit is frustrating. I don't have your referral record confirmed. Support hours: 11:00-19:00 IST (operating days not stated). Contact the iStudio support team at contact@internshipstudio.com or 7507869003; would you like me to raise a ticket?",
+      "answer_template": "I understand a missing referral credit is frustrating. I don't have your referral record confirmed. Support hours: {{SUPPORT_HOURS}}. Contact the iStudio support team at {{SUPPORT_EMAIL}} or {{SUPPORT_PHONE}}; would you like me to raise a ticket?",
       "category": "referral_campus",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2554,9 +2533,9 @@
       "source_status": "partly_verified"
     },
     {
-      "answer_hinglish": "iStudio ka current office address mere paas confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "I don't have iStudio's current office address confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_template": "I don't have iStudio's current office address confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_hinglish": "iStudio ka current office address mere paas confirm nahi hai; support team se poochhein. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_rendered": "I don't have iStudio's current office address confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "I don't have iStudio's current office address confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "trust_verification",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2590,8 +2569,8 @@
     },
     {
       "answer_hinglish": "iCAT qualify karne walon ko training ke saath internship ka mauka milta hai. Poora hone ke baad Training aur internship poori hone ke baad learners ko hiring portal milta hai, jahan stipend-based internships aur jobs ke liye apply kar sakte hain. Placement assistance hai, outcome guarantee nahi. Batch ke exact benefits confirm nahi hain. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. After completion, After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. Placement assistance only; no outcome guaranteed. I don't have batch-specific benefits confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
-      "answer_template": "{{PROGRAM_OVERVIEW}}. After completion, {{HIRING_PORTAL_INFO}}. {{PLACEMENT_POSITION}}. I don't have batch-specific benefits confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Training is paired with an internship opportunity for iCAT qualifiers. After completing training and internship, learners get access to the hiring portal to apply for stipend-based internships and jobs. Placement assistance only; no outcome guaranteed. I don't have batch-specific benefits confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related. Please confirm this on the official site or with the team.",
+      "answer_template": "{{PROGRAM_OVERVIEW}}. {{HIRING_PORTAL_INFO}}. {{PLACEMENT_POSITION}}. I don't have batch-specific benefits confirmed. See the iStudio help center: {{HELP_LINK}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [],
@@ -2671,8 +2650,8 @@
     },
     {
       "answer_hinglish": "Engineering, commerce/management, pharma aur psychology learners, saath hi campus ambassadors. Har current eligibility condition mere paas confirm nahi hai. iStudio help center dekhein: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have every current eligibility condition confirmed. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
-      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have every current eligibility condition confirmed. See the iStudio help center: {{HELP_LINK}}.",
+      "answer_rendered": "Engineering, commerce/management, pharmaceutical, and psychology learners, plus campus ambassadors. I don't have every current eligibility condition confirmed; please check with the support team. See the iStudio help center: https://internshipstudio.tawk.help/category/internship-related.",
+      "answer_template": "{{LEARNER_AUDIENCE}}. I don't have every current eligibility condition confirmed; please check with the support team. See the iStudio help center: {{HELP_LINK}}.",
       "category": "program_info",
       "escalate_if_unmatched": false,
       "facts_mock": [],

@@ -64,6 +64,23 @@ def test_chat_text_is_not_reflected_and_frontend_uses_text_sinks():
     assert 'link.rel = "noopener noreferrer"' in script
 
 
+def test_chat_without_selected_kb_entry_marks_source_pending():
+    from types import SimpleNamespace
+
+    class NoEntryBot(_Bot):
+        def handle_message(self, sender, text, message_id, channel):
+            result = SimpleNamespace()
+            result.messages = ["Which detail do you need?"]
+            result.ticket = None
+            result.debug = {"decision": "CLARIFY", "reason_code": "low_margin_entry_conflict", "kb_ids": [], "confidence": .3, "mode": "template"}
+            return result
+
+    response = _request(create_app(bot=NoEntryBot(), warmup=False), "POST", "/chat", json={"sender": "pending-source", "text": "ambiguous question"})
+    assert response.status_code == 200
+    assert response.json()["source_status"] == "pending"
+    assert response.json()["help_link"] == "https://internshipstudio.tawk.help/"
+
+
 def test_demo_seed_is_separate_flagged_and_idempotent(tmp_path, monkeypatch):
     monkeypatch.setenv("ENV", "demo")
     store = Store(tmp_path, secret="test-only-demo-secret")

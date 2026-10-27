@@ -77,6 +77,13 @@ class RagEngine:
         self.root = (root or Path.cwd()).resolve()
         self.config = RagConfig.load(self.root)
         load_dotenv(self.root)
+        self.help_home_link = ""
+        try:
+            import yaml
+            facts_doc = yaml.safe_load((self.root / "kb" / "verified_facts.yaml").read_text(encoding="utf-8-sig")) or {}
+            self.help_home_link = facts_doc.get("verified_facts", {}).get("placeholders", {}).get("HELP_HOME_URL", {}).get("value", "")
+        except (OSError, yaml.YAMLError, AttributeError):
+            pass
         self._init_error: Exception | None = None
         try:
             self.provider = provider or create_provider(
@@ -128,7 +135,7 @@ class RagEngine:
             timings["verify_ms"] = 0.0
             refs = _refs(retrieval)
             if decision.decision == Decision.NO_MATCH:
-                reply = no_match_reply(language, message)
+                reply = no_match_reply(language, message, self.help_home_link)
                 mode = "fallback"
                 verifier = VerifierReport(
                     passed=True,
@@ -217,7 +224,7 @@ class RagEngine:
                 reason_code=reason,
                 confidence=0.0,
                 entries=_refs(retrieval),
-                reply=no_match_reply(language, message),
+                reply=no_match_reply(language, message, self.help_home_link),
                 mode="fallback",
                 degraded=True,
                 verifier=VerifierReport(

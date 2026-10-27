@@ -1,3 +1,27 @@
 ﻿id,split,type,query,expected_ids,expected_decision
 RAG-NEW-041,dev,in_kb,Will I get a certificate?,CAT-017,ANSWER
 RAG-NEW-042,dev,in_kb,Btech web dev internship ka certificate milega kya,CAT-017,ANSWER
+RAG-NEW-043,dev,direct,What is iCAT used for?,CAT-034,ANSWER
+RAG-NEW-044,dev,hinglish,iCAT ka full form kya hai,CAT-034,ANSWER
+RAG-NEW-045,dev,typo,icat dena jaruri h kya,CAT-035,ANSWER
+RAG-NEW-046,dev,typo,passing marks for icat kaha dekhun,CAT-037,ANSWER
+RAG-NEW-047,dev,direct,How do I enroll in the internship program?,CAT-007,ANSWER
+RAG-NEW-048,dev,hinglish,internship ke liye enroll kaise karu,CAT-007,ANSWER
+RAG-NEW-049,dev,typo,next batch kab start hoga,CAT-009,ANSWER
+RAG-NEW-050,dev,direct,Can I switch my training domain after enrolling?,CAT-010,ANSWER
+RAG-NEW-051,dev,direct,Where do I upload my internship project?,CAT-024,ANSWER
+RAG-NEW-052,dev,hinglish,internship project submit kahan karna hai,CAT-024,ANSWER
+RAG-NEW-053,dev,typo,assignment portal pe kaha milta hai,CAT-058,ANSWER
+RAG-NEW-054,dev,hinglish,ek din attend nahi kar paaya toh kya hoga,CAT-065,ANSWER
+RAG-NEW-055,dev,direct,How can I become a campus ambassador?,CAT-061,ANSWER
+RAG-NEW-056,dev,hinglish,referral program kaise join karun,CAT-061,ANSWER
+RAG-NEW-057,dev,direct,Do I get a reward for referring a friend?,CAT-062,ANSWER
+RAG-NEW-058,dev,typo,friend refer karne ka link kaha h,CAT-063,ANSWER
+RAG-NEW-059,dev,direct,How much internship extension time is available?,CAT-054,ANSWER
+RAG-NEW-060,dev,hinglish,internship extend kitne mahine kar sakte hain,CAT-054,ANSWER
+RAG-NEW-061,dev,direct,What are the steps to request an extension?,CAT-055,ANSWER
+RAG-NEW-062,dev,typo,extension ke liye apply kese karu,CAT-055,ANSWER
+RAG-NEW-063,dev,direct,My training videos are not loading. What should I do?,CAT-025,ANSWER
+RAG-NEW-064,dev,hinglish,login password reset kaise karu,CAT-022,ANSWER
+RAG-NEW-065,dev,typo,training portal access kab aayega,CAT-052,ANSWER
+RAG-NEW-066,dev,hinglish,payment ke baad dashboard update nahi hua,CAT-023,ANSWER

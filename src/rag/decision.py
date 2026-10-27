@@ -243,19 +243,34 @@ def compose_clarification(
     return response[:600]
 
 
-def no_match_reply(language: str = "English", query: str = "") -> str:
+def no_match_reply(language: str = "English", query: str = "", help_link: str = "") -> str:
     clean = query.strip().rstrip("?.! ")
     lowered = clean.casefold()
-    if re.search(r"\b(college|campus).{0,30}\b(partnership|partner|collaborat)|\b(partnership|partner|collaborat).{0,30}\b(college|campus)", lowered):
-        topic_en, topic_hi = "college partnerships", "college partnership ke baare mein"
+    injection_pattern = r"\b(ignore|disregard|forget)\b.{0,40}\b(rules|instructions|policy)\b|\b(rules|instructions|policy)\b.{0,40}\b(ignore|disregard|forget)\b|\b(promise.{0,30}refund|refund.{0,30}promise)\b"
+    if re.search(injection_pattern, lowered):
+        topic_en, topic_hi = "a refund outcome", "refund ke result"
+    elif re.search(r"\b(college|campus).{0,30}\b(partnership|partner|collaborat)|\b(partnership|partner|collaborat).{0,30}\b(college|campus)", lowered):
+        topic_en, topic_hi = "college partnerships", "college partnership"
     elif "istudio technologies" in lowered:
-        topic_en, topic_hi = "whether iStudio is affiliated with another company", "iStudio aur doosri company ke sambandh ke baare mein"
+        topic_en, topic_hi = "whether iStudio is affiliated with another company", "iStudio aur doosri company ke sambandh"
     elif re.search(r"\b(aicte|ugc|nsdc)\b", lowered):
-        topic_en, topic_hi = "AICTE, UGC, or NSDC approval", "AICTE, UGC ya NSDC approval ke baare mein"
+        topic_en, topic_hi = "AICTE, UGC, or NSDC approval", "AICTE, UGC ya NSDC approval"
     else:
-        topic_en, topic_hi = (clean[:70] or "this topic"), (clean[:70] or "is topic ke baare mein")
+        topic = clean[:70] or "your question"
+        topic_en, topic_hi = topic, topic
+    english_link = f" iStudio help center: {help_link}." if help_link else ""
+    hinglish_link = f" iStudio help center: {help_link}." if help_link else ""
+    injection = bool(re.search(injection_pattern, lowered))
     if language == "Hinglish":
-        return f"Mere paas {topic_hi} ki details nahi hain. Kya main aapko human agent se connect kar doon?"
+        if injection:
+            return ("Main refund ya kisi outcome ka vaada nahi kar sakta. Refund ke rules batch ke hisaab se alag ho sakte hain. "
+                    "Aap Regular batch mein hain ya Refund program batch mein? Main iCAT, fees, certificates, refunds aur training ya internship dashboard mein madad kar sakta hoon."
+                    f"{hinglish_link} Kya main aapko support team se connect karun?")
+        return f"{topic_hi} ke baare mein pakki jaankari mere paas nahi hai. Main iCAT, fees, certificates, refunds aur training ya internship dashboard mein madad kar sakta hoon.{hinglish_link} Kya main aapko support team se connect karun?"
     if language == "Hindi":
-        return f"मुझे {topic_en} की जानकारी नहीं है। क्या मैं आपको मानव एजेंट से जोड़ दूँ?"
-    return f"I don't have details on {topic_en}. Would you like me to connect you with a human?"
+        return f"मुझे {topic_en} की पुष्टि की हुई जानकारी नहीं है। मैं iCAT, fees, certificates, refunds और training या internship dashboard में मदद कर सकता हूँ।{hinglish_link} क्या मैं आपको support team से जोड़ दूँ?"
+    if injection:
+        return ("I can't promise a refund or any outcome. Refund rules can depend on your batch. Are you in the Regular batch or the Refund Guarantee Program batch? "
+                "I can help with iCAT, fees, certificates, refunds, and the training or internship dashboard."
+                f"{english_link} Would you like me to connect you with the support team?")
+    return f"I don't have confirmed details on {topic_en}. I can help with iCAT, fees, certificates, refunds, and the training or internship dashboard.{english_link} Would you like me to connect you with the support team?"

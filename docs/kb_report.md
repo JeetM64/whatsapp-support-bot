@@ -30,4 +30,4 @@ None.
 - Refund Guarantee Program attendance differs across supplied materials: latest text says 100%, while an older URL says 75%. Confirm the exact conditions with the team; customer replies state the latest 100% policy without exposing this discrepancy.
 
 Generated entries: 69
-Content hash: 8306113072686c26d4b5fc657696b75229f0db5d604217650d247ab6a80b5eb6
+Content hash: 76e95f6188616b2180256242e0964cd0813dd22a7db49d20df2faf9131013282

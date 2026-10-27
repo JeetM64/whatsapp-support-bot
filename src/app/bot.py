@@ -393,7 +393,8 @@ class Bot:
                     if re.search(r"\b(college|campus)\b", clean, re.I): topic = "college partnerships" if lang == "english" else "college partnership"
                     elif re.search(r"\b(corporate|employer|company|recruiter)\b", clean, re.I): topic = "company partnerships" if lang == "english" else "company partnership"
                     else: topic = "partnerships" if lang == "english" else "partnership"
-                    out = [self.messages["out_of_scope"][lang].format(topic=topic)]
+                    help_link = getattr(self.engine, "help_home_link", "") if self.engine else ""
+                    out = [self.messages["out_of_scope"][lang].format(topic=topic, help_link=help_link)]
                 else:
                     offer = self.messages["human_offer"][lang]
                     base = rag.reply if rag else ""

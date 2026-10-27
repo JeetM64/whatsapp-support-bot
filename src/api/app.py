@@ -144,7 +144,11 @@ def create_app(*, bot: Bot | None = None, channel=None, warmup: bool = True) -> 
             selected_entry = {}
         source_status = selected_entry.get("source_status")
         if source_status not in {"verified", "partly_verified", "pending"}:
-            source_status = "pending" if selected_entry.get("is_mock", False) or decision == "NO_MATCH" else "verified"
+            source_status = "pending" if (
+                not selected_entry
+                or selected_entry.get("is_mock", False)
+                or decision in {"NO_MATCH", "CLARIFY"}
+            ) else "verified"
         help_link = selected_entry.get("help_link") or home_link
         if decision == "CLARIFY" and not options:
             if reason_code == "refund_batch_type":

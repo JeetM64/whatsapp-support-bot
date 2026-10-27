@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import yaml
 
 from src.rag.composer import _fallback_text
+from src.rag.composer import strip_handoff_offer
 from src.rag.config import RagConfig
 from src.rag.normalize import detect_language
 from src.rag.decision import no_match_reply
@@ -40,6 +41,23 @@ def test_fee_caveat_is_a_capitalized_sentence_before_final_offer_hinglish():
     assert "Fee Rs 8,500 hai. Fees badal sakti hain, isliye payment se pehle official site par confirm kar lein." in reply
     assert reply.endswith("Kya main aapko support team se connect kar doon?")
     assert "Main aapko" not in reply
+
+
+def test_hinglish_handoff_cleanup_removes_existing_connect_karun_offer():
+    entry = {
+        "answer_rendered": "",
+        "answer_hinglish": "Approval confirm nahi hai. Kya main aapko support team se connect karun?",
+        "handoff_offer": True,
+        "is_mock": False,
+    }
+    reply = _fallback_text(entry, _config(), "Hinglish")
+    assert reply.count("support team se connect") == 1
+    assert reply.endswith("Kya main aapko support team se connect kar doon?")
+
+
+def test_handoff_cleanup_preserves_final_punctuation_without_an_offer():
+    reply = "Certificate details are not confirmed. See the help center."
+    assert strip_handoff_offer(reply, "English") == reply
 
 
 def test_out_of_kb_reply_names_the_college_partnership_topic():

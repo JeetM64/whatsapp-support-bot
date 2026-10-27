@@ -46,6 +46,15 @@ def test_payment_issue_uses_extractive_only_engine(tmp_path):
     assert result.ticket and result.ticket["reason_code"] == "payment_issue"
     assert "connect a team member" not in " ".join(result.messages).casefold()
 
+
+def test_web_demo_omits_separate_notice_bubble(tmp_path):
+    root=Path(__file__).parents[1]
+    bot=Bot(root, engine=EngineSpy(), store=Store(tmp_path, "test-secret"))
+    bot.demo_mode=True
+    result=bot.handle_message("web:test", "hello", "web-demo-notice", "web",
+                              datetime(2026,10,26,12,tzinfo=ZoneInfo("Asia/Kolkata")))
+    assert all("Founder Office assignment" not in message for message in result.messages)
+
 def test_store_persists_only_masked_pii(tmp_path):
     store=Store(tmp_path,"test-secret")
     sender=store.sender_hash("+919123456789")
@@ -212,15 +221,18 @@ def test_hinglish_refund_batch_selection_keeps_query_language(tmp_path):
 def test_low_risk_out_of_scope_offers_human_without_ticket_then_creates_on_acceptance(tmp_path):
     from types import SimpleNamespace
     from src.rag.decision import no_match_reply
+    from src.rag.normalize import detect_language
 
     class OutOfScopeEngine:
         provider = NoneProvider()
+        help_home_link = "https://internshipstudio.tawk.help/"
         retriever = SimpleNamespace(entries={}, retrieve=lambda _text: None)
 
         def answer(self, text, **kwargs):
             return SimpleNamespace(
                 decision=SimpleNamespace(value="NO_MATCH"), reason_code="out_of_scope_request",
-                language="English", entries=[], confidence=0.0, reply=no_match_reply("English"),
+                language=detect_language(text), entries=[], confidence=0.0,
+                reply=no_match_reply(detect_language(text)),
             )
 
     store = Store(tmp_path, "test-secret")
@@ -228,10 +240,19 @@ def test_low_risk_out_of_scope_offers_human_without_ticket_then_creates_on_accep
     first = bot.handle_message("demo-partner", "We want a partnership for our college.", "partner-1", "web")
     assert first.ticket is None
     assert "I don't have details on college partnerships" in " ".join(first.messages)
+    assert "iCAT, fees, certificates, refunds" in " ".join(first.messages)
+    assert "https://internshipstudio.tawk.help/" in " ".join(first.messages)
     assert "human" in " ".join(first.messages).casefold()
     assert len(store.list_tickets()) == 0
     with store.connect() as db:
         assert db.execute("SELECT COUNT(*) FROM kb_gaps").fetchone()[0] == 1
+
+    hinglish = bot.handle_message("demo-partner-hi", "college ke saath partnership chahiye", "partner-hi", "web")
+    hi_text = " ".join(hinglish.messages)
+    assert "college partnership" in hi_text.casefold()
+    assert "iCAT, fees, certificates, refunds" in hi_text
+    assert "https://internshipstudio.tawk.help/" in hi_text
+    assert "human agent" in hi_text.casefold()
 
     accepted = bot.handle_message("demo-partner", "Yes, please connect me.", "partner-2", "web")
     assert accepted.ticket is not None

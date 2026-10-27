@@ -69,7 +69,9 @@ def test_verified_value_takes_precedence_and_clears_mock_flag(tmp_path: Path) ->
     assert not result.errors
     track = next(entry for entry in result.entries if entry.id == "CAT-001")
     assert "Verified test track" in track.answer_rendered
-    assert {"HELP_LINK", "PROGRAM_DELIVERABLES", "PROGRAM_OVERVIEW"} <= set(track.facts_verified)
+    # CAT-001 no longer renders PROGRAM_DELIVERABLES; provenance tracks only
+    # the placeholders used by the current answer template.
+    assert {"HELP_LINK", "PROGRAM_OVERVIEW"} <= set(track.facts_verified)
     assert track.facts_mock == []
     assert track.is_mock is False
     assert not track.answer_rendered.startswith("SAMPLE DATA")

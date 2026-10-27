@@ -162,22 +162,22 @@ verified_facts:
       value: contact@internshipstudio.com
       fact: F2
       confidence: medium
-      value_hinglish: email contact@internshipstudio.com
+      value_hinglish: contact@internshipstudio.com
     SUPPORT_PHONE:
       value: '7507869003'
       fact: F2
       confidence: medium
-      value_hinglish: phone 7507869003
+      value_hinglish: '7507869003'
     SUPPORT_HOURS:
-      value: 11:00-19:00 IST; operating days are not stated
+      value: 11:00-19:00 IST (operating days not stated)
       fact: F2
       confidence: medium
-      value_hinglish: 11:00 se 19:00 IST; support ke din confirm nahi hain
+      value_hinglish: 11:00 se 19:00 IST (support ke din confirm nahi hain)
     PASSWORD_RESET_URL:
       value: https://cit2.internshipstudio.com/login/forgot_password.php
       fact: F3
       confidence: medium
-      value_hinglish: 'diya gaya password reset page: https://cit2.internshipstudio.com/login/forgot_password.php'
+      value_hinglish: https://cit2.internshipstudio.com/login/forgot_password.php
     LOCATION_NOTE:
       value: The location details differ between Pune and Ahmednagar; I cannot confirm an office address
       fact: F4
@@ -194,11 +194,10 @@ verified_facts:
       confidence: high
       value_hinglish: pehle training, uske baad internship ka mauka
     ICAT_NAME:
-      value: iCAT (Internship Common Aptitude Test), run with Skill Universe per the site footer
+      value: iCAT (Internship Common Aptitude Test)
       fact: F5
       confidence: high
-      value_hinglish: iCAT ka full form Internship Common Aptitude Test hai; site footer ke mutabik ise Skill Universe
-        ke saath chalaya jata hai
+      value_hinglish: Internship Common Aptitude Test
     ICAT_ELIGIBILITY:
       value: iCAT qualifiers are eligible for the training and internship opportunity; not attempting iCAT means
         not eligible

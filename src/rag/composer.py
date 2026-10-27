@@ -65,9 +65,10 @@ def _source_payload(message: str, language: str, entries: list[dict[str, Any]], 
 
 def strip_handoff_offer(text: str, language: str = "English") -> str:
     english_offer = re.compile(r"\b(?:I can|I could|Would you like me to) connect\b[^.!?]*[.!?]?", re.I)
-    hinglish_offer = re.compile(r"\b(?:main|aap chahein toh main|kya main)\b[^.!?]*\bconnect kar (?:sakta hoon|doon|dun)[.!?]?", re.I)
+    hinglish_offer = re.compile(r"\b(?:main|aap chahein toh main|kya main)\b[^.!?]*\bconnect kar(?:un|\s+(?:sakta hoon|doon|dun))[.!?]?", re.I)
     offer_pattern = hinglish_offer if language == "Hinglish" else english_offer
-    return offer_pattern.sub("", text).strip().rstrip(" .;:")
+    cleaned, count = offer_pattern.subn("", text)
+    return cleaned.strip().rstrip(" .;:") if count else text.strip()
 
 
 def _fallback_text(entry: dict[str, Any], config: RagConfig, language: str = "English") -> str:
